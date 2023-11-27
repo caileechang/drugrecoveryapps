@@ -1,0 +1,33 @@
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item
+    android:id="@+id/reccoveryTrackFragment"
+    android:title="Home"
+    android:icon="@drawable/recovery_icon"/>
+
+
+
+<item
+    android:id="@+id/educationalContentFragment"
+    android:title="Educational Content"
+    android:icon="@drawable/education_icon"/>
+
+<item
+    android:id="@+id/motivationFragment"
+    android:title="Motivation"
+    android:icon="@drawable/motivation_icon"/>
+
+
+<item
+    android:id="@+id/forumFragment"
+    android:title="Forum"
+    android:icon="@drawable/forum_icon"/>
+
+<item
+    android:id="@+id/personProfileFragment"
+    android:title="Profile"
+    android:icon="@drawable/profile_icon"/>
+
+
+</menu>

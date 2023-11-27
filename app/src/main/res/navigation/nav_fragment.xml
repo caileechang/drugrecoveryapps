@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_fragment"
+    app:startDestination="@id/reccoveryTrackFragment">
+
+    <fragment
+        android:id="@+id/educationalContentFragment"
+        android:name="com.example.drugrecoveryapp.EducationalContentFragment"
+        android:label="fragment_educational_content"
+        tools:layout="@layout/fragment_educational_content" />
+    <fragment
+        android:id="@+id/forumFragment"
+        android:name="com.example.drugrecoveryapp.ForumFragment"
+        android:label="fragment_forum"
+        tools:layout="@layout/fragment_forum" />
+    <fragment
+        android:id="@+id/reccoveryTrackFragment"
+        android:name="com.example.drugrecoveryapp.ReccoveryTrackFragment"
+        android:label="fragment_reccovery_track"
+        tools:layout="@layout/fragment_reccovery_track" />
+    <fragment
+        android:id="@+id/motivationFragment"
+        android:name="com.example.drugrecoveryapp.MotivationFragment"
+        android:label="fragment_motivation"
+        tools:layout="@layout/fragment_motivation" />
+    <fragment
+        android:id="@+id/personProfileFragment"
+        android:name="com.example.drugrecoveryapp.PersonProfileFragment"
+        android:label="PersonProfileFragment" />
+</navigation>
