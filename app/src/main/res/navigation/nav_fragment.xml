@@ -29,4 +29,16 @@
         android:id="@+id/personProfileFragment"
         android:name="com.example.drugrecoveryapp.PersonProfileFragment"
         android:label="PersonProfileFragment" />
+
+    <activity
+        tools:layout="@layout/activity_friend_list"
+        android:id="@+id/destfriendActivity"
+        android:name="com.example.drugrecoveryapp.FriendListActivity"
+        android:label="activity_friend"/>
+
+    <activity
+        tools:layout="@layout/activity_request"
+        android:id="@+id/destrequestActivity"
+        android:name="com.example.drugrecoveryapp.Request_Activity"
+        android:label="activity_request"/>
 </navigation>

@@ -30,16 +30,16 @@ public class MainActivity extends AppCompatActivity {
         String targetFragment = getIntent().getStringExtra("targetFragment");
 
         if (targetFragment != null) {
-            if (targetFragment.equals("EducationalContentFragment")) {
+            if (targetFragment.equals("Educational Content")) {
                 targetFragment = null;
                 replaceFragment(new EducationalContentFragment());
-            } else if (targetFragment.equals("MotivationFragment")) {
+            } else if (targetFragment.equals("Motivation")) {
                 targetFragment = null;
                 replaceFragment(new MotivationFragment());
-            } else if (targetFragment.equals("ForumFragment")) {
+            } else if (targetFragment.equals("Forum")) {
                 targetFragment = null;
                 replaceFragment(new ForumFragment());
-            } else if (targetFragment.equals("ProfileFragment")) {
+            } else if (targetFragment.equals("Profile")) {
                 targetFragment = null;
                 replaceFragment(new PersonProfileFragment());
             }
@@ -49,16 +49,16 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if(id == R.id.reccoveryTrackFragment){
+            if(id == R.id.reccoveryMenu){
                 replaceFragment(new ReccoveryTrackFragment());
-            } else if (id == R.id.educationalContentFragment) {
+            } else if (id == R.id.educationalMenu) {
                 replaceFragment(new EducationalContentFragment());
-            } else if (id == R.id.motivationFragment) {
+            } else if (id == R.id.motivationMenu) {
                 replaceFragment(new MotivationFragment());
-            } else if (id == R.id.forumFragment) {
+            } else if (id == R.id.forumMenu) {
                 replaceFragment(new ForumFragment());
-            } else if (id == R.id.personProfileFragment) {
-                replaceFragment(new ForumFragment());
+            } else if (id == R.id.personProfileMenu) {
+                replaceFragment(new PersonProfileFragment());
             }
 
             return true;

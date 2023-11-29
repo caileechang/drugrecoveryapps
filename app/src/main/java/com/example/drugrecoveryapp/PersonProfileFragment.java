@@ -3,10 +3,13 @@ package com.example.drugrecoveryapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +35,7 @@ public class PersonProfileFragment extends Fragment {
     private String mParam2;
 
     public PersonProfileFragment() {
-        // Required empty public constructor
+        super(R.layout.fragment_person_profile);
     }
 
     /**
@@ -66,7 +69,7 @@ public class PersonProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_person_profile, container, false);
+        return inflater.inflate(R.layout.fragment_person_profile, container, false);
 
 //        // Get reference to UI elements
 //        TextView username = root.findViewById(R.id.UsernameDisplay);
@@ -79,6 +82,31 @@ public class PersonProfileFragment extends Fragment {
 //        FirebaseAuth auth = FirebaseAuth.getInstance();
 //        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 //        String uid = auth.getUid();
-        return root;
     }
+
+
+
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        Button BtnFriend = view.findViewById(R.id.friend_btn);
+        BtnFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.NHFMain);
+                navController.navigate(R.id.destfriendActivity);
+            }
+        });
+
+        Button BtnRequest = view.findViewById(R.id.request_btn);
+        BtnRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.NHFMain);
+                navController.navigate(R.id.destrequestActivity);
+            }
+        });
+    }
+
+
+
 }
+

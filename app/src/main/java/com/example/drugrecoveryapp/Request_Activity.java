@@ -1,38 +1,38 @@
-//package com.example.drugrecoveryapp;
-//
-//import androidx.annotation.NonNull;
-//import androidx.appcompat.app.AppCompatActivity;
-//import androidx.recyclerview.widget.LinearLayoutManager;
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import android.os.Bundle;
-//
+package com.example.drugrecoveryapp;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+
 //import com.example.drugrecoveryapp.adapter.RequestAdapter;
 //import com.example.drugrecoveryapp.entity.User;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.database.DataSnapshot;
-//import com.google.firebase.database.DatabaseError;
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
-//import com.google.firebase.database.ValueEventListener;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class Request_Activity extends AppCompatActivity {
-//
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Request_Activity extends AppCompatActivity {
+
 //    private RecyclerView requestRecyclerView;
 //    private RequestAdapter requestAdapter;
 //    private DatabaseReference friendsRef;
 //    private DatabaseReference usersRef;
 //    private String currentUserId;
 //    private List<User> requestList = new ArrayList<>();
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_request);
-//
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_request);
+
 //        // Initialize RecyclerView
 //        requestRecyclerView = findViewById(R.id.rv_request_list);
 //        requestRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -47,8 +47,8 @@
 //
 //        // Retrieve the friend request list of the current user from the database
 //        retrieveFriendRequest();
-//    }
-//
+    }
+
 //    private void retrieveFriendRequest() {
 //
 //        // Get the reference to the FriendRequests node for the current user
@@ -88,5 +88,5 @@
 //            }
 //        });
 //    }
-//
-//}
+
+}

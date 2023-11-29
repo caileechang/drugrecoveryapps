@@ -1,27 +1,27 @@
-//package com.example.drugrecoveryapp;
-//
-//import androidx.annotation.NonNull;
-//import androidx.appcompat.app.AppCompatActivity;
-//import androidx.recyclerview.widget.LinearLayoutManager;
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import android.os.Bundle;
-//import android.widget.TextView;
-//
+package com.example.drugrecoveryapp;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
 //import com.example.drugrecoveryapp.adapter.FriendsAdapter;
 //import com.example.drugrecoveryapp.entity.User;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.database.DataSnapshot;
-//import com.google.firebase.database.DatabaseError;
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
-//import com.google.firebase.database.ValueEventListener;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class FriendListActivity extends AppCompatActivity {
-//
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class FriendListActivity extends AppCompatActivity {
+
 //    private RecyclerView recyclerView;
 //    private FriendsAdapter adapter;
 //    private List<User> friendList;
@@ -31,16 +31,16 @@
 //    String currentUser;
 //    TextView numberOfFriends;
 //    int friendCount;
-//
-//    public FriendListActivity() {
-//    }
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_friend_list);
-//
-//        // Initialize Firebase references
+
+    public FriendListActivity() {
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_friend_list);
+
+        // Initialize Firebase references
 //        friendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
 //        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 //
@@ -75,10 +75,10 @@
 //                // Handle the error
 //            }
 //        });
-//
-//    }
-//
-//    // Method to retrieve the friend list of the current user from the database
+
+    }
+
+    // Method to retrieve the friend list of the current user from the database
 //    private void retrieveFriendList() {
 //
 //        friendsRef.child(currentUser).addValueEventListener(new ValueEventListener() {
@@ -114,4 +114,4 @@
 //            }
 //        });
 //    }
-//}
+}
