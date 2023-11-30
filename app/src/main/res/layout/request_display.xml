@@ -47,13 +47,13 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/friend_fullname_display"
+                        android:id="@+id/friend_email_display"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="2dp"
                         android:layout_weight="1"
-                        android:text="Ali bin Ahmad"
+                        android:text="email"
                         android:textAlignment="viewStart" />
                 </LinearLayout>
 

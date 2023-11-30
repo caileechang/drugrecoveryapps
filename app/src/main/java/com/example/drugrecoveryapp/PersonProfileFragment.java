@@ -2,6 +2,7 @@ package com.example.drugrecoveryapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,8 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +39,7 @@ public class PersonProfileFragment extends Fragment {
     private String mParam2;
 
     public PersonProfileFragment() {
+
         super(R.layout.fragment_person_profile);
     }
 
@@ -54,6 +59,7 @@ public class PersonProfileFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
@@ -68,20 +74,39 @@ public class PersonProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_person_profile, container, false);
+        root = inflater.inflate(R.layout.fragment_person_profile, container, false);
 
-//        // Get reference to UI elements
-//        TextView username = root.findViewById(R.id.UsernameDisplay);
-//        TextView email = root.findViewById(R.id.emailDisplay);
-//        TextView phoneNumber = root.findViewById(R.id.phDisplay);
-//        TextView country = root.findViewById(R.id.countryDisplay);
-//        TextView gender = root.findViewById(R.id.genderDisplay);
-//
-//        // Get Firebase instance and reference
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-//        String uid = auth.getUid();
+        // Get reference to UI elements
+        TextView username = root.findViewById(R.id.P_UsernameDisplay);
+        TextView email = root.findViewById(R.id.P_emailDisplay);
+        TextView phoneNumber = root.findViewById(R.id.P_phDisplay);
+        TextView country = root.findViewById(R.id.P_countryDisplay);
+        TextView gender = root.findViewById(R.id.P_genderDisplay);
+
+        // Get Firebase instance and reference
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        String uid = auth.getUid();
+
+        // fetch user profile data from database
+        databaseReference.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // update UI with retrieved user data
+                username.setText(snapshot.child("username").getValue(String.class));
+                email.setText(snapshot.child("email").getValue(String.class));
+                phoneNumber.setText(snapshot.child("phone_number").getValue(String.class));
+                country.setText(snapshot.child("countryName").getValue(String.class));
+                gender.setText(snapshot.child("gender").getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return root;
     }
 
 

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-//import com.example.drugrecoveryapp.adapter.RequestAdapter;
-//import com.example.drugrecoveryapp.entity.User;
+import com.example.drugrecoveryapp.adapter.RequestAdapter;
+import com.example.drugrecoveryapp.entity.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,72 +21,72 @@ import java.util.List;
 
 public class Request_Activity extends AppCompatActivity {
 
-//    private RecyclerView requestRecyclerView;
-//    private RequestAdapter requestAdapter;
-//    private DatabaseReference friendsRef;
-//    private DatabaseReference usersRef;
-//    private String currentUserId;
-//    private List<User> requestList = new ArrayList<>();
+    private RecyclerView requestRecyclerView;
+    private RequestAdapter requestAdapter;
+    private DatabaseReference friendsRef;
+    private DatabaseReference usersRef;
+    private String currentUserId;
+    private List<User> requestList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
 
-//        // Initialize RecyclerView
-//        requestRecyclerView = findViewById(R.id.rv_request_list);
-//        requestRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        requestAdapter = new RequestAdapter(requestList, this);
-//        requestRecyclerView.setAdapter(requestAdapter);
-//
-//        // Get the current user ID
-//        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//
-//        // Get the Firebase references
-//        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-//
-//        // Retrieve the friend request list of the current user from the database
-//        retrieveFriendRequest();
+        // Initialize RecyclerView
+        requestRecyclerView = findViewById(R.id.rv_request_list);
+        requestRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        requestAdapter = new RequestAdapter(requestList, this);
+        requestRecyclerView.setAdapter(requestAdapter);
+
+        // Get the current user ID
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Get the Firebase references
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        // Retrieve the friend request list of the current user from the database
+        retrieveFriendRequest();
     }
 
-//    private void retrieveFriendRequest() {
-//
-//        // Get the reference to the FriendRequests node for the current user
-//        DatabaseReference friendRequestRef = FirebaseDatabase.getInstance().getReference().child("FriendRequests").child(currentUserId);
-//
-//        friendRequestRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                requestList.clear();
-//                for (DataSnapshot friendRequestSnapshot : dataSnapshot.getChildren()) {
-//                    // Get the friend request UID and request type
-//                    String friendRequestUid = friendRequestSnapshot.getKey();
-//                    String request_type = friendRequestSnapshot.child("request_type").getValue(String.class);
-//
-//                    if (request_type.equals("received")) {
-//                        // If the request type is "received", retrieve the user information
-//                        usersRef.child(friendRequestUid).addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                User request = dataSnapshot.getValue(User.class);
-//                                requestList.add(request);
-//                                requestAdapter.notifyDataSetChanged();
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                                // Handle the error
-//                            }
-//                        });
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Handle the error
-//            }
-//        });
-//    }
+    private void retrieveFriendRequest() {
+
+        // Get the reference to the FriendRequests node for the current user
+        DatabaseReference friendRequestRef = FirebaseDatabase.getInstance().getReference().child("FriendRequests").child(currentUserId);
+
+        friendRequestRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                requestList.clear();
+                for (DataSnapshot friendRequestSnapshot : dataSnapshot.getChildren()) {
+                    // Get the friend request UID and request type
+                    String friendRequestUid = friendRequestSnapshot.getKey();
+                    String request_type = friendRequestSnapshot.child("request_type").getValue(String.class);
+
+                    if (request_type.equals("received")) {
+                        // If the request type is "received", retrieve the user information
+                        usersRef.child(friendRequestUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                User request = dataSnapshot.getValue(User.class);
+                                requestList.add(request);
+                                requestAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle the error
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error
+            }
+        });
+    }
 
 }

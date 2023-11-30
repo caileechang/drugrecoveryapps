@@ -41,4 +41,10 @@
         android:id="@+id/destrequestActivity"
         android:name="com.example.drugrecoveryapp.Request_Activity"
         android:label="activity_request"/>
+
+    <activity
+        android:label="activity_search_friend"
+        android:id="@+id/destSearchFriend"
+        android:name="com.example.drugrecoveryapp.FindFriendsActivity"
+        tools:layout="@layout/activity_find_friends"/>
 </navigation>

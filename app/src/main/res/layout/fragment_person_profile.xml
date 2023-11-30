@@ -41,15 +41,15 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_launcher_background" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/UsernameDisplay"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:text="Username"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
-<!--                android:textSize="20sp" />-->
+            <TextView
+                android:id="@+id/P_UsernameDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Username"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/LinearLayoutButton"
@@ -75,136 +75,136 @@
             </LinearLayout>
 
 
+            <TextView
+                android:id="@+id/P_basicInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"
+                android:text="Basic Info"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <!--            <TextView-->
-<!--                android:id="@+id/basicInfo"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:layout_marginTop="25dp"-->
-<!--                android:text="Basic Info"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold" />-->
+            <LinearLayout
+                android:id="@+id/P_email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/mutualfriend_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:orientation="horizontal">-->
+                <TextView
+                    android:id="@+id/P_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Email" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/email"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="Email" />-->
+                <TextView
+                    android:id="@+id/P_emailDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:text="abc@gmail.com"
+                    android:textAlignment="viewEnd" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/emailDisplay"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="2dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="abc@gmail.com"-->
-<!--                    android:textAlignment="viewEnd" />-->
+            </LinearLayout>
 
-<!--            </LinearLayout>-->
+            <LinearLayout
+                android:id="@+id/P_Button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/Button_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:orientation="horizontal">-->
+                <TextView
+                    android:id="@+id/P_phoneNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/phoneNum"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Phone Number" />-->
+                <TextView
+                    android:id="@+id/P_phDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0123456789"
+                    android:textAlignment="viewEnd" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/phDisplay"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="0123456789"-->
-<!--                    android:textAlignment="viewEnd" />-->
+            </LinearLayout>
 
-<!--            </LinearLayout>-->
+            <LinearLayout
+                android:id="@+id/P_Gender_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/Gender_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:orientation="horizontal">-->
+                <TextView
+                    android:id="@+id/P_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/gender"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Gender" />-->
+                <TextView
+                    android:id="@+id/P_genderDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Prefer not to say"
+                    android:textAlignment="viewEnd" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/genderDisplay"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="Prefer not to say"-->
-<!--                    android:textAlignment="viewEnd" />-->
+            </LinearLayout>
 
-<!--            </LinearLayout>-->
+            <LinearLayout
+                android:id="@+id/P_country_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/country_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:orientation="horizontal">-->
+                <TextView
+                    android:id="@+id/P_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Country" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/country"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="Country" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/countryDisplay"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="Malaysia"-->
-<!--                    android:textAlignment="textEnd" />-->
-<!--            </LinearLayout>-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/details"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:text="Posts"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold" />-->
+                <TextView
+                    android:id="@+id/P_countryDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Malaysia"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
 
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/posts_recyclerview"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:textAlignment="textEnd" />-->
+            <TextView
+                android:id="@+id/P_posts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Posts"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/P_posts_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="30dp"
+                android:textAlignment="textEnd" />
+
 
         </LinearLayout>
     </ScrollView>

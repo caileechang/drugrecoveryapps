@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
     private Button LoginButton;
     private EditText UserEmail, UserPassword;
     private ProgressDialog loadingBar;
-    private DatabaseReference adminRef;
+
     private DatabaseReference userRef;
 
     @Override
@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        adminRef = FirebaseDatabase.getInstance().getReference().child("Admin");
+
         userRef=FirebaseDatabase.getInstance().getReference().child("Users");
 
         UserEmail = (EditText) findViewById(R.id.input_email);

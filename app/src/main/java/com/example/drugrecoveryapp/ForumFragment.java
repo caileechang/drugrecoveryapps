@@ -3,10 +3,13 @@ package com.example.drugrecoveryapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +63,17 @@ public class ForumFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_forum, container, false);
+    }
+
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        Button BtnFindFriend = view.findViewById(R.id.search_friend_btn);
+        BtnFindFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.NHFMain);
+                navController.navigate(R.id.destSearchFriend);
+            }
+        });
+
     }
 }

@@ -33,6 +33,11 @@
         <activity
             android:name=".FindFriendsActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ViewAccActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".starting"
             android:exported="true">
