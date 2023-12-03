@@ -37,7 +37,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         User friend = friendList.get(position);
         holder.username.setText(friend.getUsername());
         holder.email.setText(friend.getEmail());
-        holder.phonenumber.setText(friend.getPhone_number());
+//        holder.phonenumber.setText(friend.getPhone_number());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +58,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         private TextView username;
 
         private TextView email;
-        private TextView phonenumber;
+//        private TextView phonenumber;
 
         public FriendViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.friend_username);
             email=itemView.findViewById(R.id.friend_mutualFriendDisplay);
-            phonenumber=itemView.findViewById(R.id.friend_phDisplay);
+//            phonenumber=itemView.findViewById(R.id.friend_phDisplay);
         }
     }
 }

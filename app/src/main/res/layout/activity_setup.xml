@@ -1,67 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
     tools:context=".Setup">
 
-    <ImageView
-        android:id="@+id/profile_picture"
-        android:layout_width="112dp"
-        android:layout_height="112dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ic_launcher_foreground"
-        tools:ignore="MissingClass" />
-
-
-
-
 
 
     <TextView
-        android:id="@+id/country"
+        android:id="@+id/editGender2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_picture"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"
-        android:text="Country:" />
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="288dp"
+        android:text="Country:"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/up3" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/editCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/country"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:ems="13"
-        android:gravity="start|top"
-        android:hint="Malaysia"
-        android:inputType="textEmailAddress" />
-
-
+        android:layout_width="324dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="352dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/rectanglebox"
+        android:hint="Search country"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/gender"
+        android:id="@+id/GenderTopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editCountry"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"
-        android:text="Gender:" />
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="288dp"
+        android:text="Gender:"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editCountry" />
 
     <RadioGroup
         android:id="@+id/editGender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gender"
-        android:layout_alignStart="@id/gender"
-        android:layout_marginRight="30dp"
-        android:orientation="horizontal">
+        android:layout_width="252dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/GenderTopic"
+        android:layout_alignStart="@id/GenderTopic"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="96dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GenderTopic">
 
         <RadioButton
             android:id="@+id/male"
@@ -85,7 +77,38 @@
 
     </RadioGroup>
 
+    <ImageView
+        android:id="@+id/up3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/descrition2"
+        android:layout_width="288dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
+        android:text="Whisper your country and shout your gender! Your profile is your canvas – let's make it colorful together."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tellMore" />
+
+    <TextView
+        android:id="@+id/tellMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="176dp"
+        android:layout_marginEnd="72dp"
+        android:text="Wanna Tell Us More?"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/save_job"
@@ -93,8 +116,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editGender"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Save Information" />
+        android:layout_marginTop="576dp"
+        android:layout_marginEnd="128dp"
+        android:text="Save Information"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/skipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editGender"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="160dp"
+        android:backgroundTint="#5DCAC0"
+        android:text="Skip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_job" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ViewAccActivity extends AppCompatActivity {
 
-    private TextView username, email, phone,  gender, country, topUsername;
+    private TextView username, email,  gender, country, topUsername;
 
 
     private String selectedUserId, currentUserId, CURRENT_STATE, saveCurrentDate;
@@ -64,7 +64,7 @@ public class ViewAccActivity extends AppCompatActivity {
         username = findViewById(R.id.UsernameDisplay);
 
         email = findViewById(R.id.emailDisplay);
-        phone = findViewById(R.id.phDisplay);
+//        phone = findViewById(R.id.phDisplay);
 
         gender = findViewById(R.id.genderDisplay);
         country = findViewById(R.id.countryDisplay);
@@ -112,7 +112,7 @@ public class ViewAccActivity extends AppCompatActivity {
                             String selectedUsername = snapshot.child("username").getValue().toString();
 
                             String selectedUserEmail = snapshot.child("email").getValue().toString();
-                            String selectedUserPhoneNumber = snapshot.child("phone_number").getValue().toString();
+//                            String selectedUserPhoneNumber = snapshot.child("phone_number").getValue().toString();
                             String selectedGender = snapshot.child("gender").getValue().toString();
                             String selectedCountry = snapshot.child("countryName").getValue().toString();
 
@@ -130,7 +130,7 @@ public class ViewAccActivity extends AppCompatActivity {
                             // set the profile data that can only be seen if both user are friends
                             if(currentUserFriendList.contains(selectedUserId)){
 
-                                phone.setText(selectedUserPhoneNumber);
+//                                phone.setText(selectedUserPhoneNumber);
 
                                 gender.setText(selectedGender);
                                 country.setText(selectedCountry);
@@ -141,7 +141,7 @@ public class ViewAccActivity extends AppCompatActivity {
 
                                 // profile data will set as "-" if both user are not friend
 
-                                phone.setText("-");
+//                                phone.setText("-");
 
                                 gender.setText("-");
                                 country.setText("-");

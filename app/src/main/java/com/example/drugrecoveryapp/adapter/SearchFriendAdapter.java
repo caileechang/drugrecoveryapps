@@ -43,7 +43,7 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
         //sets the corresponding data to the respective TextViews in the ViewHolder
         holder.usernameTextView.setText(user.getUsername());
         holder.emailTextView.setText(user.getEmail());
-        holder.phonenumberTextView.setText(user.getPhone_number());
+//        holder.phonenumberTextView.setText(user.getPhone_number());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +68,13 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView usernameTextView;
         TextView emailTextView;
-        TextView phonenumberTextView;
+//        TextView phonenumberTextView;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             usernameTextView = itemView.findViewById(R.id.all_user_profile_username);
             emailTextView = itemView.findViewById(R.id.all_user_email);
-            phonenumberTextView = itemView.findViewById(R.id.all_user_phonenumber);
+//            phonenumberTextView = itemView.findViewById(R.id.all_user_phonenumber);
         }
 
     }

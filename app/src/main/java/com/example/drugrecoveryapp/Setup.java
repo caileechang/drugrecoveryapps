@@ -12,15 +12,22 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import com.example.drugrecoveryapp.entity.User;
 
@@ -38,10 +45,9 @@ import com.google.firebase.storage.StorageReference;
 
 
 public class Setup extends AppCompatActivity {
-    private EditText CountryName;
     private RadioGroup gender;
     private RadioButton genderSelection;
-    private Button SaveInfoButton;
+    private Button SaveInfoButton, skipBtn;
     private ImageView ProfilePicture;
     Uri imageUri;
     private FirebaseAuth mAuth;
@@ -52,6 +58,8 @@ public class Setup extends AppCompatActivity {
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
     String currentUserID;
     private User user;
+
+    private AutoCompleteTextView countryAutoComplete;
 
 
 
@@ -81,12 +89,43 @@ public class Setup extends AppCompatActivity {
 
         // Initialize UI elements and set up event listeners
 
-        CountryName = (EditText) findViewById(R.id.editCountry);
+        countryAutoComplete = findViewById(R.id.editCountry);
+
+// Populate the AutoCompleteTextView with a list of countries
+        String[] countries = getCountryList();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, countries);
+        countryAutoComplete.setAdapter(adapter);
+
+// Set threshold to 1, so suggestions appear after typing the first character
+        countryAutoComplete.setThreshold(1);
+
+        countryAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCountry = (String) parent.getItemAtPosition(position);
+                // Do something with the selected country
+                handleSelectedCountry(selectedCountry);
+            }
+
+            private void handleSelectedCountry(String selectedCountry) {
+                Toast.makeText(Setup.this, "Selected Country: " + selectedCountry, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         gender = (RadioGroup) findViewById(R.id.editGender);
         SaveInfoButton = (Button) findViewById(R.id.save_job);
         loadingBar = new ProgressDialog(this);
 
+        skipBtn = findViewById(R.id.skipBtn);
+        skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         // Handle the click event on the SaveInfoButton
         SaveInfoButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -102,10 +141,17 @@ public class Setup extends AppCompatActivity {
 
                 // Retrieve input values from UI elements
 
-                String countryName = CountryName.getText().toString();
+                String countryName = countryAutoComplete.getText().toString();
 
 
                 genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
+
+
+                if (genderSelection == null) {
+                    // Handle the case where no gender is selected
+                    Toast.makeText(Setup.this, "Please select your gender", Toast.LENGTH_SHORT).show();
+                    return; // Exit the method to avoid further processing
+                }
 
 
 
@@ -138,6 +184,16 @@ public class Setup extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String[] getCountryList() {
+        String[] locales = Locale.getISOCountries();
+        ArrayList<String> countryList = new ArrayList<>();
+        for (String countryCode : locales) {
+            Locale obj = new Locale("", countryCode);
+            countryList.add(obj.getDisplayCountry());
+        }
+        return countryList.toArray(new String[0]);
     }
 
     //after setting up the account, users will be sent to main activity

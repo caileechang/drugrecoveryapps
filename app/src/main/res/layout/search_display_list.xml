@@ -38,12 +38,12 @@
             android:text="ali@gmail.com"
             android:textColor="@color/white"/>
 
-        <TextView
-            android:id="@+id/all_user_phonenumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="012-3456789"
-            android:textColor="@color/white"/>
+<!--        <TextView-->
+<!--            android:id="@+id/all_user_phonenumber"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="012-3456789"-->
+<!--            android:textColor="@color/white"/>-->
 
     </LinearLayout>
 

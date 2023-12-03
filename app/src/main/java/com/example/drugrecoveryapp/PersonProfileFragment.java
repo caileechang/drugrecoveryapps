@@ -8,6 +8,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,9 +83,10 @@ public class PersonProfileFragment extends Fragment {
         // Get reference to UI elements
         TextView username = root.findViewById(R.id.P_UsernameDisplay);
         TextView email = root.findViewById(R.id.P_emailDisplay);
-        TextView phoneNumber = root.findViewById(R.id.P_phDisplay);
+//        TextView phoneNumber = root.findViewById(R.id.P_phDisplay);
         TextView country = root.findViewById(R.id.P_countryDisplay);
         TextView gender = root.findViewById(R.id.P_genderDisplay);
+
 
         // Get Firebase instance and reference
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -95,9 +100,11 @@ public class PersonProfileFragment extends Fragment {
                 // update UI with retrieved user data
                 username.setText(snapshot.child("username").getValue(String.class));
                 email.setText(snapshot.child("email").getValue(String.class));
-                phoneNumber.setText(snapshot.child("phone_number").getValue(String.class));
+//                phoneNumber.setText(snapshot.child("phone_number").getValue(String.class));
                 country.setText(snapshot.child("countryName").getValue(String.class));
                 gender.setText(snapshot.child("gender").getValue(String.class));
+
+                //Set User DP (After user has
             }
 
             @Override
@@ -120,6 +127,14 @@ public class PersonProfileFragment extends Fragment {
                 navController.navigate(R.id.destfriendActivity);
             }
         });
+        Button edit=view.findViewById(R.id.buttonEditProfile);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.NHFMain);
+                navController.navigate(R.id.editProfile);
+            }
+        });
 
         Button BtnRequest = view.findViewById(R.id.request_btn);
         BtnRequest.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +145,20 @@ public class PersonProfileFragment extends Fragment {
             }
         });
     }
+    //Creating ActionBar Menu
+
+//    HV
+//    public boolean onCreateOptionsMenu(Menu menu){
+//        getMenuInflater().inflate(R.menu.menu_view_acc, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NotNull MenuItem item){
+//        int id=item.getItemId();
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
 

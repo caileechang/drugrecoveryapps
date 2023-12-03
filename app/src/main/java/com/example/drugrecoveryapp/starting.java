@@ -22,10 +22,9 @@ public class starting extends AppCompatActivity {
         // launch activity(page)
         setContentView(R.layout.activity_starting);
         // find the element by its id
-        Button LoginBtn = findViewById(R.id.start_login_button);
-        Button SignUpBtn = findViewById(R.id.start_signup_button);
+        Button startbutton = findViewById(R.id.startbutton);
         // Objects LoginBtn to run
-        LoginBtn.setOnClickListener(new View.OnClickListener() {
+        startbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                DatabaseReference transactionReference = FirebaseDatabase.getInstance().getReference();
@@ -36,13 +35,6 @@ public class starting extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        SignUpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonClick);
-                Intent intent = new Intent(starting.this, Register.class);
-                startActivity(intent);
-            }
-        });
+
     }
 }

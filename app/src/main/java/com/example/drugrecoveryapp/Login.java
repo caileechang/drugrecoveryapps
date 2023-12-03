@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,8 @@ public class Login extends AppCompatActivity {
 
     private DatabaseReference userRef;
 
+    private TextView bottomRegister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +48,43 @@ public class Login extends AppCompatActivity {
         UserEmail = (EditText) findViewById(R.id.input_email);
         UserPassword = (EditText) findViewById(R.id.input_password);
         LoginButton = (Button) findViewById(R.id.login_button);
-        //TextView forgotPassword = findViewById(R.id.TV_ForgotPassword);
+        TextView forgotPassword = findViewById(R.id.forgot);
         loadingBar = new ProgressDialog(this);
+        bottomRegister=findViewById(R.id.bottomRegister);
 
-//        forgotPassword.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(Login_Activity.this, "You can reset your password now!.", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getApplicationContext(), ForgotPassword_Activity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //        Show Hide Password using eye icon
+        ImageView imageViewShowHidePwd=findViewById(R.id.imageView_show_hide_pwd);
+        imageViewShowHidePwd.setImageResource(R.drawable.closed_eye);
+        imageViewShowHidePwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(UserPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
+                    UserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    imageViewShowHidePwd.setImageResource(R.drawable.closed_eye);
+                }else{
+                    UserPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    imageViewShowHidePwd.setImageResource(R.drawable.open_eye);
+                }
+            }
+        });
+
+        bottomRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), Register.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override

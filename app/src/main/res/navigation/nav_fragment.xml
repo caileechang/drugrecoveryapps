@@ -47,4 +47,9 @@
         android:id="@+id/destSearchFriend"
         android:name="com.example.drugrecoveryapp.FindFriendsActivity"
         tools:layout="@layout/activity_find_friends"/>
+    <activity
+        android:id="@+id/editProfile"
+        android:name="com.example.drugrecoveryapp.EditProfile"
+        android:label="activity_edit_profile"
+        tools:layout="@layout/activity_edit_profile" />
 </navigation>

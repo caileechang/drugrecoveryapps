@@ -78,7 +78,7 @@ public class FindFriendsActivity extends AppCompatActivity {
                     if (!currentUserUid.equals(user.getUid())) {
 
                         //Search using username,email,id,full name or phone number (not case-sensitive)
-                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase())||user.getUid().toLowerCase().contains(searchInputText.toLowerCase()) ||user.getPhone_number().contains(searchInputText)) {
+                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase())||user.getUid().toLowerCase().contains(searchInputText.toLowerCase())) {
                             userList.add(user);
                         }
                     }
