@@ -44,12 +44,12 @@
 
             <Button
                 android:id="@+id/buttonEditProfile"
-                android:layout_width="120dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="265dp"
                 android:layout_marginTop="-20dp"
-                android:backgroundTint="#6BC1B9"
-                android:text="Edit Profile" />
+                android:backgroundTint="#0D4A43"
+                android:text="Edit" />
 
             <TextView
                 android:id="@+id/P_UsernameDisplay"

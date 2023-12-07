@@ -94,7 +94,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:id="@+id/editGender"
+        android:id="@+id/editGenderUpdate"
         android:layout_width="215dp"
         android:layout_height="59dp"
         android:layout_below="@id/genderTopic2"
@@ -191,10 +191,10 @@
 
     <Button
         android:id="@+id/UpdateBtn"
-        android:layout_width="235dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="676dp"
-        android:layout_marginEnd="92dp"
+        android:layout_width="172dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="660dp"
+        android:layout_marginEnd="124dp"
         android:background="#009688"
         android:text="Update"
         android:textSize="16dp"

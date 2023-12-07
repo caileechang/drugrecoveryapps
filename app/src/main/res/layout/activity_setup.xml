@@ -84,31 +84,33 @@
         android:layout_marginTop="32dp"
         android:src="@drawable/up"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/descrition2"
-        android:layout_width="288dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="44dp"
-        android:text="Whisper your country and shout your gender! Your profile is your canvas – let's make it colorful together."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tellMore" />
 
     <TextView
         android:id="@+id/tellMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="184dp"
         android:text="Wanna Tell Us More?"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.717"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/descrition2"
+        android:layout_width="289dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Whisper your country and shout your gender! Your profile is your canvas – let's make it colorful together."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tellMore" />
 
     <Button
         android:id="@+id/save_job"
@@ -130,7 +132,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="160dp"
-        android:backgroundTint="#5DCAC0"
+        android:backgroundTint="#0D4A43"
         android:text="Skip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/save_job" />
