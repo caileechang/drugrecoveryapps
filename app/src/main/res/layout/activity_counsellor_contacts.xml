@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CounsellorContactsActivity">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#048888"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <Button
+            android:id="@+id/btnBackCounsellorContacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/ic_launcher_back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/counsellor_contacts"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Counsellor 1 Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/counsellor1"
+            android:layout_width="match_parent"
+            android:layout_height="117dp"
+            app:srcCompat="@drawable/profile_5bf0127279dab"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/counsellor_judith"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ukcp_msc_psychotherapy_and_counselling_bacp_mupca" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/about_me1"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="@string/i_am_a_psychotherapist_and_counsellor_offering_a_warm_supportive_confidential_service_for_individuals_each_person_responds_to_the_events_that_happen_in_their_lives_differently_your_issue_what_you_would_like_to_bring_to_therapy_is_the_starting_point_for_our_work_together" />
+
+
+        <Button
+            android:id="@+id/btnChat1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/chat_with_me1"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <!-- Counsellor 2 Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/counsellor2"
+            android:layout_width="match_parent"
+            android:layout_height="117dp"
+            app:srcCompat="@drawable/profile_5f6caf0618aa0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/counsellor_samia"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/mbacp_pgdip_pgcert_semh_spc_ba_hons_qts" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/about_me"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="@string/i_am_fully_qualified_integrative_therapist_working_with_children_adolescents_and_adults_exploring_emotional_histories_life_experiences_gaining_better_awareness_of_self_navigating_testing_times_are_some_of_the_reasons_why_people_seek_therapy" />
+
+
+        <Button
+            android:id="@+id/btnChat2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/chat_with_me"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+
+</LinearLayout>

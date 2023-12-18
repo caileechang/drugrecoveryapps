@@ -6,12 +6,33 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_back_arrow"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrugRecoveryApp"
         tools:targetApi="31">
+        <activity
+            android:name=".CounsellorContactsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatRoomsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DiscussionGroupActiivty"
+            android:exported="false" />
+        <activity
+            android:name=".CreatePostsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CommunityForumActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".EditProfile"
             android:exported="false" />
