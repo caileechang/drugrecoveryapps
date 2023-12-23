@@ -4,26 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfile">
+    tools:context=".EditProfile"
+    android:id="@+id/mainContainer">
 
-    <TextView
-        android:id="@+id/profileEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="344dp"
-        android:text="Email"
-        android:textSize="17dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/emailBox"
         android:layout_width="329dp"
         android:layout_height="53dp"
-        android:layout_marginTop="376dp"
+        android:layout_marginTop="384dp"
         android:background="@drawable/rectanglebox"
         android:ems="10"
         android:hint="e.g. jojo123@gmail.com"
@@ -35,40 +24,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ProfileUsername"
+        android:id="@+id/profileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Username"
+        android:layout_marginTop="352dp"
+        android:text="Email"
         android:textSize="17dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePhoto" />
-
-    <EditText
-        android:id="@+id/usernameBox"
-        android:layout_width="329dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="272dp"
-        android:background="@drawable/rectanglebox"
-        android:ems="10"
-        android:hint="e.g. Jojo"
-        android:inputType="textEmailAddress"
-        android:padding="15dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <AutoCompleteTextView
         android:id="@+id/CountryBox"
         android:layout_width="125dp"
         android:layout_height="50dp"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="488dp"
         android:background="@drawable/rectanglebox"
         android:ems="10"
         android:hint="e.g. Malaysia"
@@ -80,25 +52,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/profileCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="444dp"
-        android:text="Country"
-        android:textSize="17dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <RadioGroup
         android:id="@+id/editGenderUpdate"
         android:layout_width="215dp"
         android:layout_height="59dp"
         android:layout_below="@id/genderTopic2"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.204"
@@ -129,18 +88,70 @@
 
     </RadioGroup>
 
-
+    <Button
+        android:id="@+id/UpdateBtn"
+        android:layout_width="172dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="668dp"
+        android:layout_marginEnd="124dp"
+        android:background="#009688"
+        android:text="Update"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/genderTopic2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="544dp"
+        android:layout_marginTop="552dp"
         android:layout_marginEnd="308dp"
         android:text="Gender:"
         android:textSize="17dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profileCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="452dp"
+        android:text="Country"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ProfileUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Username"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePhoto" />
+
+    <EditText
+        android:id="@+id/usernameBox"
+        android:layout_width="329dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="284dp"
+        android:background="@drawable/rectanglebox"
+        android:ems="10"
+        android:hint="e.g. Jojo"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -170,12 +181,12 @@
 
     <ImageView
         android:id="@+id/profilePhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="139dp"
+        android:layout_height="130dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="152dp"
-        android:src="@drawable/ic_launcher_background"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="136dp"
+        android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -188,18 +199,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/camera_icon" />
-
-    <Button
-        android:id="@+id/UpdateBtn"
-        android:layout_width="172dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="660dp"
-        android:layout_marginEnd="124dp"
-        android:background="#009688"
-        android:text="Update"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

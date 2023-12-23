@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".PersonProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,10 +20,9 @@
                 android:id="@+id/top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/material_dynamic_primary40"
+                android:background="#FF088F8F"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -35,12 +35,14 @@
 
             </LinearLayout>
 
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/profilePhotoPerson"
+                android:layout_width="107dp"
+                android:layout_height="111dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/profile" />
 
             <Button
                 android:id="@+id/buttonEditProfile"
@@ -191,6 +193,14 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="10dp"
                 android:textAlignment="textEnd" />
+
+            <Button
+                android:id="@+id/buttonLogOut"
+                android:layout_width="288dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:backgroundTint="#000000"
+                android:text="Log Out" />
 
 
         </LinearLayout>

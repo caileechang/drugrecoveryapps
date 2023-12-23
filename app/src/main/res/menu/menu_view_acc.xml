@@ -1,33 +1,37 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-<item
-    android:id="@+id/reccoveryMenu"
+    <item
+        android:id="@+id/reccoveryMenu"
     android:title="Home"
     android:icon="@drawable/recovery_icon"/>
 
+    <item
+        android:id="@+id/educationalMenu"
+        android:title="Educational Content"
+        android:icon="@drawable/education_icon"/>
 
+    <item
+        android:id="@+id/motivationMenu"
+        android:title="Motivation"
+        android:icon="@drawable/motivation_icon"/>
 
-<item
-    android:id="@+id/educationalMenu"
-    android:title="Educational Content"
-    android:icon="@drawable/education_icon"/>
+    <item
+        android:id="@+id/forumMenu"
+        android:title="Forum"
+        android:icon="@drawable/forum_icon"/>
 
-<item
-    android:id="@+id/motivationMenu"
-    android:title="Motivation"
-    android:icon="@drawable/motivation_icon"/>
+    <item
+        android:id="@+id/personProfileMenu"
+        android:title="Profile"
+        android:icon="@drawable/profile_icon"/>
 
+<!--    <item-->
+<!--        android:id="@+id/changePassMenu"-->
+<!--        android:title="Change Password" />-->
 
-<item
-    android:id="@+id/forumMenu"
-    android:title="Forum"
-    android:icon="@drawable/forum_icon"/>
-
-<item
-    android:id="@+id/personProfileMenu"
-    android:title="Profile"
-    android:icon="@drawable/profile_icon"/>
-
+<!--    <item-->
+<!--        android:id="@+id/LogoutMenu"-->
+<!--        android:title="Logout" />-->
 
 </menu>

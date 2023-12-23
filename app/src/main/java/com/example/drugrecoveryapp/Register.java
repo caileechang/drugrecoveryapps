@@ -159,9 +159,14 @@ public class Register extends AppCompatActivity {
             UserPassword.setError("Password is required");
             UserPassword.requestFocus();
 
-        } else if (password.length() < 6) {
+        } else if (password.length() < 8) {
             Toast.makeText(Register.this, "Password should be at least 6 digits", Toast.LENGTH_LONG).show();
             UserPassword.setError("Password too weak");
+            UserPassword.requestFocus();
+
+        } else if (!isPasswordValid(password)) {
+            Toast.makeText(Register.this, "Password must contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character.", Toast.LENGTH_LONG).show();
+            UserPassword.setError("Invalid password format");
             UserPassword.requestFocus();
 
         } else if (TextUtils.isEmpty(confirmPassword)) {
@@ -229,5 +234,30 @@ public class Register extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private boolean isPasswordValid(String password) {
+        // Check if the password contains at least one uppercase letter
+        if (!password.matches(".*[A-Z].*")) {
+            return false;
+        }
+
+        // Check if the password contains at least one lowercase letter
+        if (!password.matches(".*[a-z].*")) {
+            return false;
+        }
+
+        // Check if the password contains at least one numeric digit
+        if (!password.matches(".*\\d.*")) {
+            return false;
+        }
+
+        // Check if the password contains at least one special character
+        if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>/?].*")) {
+            return false;
+        }
+
+        // If all checks pass, the password is valid
+        return true;
     }
 }

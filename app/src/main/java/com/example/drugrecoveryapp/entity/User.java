@@ -1,7 +1,11 @@
 package com.example.drugrecoveryapp.entity;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class User {
     public String userid,username,email,fullName,countryName,stateName,birthday,age,occupation,gender,relationship;
+    private String profilePicture;
     public User(){
         //empty constructor
     }
@@ -36,6 +40,9 @@ public class User {
         return countryName;
     }
 
+    public String getProfilePicture() {
+        return profilePicture;
+    }
 
     public String getGender() {
         return gender;
@@ -70,6 +77,10 @@ public class User {
         this.gender = gender;
     }
 
-
-
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 }
+
+
+

@@ -3,12 +3,15 @@ package com.example.drugrecoveryapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.AlphaAnimation;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.drugrecoveryapp.databinding.ActivityMainBinding;
 
@@ -24,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+//        Intent intent = getIntent();
+//        if (intent.hasExtra("selectedFragment")) {
+//            int selectedFragmentId = intent.getIntExtra("selectedFragment", 0);
+//            if (selectedFragmentId != 0) {
+//                NavController navController = Navigation.findNavController(this, R.id.NHFMain);
+//                navController.navigate(selectedFragmentId);
+//            }
+//        }
 
         // Automatic replace fragment to the respective fragment
         // based on the targetFragment when it redirect from the traceback function
@@ -64,6 +76,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
+//    private void handleLogout() {
+//        Intent loginIntent = new Intent(this, Login.class);
+//        startActivity(loginIntent);
+//
+//        // Finish the current activity to prevent going back to it after logout
+//        finish();
+//    }
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager=getSupportFragmentManager();

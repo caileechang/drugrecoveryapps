@@ -5,6 +5,7 @@
     android:id="@+id/nav_fragment"
     app:startDestination="@id/reccoveryTrackFragment">
 
+
     <fragment
         android:id="@+id/educationalContentFragment"
         android:name="com.example.drugrecoveryapp.EducationalContentFragment"
@@ -28,7 +29,8 @@
     <fragment
         android:id="@+id/personProfileFragment"
         android:name="com.example.drugrecoveryapp.PersonProfileFragment"
-        android:label="PersonProfileFragment" />
+        android:label="PersonProfileFragment"
+        tools:layout="@layout/fragment_person_profile"/>
 
     <activity
         tools:layout="@layout/activity_friend_list"

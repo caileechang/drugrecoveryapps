@@ -39,7 +39,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="108dp"
-        android:backgroundTint="#68B8B8"
+        android:backgroundTint="#1A5050"
         android:fontFamily="sans-serif"
 
         android:text="Get Started >"
