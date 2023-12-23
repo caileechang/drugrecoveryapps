@@ -1,23 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ForumFragment">
+    tools:context=".ForumFragment"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="#048888"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/menu_page"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/community_forum_btn"
+        android:layout_width="200dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:text="@string/community_forum"
+        android:onClick="btnCommunityForumOnClick"
+        />
+
+    <Button
+        android:id="@+id/discussion_groups_btn"
+        android:layout_width="200dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/discussion_group"
+        android:layout_gravity="center"
+        android:onClick="btnDiscussionGroupsOnClick"
+        />
+
+    <Button
+        android:id="@+id/chat_room_btn"
+        android:layout_width="200dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/chat_room"
+        android:layout_gravity="center"
+        android:onClick="btnChatRoomOnClick"
+         />
+
+    <Button
+        android:id="@+id/counsellor_contact_btn"
+        android:layout_width="200dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/counsellor_contact"
+        android:layout_gravity="center"
+        android:onClick="btnCounsellorContacts"
+         />
 
     <Button
         android:id="@+id/search_friend_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search Friend"/>
+        android:layout_width="200dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/search_for_friends"
+        android:layout_gravity="center"
 
+        />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/NHFMain"
@@ -26,6 +87,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_fragment" />
+        app:navGraph="@navigation/nav_fragment"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="4dp" />
 
-</FrameLayout>
+</LinearLayout>

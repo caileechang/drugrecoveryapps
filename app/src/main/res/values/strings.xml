@@ -93,4 +93,28 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="i_am_fully_qualified_integrative_therapist_working_with_children_adolescents_and_adults_exploring_emotional_histories_life_experiences_gaining_better_awareness_of_self_navigating_testing_times_are_some_of_the_reasons_why_people_seek_therapy">I am fully qualified Integrative Therapist working with children, adolescents and adults. Exploring emotional histories, life experiences, gaining better awareness of self, navigating testing times are some of the reasons why people seek therapy.</string>
+    <string name="chat_with_me">Chat With Me</string>
+    <string name="about_me">About Me</string>
+    <string name="mbacp_pgdip_pgcert_semh_spc_ba_hons_qts">MBACP, PGDip, PGCert, SEMH Spc, BA HONS (QTS)</string>
+    <string name="counsellor_samia">Counsellor Samia</string>
+    <string name="chat_with_me1">Chat With Me</string>
+    <string name="i_am_a_psychotherapist_and_counsellor_offering_a_warm_supportive_confidential_service_for_individuals_each_person_responds_to_the_events_that_happen_in_their_lives_differently_your_issue_what_you_would_like_to_bring_to_therapy_is_the_starting_point_for_our_work_together">I am a psychotherapist and counsellor offering a warm, supportive confidential service for individuals. Each person responds to the events that happen in their lives differently. Your issue, what you would like to bring to therapy is the starting point for our work together.</string>
+    <string name="about_me1">About Me</string>
+    <string name="counsellor_judith">Counsellor Judith</string>
+    <string name="ukcp_msc_psychotherapy_and_counselling_bacp_mupca">UKCP, Msc Psychotherapy and Counselling, BACP, MUPCA</string>
+    <string name="create_posts">Create Posts</string>
+    <string name="chat_rooms">Chat Rooms</string>
+    <string name="discussion_groups">Discussion Groups</string>
+    <string name="search_friend">Search Friend</string>
+    <string name="menu_page">Menu Page</string>
+    <string name="community_forum">Community Forum</string>
+    <string name="discussion_group">Discussion Groups</string>
+    <string name="chat_room">Chat Rooms</string>
+    <string name="counsellor_contact">Counsellor Contacts</string>
+    <string name="search_for_friends">Search for Friends</string>
+    <string name="community_forums">Community Forum</string>
+    <string name="create_posts_btn">Create Posts</string>
+    <string name="popular_posts">Popular Posts</string>
+    <string name="counsellor_contacts">Counsellor Contacts</string>
 </resources>

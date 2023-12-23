@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -23,13 +24,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class FindFriendsActivity extends AppCompatActivity {
 
-    private ImageButton SearchButton;
     private EditText SearchInputText;
-
-    private RecyclerView SearchResultList;
 
     private SearchFriendAdapter searchFriendAdapter;
     private List<User> userList;
@@ -43,25 +42,24 @@ public class FindFriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_friends);
 
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
-        currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        currentUserUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         userList = new ArrayList<>();
         searchFriendAdapter = new SearchFriendAdapter(userList);
-        SearchResultList = (RecyclerView) findViewById(R.id.search_result_list);
-        SearchResultList.setHasFixedSize(true);
-        SearchResultList.setLayoutManager(new LinearLayoutManager(this));
-        SearchResultList.setAdapter(searchFriendAdapter);
+        RecyclerView searchResultList = (RecyclerView) findViewById(R.id.search_result_list);
+        searchResultList.setHasFixedSize(true);
+        searchResultList.setLayoutManager(new LinearLayoutManager(this));
+        searchResultList.setAdapter(searchFriendAdapter);
 
-        SearchButton = (ImageButton) findViewById(R.id.search_people_friends_button);
+        ImageButton searchButton = (ImageButton) findViewById(R.id.search_people_friends_button);
         SearchInputText = (EditText) findViewById(R.id.search_box_input);
+        Button btnBackSearchFriends=findViewById(R.id.btnBackSearchFriends);
+        btnBackSearchFriends.setOnClickListener(v -> finish());
 
-        SearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // retrieve text from searchinputtext
-                String searchInputText = SearchInputText.getText().toString();
-                SearchPeopleAndFriends(searchInputText);
-            }
+        searchButton.setOnClickListener(v -> {
+            // retrieve text from searchinputtext
+            String searchInputText = SearchInputText.getText().toString();
+            SearchPeopleAndFriends(searchInputText);
         });
     }
 
