@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -160,16 +161,33 @@ public class Register extends AppCompatActivity {
             UserPassword.requestFocus();
 
         } else if (password.length() < 8) {
-            Toast.makeText(Register.this, "Password should be at least 6 digits", Toast.LENGTH_LONG).show();
+            Toast.makeText(Register.this, "Password should be at least 8 digits", Toast.LENGTH_LONG).show();
             UserPassword.setError("Password too weak");
             UserPassword.requestFocus();
 
         } else if (!isPasswordValid(password)) {
-            Toast.makeText(Register.this, "Password must contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character.", Toast.LENGTH_LONG).show();
-            UserPassword.setError("Invalid password format");
+            // Short Toast message
+            String shortErrorMessage = "Invalid password format. Please check requirements.";
+
+            // Display the short Toast
+            Toast.makeText(Register.this, shortErrorMessage, Toast.LENGTH_SHORT).show();
+
+            // Detailed error message in AlertDialog
+            String detailedErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character.";
+            AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+            builder.setTitle("Error")
+                    .setMessage(detailedErrorMessage)
+                    .setPositiveButton("OK", null)
+                    .show();
+
+            // Set focus on the password field
+            UserPassword.setError(shortErrorMessage);
             UserPassword.requestFocus();
 
-        } else if (TextUtils.isEmpty(confirmPassword)) {
+
+
+
+    } else if (TextUtils.isEmpty(confirmPassword)) {
             Toast.makeText(this, "Please insert your password...", Toast.LENGTH_LONG).show();
             UserConfrimPassword.setError("Password is required");
             UserConfrimPassword.requestFocus();

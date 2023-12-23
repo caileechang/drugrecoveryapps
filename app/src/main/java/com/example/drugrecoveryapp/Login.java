@@ -139,7 +139,7 @@ public class Login extends AppCompatActivity {
                             }
                         });
                     } else {
-                        String message = task.getException().getMessage();
+                        String message = "Please recheck your email or password";
                         Toast.makeText(Login.this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
                     }
