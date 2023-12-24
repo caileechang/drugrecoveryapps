@@ -212,12 +212,18 @@ public class EditProfile extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(EditProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                    // U are directing from a fragment coiner viewer to an activity
+                    // so when u update ur profile （activity), after updating, then should end the activity
+                    // use finish(), then back to the fragment
+
                     // Navigate to PersonProfileFragment
 //                    // Navigate to PersonProfileFragment without specifying a container
-                    Intent intent = new Intent(EditProfile.this, PersonProfileFragment.class);
+                    /*Intent intent = new Intent(EditProfile.this, PersonProfileFragment.class);
                     intent.putExtra("selectedFragment", R.id.personProfileFragment);
                     startActivity(intent);
-                    finish();
+                    finish();*/
 
 //                    FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //                    fragmentTransaction.replace(R.id.mainContainer,new PersonProfileFragment()).commit();
