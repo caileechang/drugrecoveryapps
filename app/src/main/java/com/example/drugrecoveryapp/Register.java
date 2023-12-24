@@ -189,11 +189,11 @@ public class Register extends AppCompatActivity {
 
     } else if (TextUtils.isEmpty(confirmPassword)) {
             Toast.makeText(this, "Please insert your password...", Toast.LENGTH_LONG).show();
-            UserConfrimPassword.setError("Password is required");
+            UserConfrimPassword.setError("Confirm Password is required");
             UserConfrimPassword.requestFocus();
 
         } else if (!(password.equals(confirmPassword))) {
-            Toast.makeText(this, "Your password do not match with your confirm password...", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Your confirm password does not match with your password...", Toast.LENGTH_LONG).show();
             UserConfrimPassword.setError("Please recheck password confirmation.");
             UserConfrimPassword.requestFocus();
 

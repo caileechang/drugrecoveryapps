@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -42,6 +45,8 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class EditProfile extends AppCompatActivity {
@@ -57,6 +62,7 @@ public class EditProfile extends AppCompatActivity {
 
     private ImageView cameraIcon;
     private ImageView profileImageView;
+    private AutoCompleteTextView countryAutoComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +134,29 @@ public class EditProfile extends AppCompatActivity {
                 updateUserInfo();
             }
         });
+
+        // Initialize UI elements and set up event listeners
+
+        countryAutoComplete = findViewById(R.id.CountryBox);
+
+// Populate the AutoCompleteTextView with a list of countries
+        String[] countries = getCountryList();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, countries);
+        countryAutoComplete.setAdapter(adapter);
+
+// Set threshold to 1, so suggestions appear after typing the first character
+        countryAutoComplete.setThreshold(1);
+
+    }
+
+    private String[] getCountryList() {
+        String[] locales = Locale.getISOCountries();
+        ArrayList<String> countryList = new ArrayList<>();
+        for (String countryCode : locales) {
+            Locale obj = new Locale("", countryCode);
+            countryList.add(obj.getDisplayCountry());
+        }
+        return countryList.toArray(new String[0]);
     }
 
     // Add this method to load and display the profile picture
@@ -188,7 +217,7 @@ public class EditProfile extends AppCompatActivity {
         String newUsername = usernameTextView.getText().toString();
         String newEmail = emailTextView.getText().toString();
         String newGender = getSelectedGender();
-        String newCountry = countryTextView.getText().toString();
+        String newCountry = countryAutoComplete.getText().toString();
 
         // Update the user object with the edited information
         user.setUsername(newUsername);
@@ -225,24 +254,6 @@ public class EditProfile extends AppCompatActivity {
                     startActivity(intent);
                     finish();*/
 
-//                    FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-//                    fragmentTransaction.replace(R.id.mainContainer,new PersonProfileFragment()).commit();
-
-//                    // Create a FragmentManager
-//                    FragmentManager fragmentManager = getSupportFragmentManager();
-//
-//                    // Begin a FragmentTransaction
-//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//                    // Replace the current fragment with PersonProfileFragment
-//                    fragmentTransaction.replace(R.id.mainContainer, new PersonProfileFragment());
-//
-//                    // Add the transaction to the back stack (optional)
-//                    // This allows the user to navigate back to the previous fragment
-//                    fragmentTransaction.addToBackStack(null);
-//
-//                    // Commit the transaction
-//                    fragmentTransaction.commit();
                 } else {
                     Toast.makeText(EditProfile.this, "Error updating profile", Toast.LENGTH_SHORT).show();
                 }
@@ -255,13 +266,6 @@ public class EditProfile extends AppCompatActivity {
         RadioButton selectedRadioButton = findViewById(genderRadioGroup.getCheckedRadioButtonId());
         return (selectedRadioButton != null) ? selectedRadioButton.getText().toString() : "";
     }
-
-//    private void navigateToPersonProfileFragment() {
-//        // Navigate using NavController (assuming you have a NavController instance)
-//        NavController navController = Navigation.findNavController(this, R.id.NHFMain);
-//        navController.navigate(R.id.personProfileFragment);
-//        finish(); // Optional: finish the current activity if needed
-//    }
 
 
     private void updateGenderRadioGroup(String gender) {

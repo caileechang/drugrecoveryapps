@@ -99,19 +99,6 @@ public class Setup extends AppCompatActivity {
 // Set threshold to 1, so suggestions appear after typing the first character
         countryAutoComplete.setThreshold(1);
 
-        countryAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCountry = (String) parent.getItemAtPosition(position);
-                // Do something with the selected country
-                handleSelectedCountry(selectedCountry);
-            }
-
-            private void handleSelectedCountry(String selectedCountry) {
-                Toast.makeText(Setup.this, "Selected Country: " + selectedCountry, Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
         gender = (RadioGroup) findViewById(R.id.editGender);
         SaveInfoButton = (Button) findViewById(R.id.save_job);
