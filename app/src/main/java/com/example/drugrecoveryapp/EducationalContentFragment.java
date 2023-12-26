@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
 import com.example.drugrecoveryapp.educationResources.Drug;
 import com.example.drugrecoveryapp.educationResources.DrugsAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -70,9 +73,7 @@ public class EducationalContentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_educational_content, container, false);
-
         RecyclerView rvDrug = rootView.findViewById(R.id.rvDrug);
-
         ArrayList<Drug> drugArrayList = new ArrayList<Drug>();
         db.collection("Resources").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -93,7 +94,39 @@ public class EducationalContentFragment extends Fragment {
             }
         });
 
+        //Search Engine Feature
+        EditText searchKeyword = rootView.findViewById(R.id.search_keyword);
+        Button BtnSearch = rootView.findViewById(R.id.BtnSearch);
+        BtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String keyword = searchKeyword.getText().toString();
+                drugArrayList.clear();
+                db.collection("Resources").get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String drugName = document.getId().toString();
+                            String shortDescription = document.getString("Short Description");
+                            if (shortDescription != null && shortDescription.toLowerCase().contains(keyword) || drugName.toLowerCase().contains(keyword)) {
+                                Log.d(TAG, document.getId() + "=>" + document.getData());
+                                Drug drug = new Drug(document.getId().toString(), shortDescription, true);
+                                drugArrayList.add(drug);
+                            }
+                        }
 
+                        // Create the adapter and set it to the recyclerview
+                        DrugsAdapter adapter = new DrugsAdapter(drugArrayList);
+                        rvDrug.setAdapter(adapter);
+
+                        // Set layout manager to position the items
+                        rvDrug.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    } else {
+                        Log.d(TAG, "Error getting documents:", task.getException());
+                    }
+                });
+
+            }
+        });
         return rootView;
     }
 
