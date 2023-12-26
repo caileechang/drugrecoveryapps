@@ -150,11 +150,14 @@ public class CreatePostsActivity extends AppCompatActivity {
         BtnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (uploadTask != null && uploadTask.isInProgress()) {
-                    Toast.makeText(getApplicationContext(), "Upload in progress", Toast.LENGTH_SHORT).show();;
-                }
-                else {
-                    uploadPost(UriImage,true);
+                String selectedCategory = SpinnerCategory.getSelectedItem().toString();
+
+                if (selectedCategory.equals("Text Only")) {
+
+                    uploadPostWithoutImage();
+                } else if (selectedCategory.equals("Text and Image")) {
+                    // Handle text and image case
+                    uploadPost(UriImage, true);
                 }
             }
         });
@@ -218,7 +221,7 @@ public class CreatePostsActivity extends AppCompatActivity {
                                             PBUpload.setProgress(0);
                                         }
                                     },500);
-                                    Toast.makeText(getApplicationContext(), "Upload successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Post uploaded successfully", Toast.LENGTH_SHORT).show();
 
                                     String postId = databaseReference.push().getKey();
                                     Post post = new Post(postId
@@ -268,5 +271,25 @@ public class CreatePostsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please Upload Image", Toast.LENGTH_SHORT).show();
         }
     }
+    private void uploadPostWithoutImage() {
+        String postId = databaseReference.push().getKey();
+        Post post = new Post(postId
+                , null // Set image URL to null for posts without images
+                , SpinnerCategory.getSelectedItem().toString()
+                , firebaseUser.getUid()
+                , TVUserID.getText().toString()
+                , ETTitle.getText().toString()
+                , ETContent.getText().toString()
+                , new Date().getTime());
+
+        databaseReference.child(postId).setValue(post);
+
+        // Optional: Display a success message
+        Toast.makeText(getApplicationContext(), "Post uploaded successfully", Toast.LENGTH_SHORT).show();
+
+        // After upload successfully, back to home page
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
 
 }
