@@ -71,7 +71,7 @@ public class EducationalContentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_educational_content, container, false);
 
-        RecyclerView rvContacts = rootView.findViewById(R.id.rvContacts);
+        RecyclerView rvDrug = rootView.findViewById(R.id.rvDrug);
 
         ArrayList<Drug> drugArrayList = new ArrayList<Drug>();
         db.collection("Resources").get().addOnCompleteListener(task -> {
@@ -84,10 +84,10 @@ public class EducationalContentFragment extends Fragment {
 
                 // Create the adapter and set it to the recyclerview
                 DrugsAdapter adapter = new DrugsAdapter(drugArrayList);
-                rvContacts.setAdapter(adapter);
+                rvDrug.setAdapter(adapter);
 
                 // Set layout manager to position the items
-                rvContacts.setLayoutManager(new LinearLayoutManager(getActivity()));
+                rvDrug.setLayoutManager(new LinearLayoutManager(getActivity()));
             } else {
                 Log.d(TAG, "Error getting documents:", task.getException());
             }

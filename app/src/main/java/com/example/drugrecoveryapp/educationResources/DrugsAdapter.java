@@ -1,11 +1,13 @@
 package com.example.drugrecoveryapp.educationResources;
 
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,8 @@ public class DrugsAdapter extends
         public TextView drugDescriptionTV;
         public Button readMoreButton;
 
+        public ImageView drugImage;
+
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -34,15 +38,16 @@ public class DrugsAdapter extends
             drugNameTV = (TextView) itemView.findViewById(R.id.drug_name);
             drugDescriptionTV = (TextView)itemView.findViewById(R.id.drug_description);
             readMoreButton = (Button) itemView.findViewById(R.id.read_more);
+            drugImage = (ImageView) itemView.findViewById(R.id.drug_image);
         }
 
 
     }
-    private List<Drug> mContacts;
+    private List<Drug> drugList;
 
     // Pass in the contact array into the constructor
     public DrugsAdapter(List<Drug> contacts) {
-        mContacts = contacts;
+        drugList = contacts;
     }
 
     @NonNull
@@ -62,20 +67,24 @@ public class DrugsAdapter extends
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get the data model based on position
-        Drug contact = mContacts.get(position);
+        Drug drug = drugList.get(position);
         // Set item views based on your views and data model
         TextView drugNameTV = holder.drugNameTV;
-        drugNameTV.setText(contact.getName());
+        drugNameTV.setText(drug.getName());
         TextView drugDescriptionTV = holder.drugDescriptionTV;
-        drugDescriptionTV.setText(contact.getDrugDescription());
+        drugDescriptionTV.setText(drug.getDrugDescription());
         Button button = holder.readMoreButton;
         button.setText("Read More");
-        button.setEnabled(contact.isReadMore());
+        button.setEnabled(drug.isReadMore());
+        ImageView imageView = holder.drugImage;
+        imageView.setImageResource(R.drawable.drug);
+
+
     }
 
     @Override
     public int getItemCount() {
-        return mContacts.size();
+        return drugList.size();
     }
 
 
