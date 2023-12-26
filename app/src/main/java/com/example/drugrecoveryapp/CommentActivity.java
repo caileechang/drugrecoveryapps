@@ -1,9 +1,11 @@
 package com.example.drugrecoveryapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,7 +46,8 @@ public class CommentActivity extends AppCompatActivity {
         binding = ActivityCommentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         intent = getIntent();
-
+        Button btnBackCreatePosts = findViewById(R.id.btnBackCreatePosts);
+        btnBackCreatePosts.setOnClickListener(v -> finish());
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
@@ -60,20 +63,24 @@ public class CommentActivity extends AppCompatActivity {
         database.getReference()
                 .child("posts")
                 .child(postId).addValueEventListener(new ValueEventListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Post post = snapshot.getValue(Post.class);
-                        Log.d("DEBUG", post.getPostImage());
-
-                        Picasso.get()
-                                .load(post.getPostImage())
-                                .placeholder(R.drawable.placeholder)
-                                .into(binding.postImage);
-                        binding.description.setText(post.getPostDescription());
-                        binding.like.setText(post.getPostLike() + "");
-                        binding.comment.setText(post.getCommentCount() + "");
-                        binding.title.setText(post.getPostTitle());
-
+                        if (post != null && post.getPostImage() != null) {
+                            Log.d("DEBUG", post.getPostImage());
+                            Picasso.get()
+                                    .load(post.getPostImage())
+                                    .placeholder(R.drawable.placeholder)
+                                    .into(binding.postImage);
+                            binding.description.setText(post.getPostDescription());
+                            binding.like.setText(post.getPostLike() + "");
+                            binding.comment.setText(post.getCommentCount() + "");
+                            binding.title.setText(post.getPostTitle());
+                        } else {
+                            Log.e("DEBUG", "post or post.getPostImage() is null");
+                            // Handle the situation where post or post.getPostImage() is null
+                        }
 
                     }
 
