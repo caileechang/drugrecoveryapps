@@ -1,37 +1,42 @@
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/reccoveryMenu"
-    android:title="Home"
-    android:icon="@drawable/recovery_icon"/>
+        android:id="@+id/reccoveryTrackFragment"
+        android:icon="@drawable/recovery_icon"
+        android:title="Home"
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/educationalMenu"
+        android:id="@+id/educationalContentFragment"
+        android:icon="@drawable/education_icon"
         android:title="Educational Content"
-        android:icon="@drawable/education_icon"/>
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/motivationMenu"
+        android:id="@+id/motivationFragment"
+        android:icon="@drawable/motivation_icon"
         android:title="Motivation"
-        android:icon="@drawable/motivation_icon"/>
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/forumMenu"
+        android:id="@+id/forumFragment"
+        android:icon="@drawable/forum_icon"
         android:title="Forum"
-        android:icon="@drawable/forum_icon"/>
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/personProfileMenu"
+        android:id="@+id/personProfileFragment"
+        android:icon="@drawable/profile_icon"
         android:title="Profile"
-        android:icon="@drawable/profile_icon"/>
+        app:showAsAction="never" />
 
-<!--    <item-->
-<!--        android:id="@+id/changePassMenu"-->
-<!--        android:title="Change Password" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/changePassMenu"-->
+    <!--        android:title="Change Password" />-->
 
-<!--    <item-->
-<!--        android:id="@+id/LogoutMenu"-->
-<!--        android:title="Logout" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/LogoutMenu"-->
+    <!--        android:title="Logout" />-->
 
 </menu>

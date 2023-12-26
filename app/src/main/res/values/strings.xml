@@ -117,4 +117,6 @@
     <string name="create_posts_btn">Create Posts</string>
     <string name="popular_posts">Popular Posts</string>
     <string name="counsellor_contacts">Counsellor Contacts</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

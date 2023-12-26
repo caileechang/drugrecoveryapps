@@ -9,26 +9,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#048888"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:text="Education and Resources"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
     <FrameLayout
         android:layout_width="391dp"
         android:layout_height="39dp"
