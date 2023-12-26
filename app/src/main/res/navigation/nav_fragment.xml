@@ -8,28 +8,27 @@
     <fragment
         android:id="@+id/educationalContentFragment"
         android:name="com.example.drugrecoveryapp.EducationalContentFragment"
-        android:label="Education and Resources"
+        android:label="fragment_educational_content"
         tools:layout="@layout/fragment_educational_content" />
     <fragment
         android:id="@+id/forumFragment"
         android:name="com.example.drugrecoveryapp.ForumFragment"
-        android:label="Community Forum"
+        android:label="fragment_forum"
         tools:layout="@layout/fragment_forum" />
     <fragment
         android:id="@+id/reccoveryTrackFragment"
         android:name="com.example.drugrecoveryapp.ReccoveryTrackFragment"
-        android:label="Home"
+        android:label="fragment_reccovery_track"
         tools:layout="@layout/fragment_reccovery_track" />
     <fragment
         android:id="@+id/motivationFragment"
         android:name="com.example.drugrecoveryapp.MotivationFragment"
-        android:label="Motivation Quotes"
+        android:label="fragment_motivation"
         tools:layout="@layout/fragment_motivation" />
     <fragment
         android:id="@+id/personProfileFragment"
         android:name="com.example.drugrecoveryapp.PersonProfileFragment"
-        android:label="User Profile"
-        tools:layout="@layout/fragment_person_profile"/>
+        android:label="PersonProfileFragment" />
 
     <activity
         tools:layout="@layout/activity_friend_list"
@@ -48,11 +47,9 @@
         android:id="@+id/destSearchFriend"
         android:name="com.example.drugrecoveryapp.FindFriendsActivity"
         tools:layout="@layout/activity_find_friends"/>
-
     <activity
         android:id="@+id/editProfile"
         android:name="com.example.drugrecoveryapp.EditProfile"
         android:label="activity_edit_profile"
         tools:layout="@layout/activity_edit_profile" />
-
 </navigation>

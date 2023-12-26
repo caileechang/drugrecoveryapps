@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/Home"/>
+    <item
+        android:id="@+id/Article"
+        android:icon="@drawable/baseline_menu_book_24"
+        android:title="Article" />
+    <item
+        android:id="@+id/Community"
+        android:icon="@drawable/baseline_people_24"
+        android:title="Community" />
+    <item
+        android:id="@+id/Motivation"
+        android:icon="@drawable/baseline_format_quote_24"
+        android:title="Motivation" />
+    <item
+        android:id="@+id/Profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="Profile" />
+</menu>

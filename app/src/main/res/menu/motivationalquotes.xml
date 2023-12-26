@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Home"
+        android:icon="@drawable/recovery_icon"
+        android:id="@+id/recoveryMenu"/>
+    <item
+        android:id="@+id/educationalMenu"
+        android:icon="@drawable/education_icon"
+        android:title="Educational Content" />
+    <item
+        android:id="@+id/forumMenu"
+        android:icon="@drawable/baseline_people_24"
+        android:title="Forum" />
+    <item
+        android:id="@+id/motivationMenu"
+        android:icon="@drawable/motivation_icon"
+        android:title="Motivation" />
+    <item
+        android:id="@+id/personProfileMenu"
+        android:icon="@drawable/profile_icon"
+        android:title="Profile" />
+</menu>
