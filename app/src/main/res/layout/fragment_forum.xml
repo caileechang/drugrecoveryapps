@@ -87,6 +87,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:defaultNavHost="true"
+        android:visibility="gone"
         app:navGraph="@navigation/nav_fragment"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="4dp" />
