@@ -44,6 +44,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.4.0'
     implementation 'androidx.fragment:fragment:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.marlonlom:timeago:4.0.3'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
