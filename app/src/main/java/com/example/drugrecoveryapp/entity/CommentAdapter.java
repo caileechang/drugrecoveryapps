@@ -41,8 +41,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.viewHold
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Comment comment = list.get(position);
-//        holder.binding.comment.setText(comment.getCommentBody());
-
         String time = TimeAgo.using(comment.getCommentedAt());
         holder.binding.time.setText(time);
 
@@ -62,7 +60,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.viewHold
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-//                        System.out.println(error);
 
                     }
                 });

@@ -78,7 +78,7 @@ public class CreatePostsActivity extends AppCompatActivity {
     private StorageTask uploadTask;
     public ArrayList<String> categoryArrayList=new ArrayList<>(Arrays.asList("Text Only","Text and Image"));
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +109,6 @@ public class CreatePostsActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        //fetch current user details
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override

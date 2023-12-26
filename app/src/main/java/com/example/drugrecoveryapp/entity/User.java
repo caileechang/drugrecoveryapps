@@ -7,10 +7,8 @@ public class User {
     public String userid,username,email,fullName,countryName,stateName,birthday,age,occupation,gender,relationship;
     private String profilePicture;
     public User(){
-        //empty constructor
     }
 
-    //constructor used to save info in database
     public User(String userid, String username, String email, String countryName, String gender) {
         this.userid = userid;
         this.username = username;

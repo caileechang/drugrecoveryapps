@@ -40,7 +40,6 @@ public class CommunityForumActivity extends AppCompatActivity {
         postAdapter = new PostAdapter(new ArrayList<>());
         recyclerViewPosts.setAdapter(postAdapter);
 
-        // Retrieve all posts
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -56,7 +55,6 @@ public class CommunityForumActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Handle onCancelled
             }
         });
     }
