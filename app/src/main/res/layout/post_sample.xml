@@ -89,25 +89,27 @@
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:drawableLeft="@drawable/comment"
         android:drawablePadding="8dp"
         android:paddingLeft="5dp"
         android:text="Comment"
-        app:layout_constraintStart_toEndOf="@+id/like"
-        app:layout_constraintTop_toTopOf="@+id/like" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="@+id/postImage"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.923" />
 
     <TextView
         android:id="@+id/like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:drawableLeft="@drawable/like"
         android:drawablePadding="8dp"
         android:paddingLeft="10dp"
         android:text="Like"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/postImage"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.9" />
 
     <TextView
         android:id="@+id/tittle"
@@ -119,5 +121,19 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/postImage"
         app:layout_constraintTop_toBottomOf="@+id/postImage" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="357dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="391dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

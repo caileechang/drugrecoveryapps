@@ -115,7 +115,7 @@
             android:layout_marginBottom="10dp"
             android:background="@null"
             android:hint="Title"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/ETContent"
@@ -148,7 +148,7 @@
         <Button
             android:id="@+id/BtnUploadImage"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="60dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"

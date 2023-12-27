@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".CommentActivity">
 
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -48,6 +49,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/post" />
 
+            <Button
+                android:id="@+id/btnBackCreatePosts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_launcher_back_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
@@ -59,7 +68,7 @@
                 android:paddingBottom="3dp"
                 android:text="TextView"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/profileImage"
                 app:layout_constraintStart_toEndOf="@+id/profileImage"
                 app:layout_constraintTop_toTopOf="@+id/profileImage"
@@ -72,10 +81,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 android:paddingLeft="10dp"
+                android:src="@drawable/human_avatar_create_posts"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/postImage"
                 app:layout_constraintStart_toStartOf="@+id/postImage" />
+
 
             <TextView
                 android:id="@+id/description"
@@ -94,6 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_height="23dp"
                 android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/like"
                 android:drawablePadding="8dp"
                 android:paddingLeft="10dp"
                 android:text="Like"
@@ -105,12 +117,14 @@
                 android:id="@+id/comment"
                 android:layout_width="119dp"
                 android:layout_height="23dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="4dp"
+                android:drawableLeft="@drawable/comment"
                 android:drawablePadding="8dp"
                 android:text="Comment"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/like"
-                app:layout_constraintTop_toTopOf="@+id/like" />
+                app:layout_constraintBottom_toTopOf="@+id/commentRv"
+                app:layout_constraintStart_toEndOf="@+id/like" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/commentRv"

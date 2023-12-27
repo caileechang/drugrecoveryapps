@@ -25,11 +25,14 @@
 
         <Button
             android:id="@+id/saveButton"
-            android:layout_width="107dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_700"
             android:insetRight="10dp"
             android:insetBottom="10dp"
-            android:text="@+string/save" />
+            android:text="@+string/save"
+            android:visibility="visible"
+            tools:visibility="visible" />
 
 </FrameLayout>
 
