@@ -33,7 +33,7 @@
             android:backgroundTint="@color/teal_700"
             android:insetRight="10dp"
             android:insetBottom="10dp"
-            android:text="@+string/save"
+            android:text="save"
             android:visibility="visible"
             tools:visibility="visible" />
 
