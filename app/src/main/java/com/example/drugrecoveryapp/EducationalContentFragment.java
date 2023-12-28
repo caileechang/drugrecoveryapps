@@ -2,6 +2,7 @@ package com.example.drugrecoveryapp;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 
 import com.example.drugrecoveryapp.educationResources.Drug;
 import com.example.drugrecoveryapp.educationResources.DrugsAdapter;
+import com.example.drugrecoveryapp.educationResources.ReadMoreActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -127,7 +129,12 @@ public class EducationalContentFragment extends Fragment {
 
             }
         });
+
+
+
         return rootView;
     }
+
+
 
 }

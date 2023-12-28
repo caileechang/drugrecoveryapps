@@ -4,6 +4,12 @@ public class Drug {
     private String drugName;
     private String drugDescription;
     private boolean readMore;
+    private String drugLongDescription;
+    private String drugEffect;
+    private String drugImmediateEffect;
+    private String drugLongTermEffect;
+    private String drugPersonalStory;
+
     public Drug(String name, String drugDescription, boolean testing){
         drugName = name;
         this.drugDescription = drugDescription;
@@ -21,4 +27,43 @@ public class Drug {
         return readMore;
     }
 
+    public void setDrugLongDescription(String drugLongDescription) {
+        this.drugLongDescription = drugLongDescription;
+    }
+
+    public String getDrugLongDescription() {
+        return drugLongDescription;
+    }
+
+    public void setDrugEffect(String drugEffect) {
+        this.drugEffect = drugEffect;
+    }
+
+    public String getDrugEffect() {
+        return drugEffect;
+    }
+
+    public void setDrugLongTermEffect(String drugLongTermEffect) {
+        this.drugLongTermEffect = drugLongTermEffect;
+    }
+
+    public String getDrugLongTermEffect() {
+        return drugLongTermEffect;
+    }
+
+    public void setDrugImmediateEffect(String drugImmediateEffect) {
+        this.drugImmediateEffect = drugImmediateEffect;
+    }
+
+    public String getDrugImmediateEffect() {
+        return drugImmediateEffect;
+    }
+
+    public void setDrugPersonalStory(String drugPersonalStory) {
+        this.drugPersonalStory = drugPersonalStory;
+    }
+
+    public String getDrugPersonalStory() {
+        return drugPersonalStory;
+    }
 }
