@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import MediaStore.Images;
+import android.provider.MediaStore.Images;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -73,11 +73,11 @@ public class DrugsAdapter extends
         drugNameTV.setText(drug.getName());
         TextView drugDescriptionTV = holder.drugDescriptionTV;
         drugDescriptionTV.setText(drug.getDrugDescription());
+        ImageView imageView = holder.drugImage;
+        imageView.setImageResource(R.drawable.drug);
         Button button = holder.readMoreButton;
         button.setText("Read More");
         button.setEnabled(drug.isReadMore());
-        ImageView imageView = holder.drugImage;
-        imageView.setImageResource(R.drawable.drug);
 
 
     }
