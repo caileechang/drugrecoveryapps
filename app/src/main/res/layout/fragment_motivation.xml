@@ -30,7 +30,7 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="680dp"
+        android:layout_marginTop="670dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/teal_700"
         android:insetRight="10dp"
