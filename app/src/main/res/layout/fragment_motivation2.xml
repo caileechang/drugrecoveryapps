@@ -36,6 +36,9 @@
         android:id="@+id/imageView3"
         android:layout_width="430dp"
         android:layout_height="680dp"
+        android:layout_marginTop="-1dp"
+        android:layout_marginBottom="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/motivation2" />
