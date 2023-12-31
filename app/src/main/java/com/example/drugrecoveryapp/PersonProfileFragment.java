@@ -9,8 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +25,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.drugrecoveryapp.entity.Post;
+import com.example.drugrecoveryapp.entity.PostAdapter;
+import com.example.drugrecoveryapp.entity.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +36,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,8 +57,9 @@ public class PersonProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
 
     private View root;
-    private String mParam1;
-    private String mParam2;
+
+    private RecyclerView recyclerView;
+    private PostAdapter postAdapter;
 
     public PersonProfileFragment() {
 
@@ -66,8 +78,7 @@ public class PersonProfileFragment extends Fragment {
     public static PersonProfileFragment newInstance(String param1, String param2) {
         PersonProfileFragment fragment = new PersonProfileFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
 
@@ -76,10 +87,7 @@ public class PersonProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -93,6 +101,10 @@ public class PersonProfileFragment extends Fragment {
 //      TextView phoneNumber = root.findViewById(R.id.P_phDisplay);
         TextView country = root.findViewById(R.id.P_countryDisplay);
         TextView gender = root.findViewById(R.id.P_genderDisplay);
+        recyclerView = root.findViewById(R.id.P_posts_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        postAdapter = new PostAdapter(new ArrayList<>());
+        recyclerView.setAdapter(postAdapter);
 
 
         // Get Firebase instance and reference
@@ -131,8 +143,100 @@ public class PersonProfileFragment extends Fragment {
             }
         });
 
+        // Fetch and display post data
+        fetchPostData();
         return root;
     }
+
+    private void fetchPostData() {
+        DatabaseReference postsReference = FirebaseDatabase.getInstance().getReference("posts");
+
+        // Assuming you have the user's ID
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getUid();
+
+        postsReference.orderByChild("postBy").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Post> postList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Post post = postSnapshot.getValue(Post.class);
+                    if (post != null) {
+                        postList.add(post);
+                    }
+                }
+
+                // Sort the list based on postedAt (if not already sorted)
+                Collections.sort(postList, new Comparator<Post>() {
+                    @Override
+                    public int compare(Post post1, Post post2) {
+                        return Long.compare(post2.getPostedAt(), post1.getPostedAt());
+                    }
+                });
+
+                // Assuming you have a postAdapter field in your class
+                // and it's initialized properly
+                if (postAdapter != null) {
+                    postAdapter.setList(postList);
+                } else {
+                    // Initialize and set the adapter if not already done
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    postAdapter = new PostAdapter(postList);
+                    recyclerView.setAdapter(postAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Error fetching posts: " + error.getMessage());
+            }
+        });
+    }
+
+//    private void fetchPostData() {
+//        DatabaseReference postsReference = FirebaseDatabase.getInstance().getReference("posts");
+//
+//        // Assuming you have the user's ID
+//        postsReference.orderByChild("postUserId").equalTo(user.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                List<Post> postList = new ArrayList<>();
+//                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+//                    Post post = postSnapshot.getValue(Post.class);
+//                    if (post != null) {
+//                        postList.add(post);
+//                    }
+//                }
+//
+//                // Sort the list based on postedAt (if not already sorted)
+//                Collections.sort(postList, new Comparator<Post>() {
+//                    @Override
+//                    public int compare(Post post1, Post post2) {
+//                        return Long.compare(post2.getPostedAt(), post1.getPostedAt());
+//                    }
+//                });
+//
+//                // Assuming you have a postAdapter field in your class
+//                // and it's initialized properly
+//                if (postAdapter != null) {
+//                    postAdapter.setList(postList);
+//                } else {
+//                    // Initialize and set the adapter if not already done
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                    postAdapter = new PostAdapter(postList);
+//                    recyclerView.setAdapter(postAdapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.e("FirebaseError", "Error fetching posts: " + error.getMessage());
+//            }
+//        });
+//    }
+
+
+
 
     private Bitmap base64ToBitmap(String base64Image) {
         byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
@@ -188,60 +292,7 @@ public class PersonProfileFragment extends Fragment {
             }
         });
     }
-    //Creating ActionBar Menu
 
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        getMenuInflater().inflate(R.menu.menu_view_acc, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(@NotNull MenuItem item){
-//        int id=item.getItemId();
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-// refer this create actionBarMenu
-//@Override
-//public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//    inflater.inflate(R.menu.menu_view_acc, menu);
-//    super.onCreateOptionsMenu(menu, inflater);
-//}
-//
-//    // When any menu item is selected
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == R.id.reccoveryMenu) {
-//            Intent intent = new Intent(requireContext(), ReccoveryTrackFragment.class);
-//            startActivity(intent);
-//        } else if (id == R.id.educationalMenu) {
-//            Intent intent = new Intent(requireContext(), EducationalContentFragment.class);
-//            startActivity(intent);
-//        } else if (id == R.id.motivationMenu) {
-//            Intent intent = new Intent(requireContext(), MotivationFragment.class);
-//            startActivity(intent);
-//        } else if (id == R.id.forumMenu) {
-//            Intent intent = new Intent(requireContext(), ForumFragment.class);
-//            startActivity(intent);
-//        } else if (id == R.id.personProfileMenu) {
-//            // Do nothing or handle as needed
-//        } else if (id == R.id.changePassMenu) {
-//            // Handle change password menu item
-//        } else if (id == R.id.LogoutMenu) {
-//            Toast.makeText(requireContext(), "Logged Out", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(requireContext(), Login.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-//            requireActivity().finish();
-//        } else {
-//            Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }
 
 
