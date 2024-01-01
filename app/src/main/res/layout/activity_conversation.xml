@@ -10,11 +10,11 @@
         android:id="@+id/conversation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#31a466"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:gravity="center">
 
-        <!--        back-->
 
         <TextView
             android:id="@+id/name_chat"
@@ -59,6 +59,7 @@
 
         <ImageView
             android:id="@+id/sendBtn"
+            android:src="@drawable/baseline_send_24"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"

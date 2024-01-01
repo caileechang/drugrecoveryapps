@@ -1,42 +1,44 @@
 package com.example.drugrecoveryapp.entity;
 
-
 public class MessageModel {
-    private String msgId;
+    private String messageId;
     private String senderId;
     private String message;
+    private long timestamp; // New field for timestamp
 
-    public MessageModel(String msgId, String senderId, String message) {
-        this.msgId = msgId;
+    // Constructor without timestamp (for sending messages)
+    public MessageModel(String messageId, String senderId, String message) {
+        this.messageId = messageId;
         this.senderId = senderId;
         this.message = message;
+        this.timestamp = System.currentTimeMillis();
     }
 
     public MessageModel() {
-
     }
 
-    public String getMsgId() {
-        return msgId;
+    // Constructor with timestamp (for receiving messages)
+    public MessageModel(String messageId, String senderId, String message, long timestamp) {
+        this.messageId = messageId;
+        this.senderId = senderId;
+        this.message = message;
+        this.timestamp = timestamp;
     }
 
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
+    // Getter methods
+    public String getMessageId() {
+        return messageId;
     }
 
     public String getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public long getTimestamp() {
+        return timestamp;
     }
 }

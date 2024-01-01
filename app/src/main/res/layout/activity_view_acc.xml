@@ -180,6 +180,12 @@
                 android:layout_marginHorizontal="30dp"
                 android:textAlignment="textEnd" />
 
+            <Button
+                android:id="@+id/btnStartAChatButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start A Chat" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

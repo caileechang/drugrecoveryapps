@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -122,10 +123,12 @@ public class CreatePostsActivity extends AppCompatActivity {
                                 ,dataSnapshot.child("countryName").getValue().toString()
                                 ,dataSnapshot.child("gender").getValue().toString());
                         TVUserID.setText(user.getUsername());
+
                         Picasso.get()
                                 .load(user.getProfilePicture())
                                 .placeholder(R.drawable.placeholder)
                                 .into(IVUserProfilePicture);
+
                     }
                 }
             }

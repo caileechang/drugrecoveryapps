@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp.entity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -90,11 +92,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
+
                         Picasso.get()
                                 .load(user.getProfilePicture())
                                 .placeholder(R.drawable.placeholder)
                                 .into(holder.binding.profileImage);
+
+
                         holder.binding.name.setText(user.getUsername());
+
                     }
 
                     @Override

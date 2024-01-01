@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatRoomsActivity">
+    tools:context=".ChatRoomsActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/top"
@@ -34,4 +35,65 @@
 
 
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/myLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/find_friends_appbar_layout"
+        android:layout_marginTop="80dp">
+
+        <TextView
+            android:id="@+id/simpleTextID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="52dp"
+            android:paddingLeft="20dp"
+            android:text="Search For People and Friends"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/simpleTextID"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/search_box_input"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button"
+                android:backgroundTint="#048888"
+                android:ems="10"
+                android:hint="Search here...."
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/search_people_friends_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circlebutton"
+                android:src="@drawable/baseline_search_24" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

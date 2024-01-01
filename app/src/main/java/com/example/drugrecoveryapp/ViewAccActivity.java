@@ -1,5 +1,6 @@
 package com.example.drugrecoveryapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -40,7 +41,7 @@ public class ViewAccActivity extends AppCompatActivity {
     private DatabaseReference FriendRequestRef = FirebaseDatabase.getInstance().getReference().child("FriendRequests");
     private DatabaseReference FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");;
 
-
+private Button btnStartAChatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class ViewAccActivity extends AppCompatActivity {
 
         gender = findViewById(R.id.genderDisplay);
         country = findViewById(R.id.countryDisplay);
-
+        btnStartAChatButton=findViewById(R.id.btnStartAChatButton);
 
 
         SendFriendReqButton = findViewById(R.id.send_friend_request_btn);
@@ -240,6 +241,13 @@ public class ViewAccActivity extends AppCompatActivity {
             DeclineFriendReqButton.setVisibility(View.INVISIBLE);
             SendFriendReqButton.setVisibility(View.INVISIBLE);
         }
+        btnStartAChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewAccActivity.this, ConversationActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

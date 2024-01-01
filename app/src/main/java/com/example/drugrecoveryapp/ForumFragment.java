@@ -74,14 +74,13 @@ public class ForumFragment extends Fragment {
             Intent intent = new Intent(getContext(), CommunityForumActivity.class);
             startActivity(intent);
         });
-
-        discussion_groups_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), DiscussionGroupActiivty.class);
+        chat_room_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ChatRoomsActivity.class);
             startActivity(intent);
         });
 
-        chat_room_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), ChatRoomsActivity.class);
+        discussion_groups_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), DiscussionGroupActiivty.class);
             startActivity(intent);
         });
 
