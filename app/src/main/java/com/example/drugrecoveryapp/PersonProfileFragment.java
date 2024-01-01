@@ -98,7 +98,6 @@ public class PersonProfileFragment extends Fragment {
         // Get reference to UI elements
         TextView username = root.findViewById(R.id.P_UsernameDisplay);
         TextView email = root.findViewById(R.id.P_emailDisplay);
-//      TextView phoneNumber = root.findViewById(R.id.P_phDisplay);
         TextView country = root.findViewById(R.id.P_countryDisplay);
         TextView gender = root.findViewById(R.id.P_genderDisplay);
         recyclerView = root.findViewById(R.id.P_posts_recyclerview);
@@ -117,11 +116,9 @@ public class PersonProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-//                recreate();
                 // update UI with retrieved user data
                 username.setText(snapshot.child("username").getValue(String.class));
                 email.setText(snapshot.child("email").getValue(String.class));
-//                phoneNumber.setText(snapshot.child("phone_number").getValue(String.class));
                 country.setText(snapshot.child("countryName").getValue(String.class));
                 gender.setText(snapshot.child("gender").getValue(String.class));
 
@@ -192,51 +189,6 @@ public class PersonProfileFragment extends Fragment {
             }
         });
     }
-
-//    private void fetchPostData() {
-//        DatabaseReference postsReference = FirebaseDatabase.getInstance().getReference("posts");
-//
-//        // Assuming you have the user's ID
-//        postsReference.orderByChild("postUserId").equalTo(user.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                List<Post> postList = new ArrayList<>();
-//                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-//                    Post post = postSnapshot.getValue(Post.class);
-//                    if (post != null) {
-//                        postList.add(post);
-//                    }
-//                }
-//
-//                // Sort the list based on postedAt (if not already sorted)
-//                Collections.sort(postList, new Comparator<Post>() {
-//                    @Override
-//                    public int compare(Post post1, Post post2) {
-//                        return Long.compare(post2.getPostedAt(), post1.getPostedAt());
-//                    }
-//                });
-//
-//                // Assuming you have a postAdapter field in your class
-//                // and it's initialized properly
-//                if (postAdapter != null) {
-//                    postAdapter.setList(postList);
-//                } else {
-//                    // Initialize and set the adapter if not already done
-//                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//                    postAdapter = new PostAdapter(postList);
-//                    recyclerView.setAdapter(postAdapter);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.e("FirebaseError", "Error fetching posts: " + error.getMessage());
-//            }
-//        });
-//    }
-
-
-
 
     private Bitmap base64ToBitmap(String base64Image) {
         byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
