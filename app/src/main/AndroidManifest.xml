@@ -37,6 +37,15 @@
             android:name=".FriendListActivity"
             android:exported="false" />
         <activity
+            android:name=".CommunityForumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreatePostsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".FindFriendsActivity"
             android:exported="false" />
         <activity
