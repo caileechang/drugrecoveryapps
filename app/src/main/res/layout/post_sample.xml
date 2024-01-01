@@ -56,20 +56,19 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/postImage"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_width="363dp"
+        android:layout_height="135dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:padding="5dp"
         android:scaleType="centerCrop"
         android:src="@drawable/dog_background"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/tittle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImage"
+        app:layout_constraintTop_toBottomOf="@id/dateTime"
+        app:layout_constraintVertical_bias="0.465"
         app:riv_corner_radius="5dip"
         app:riv_mutate_background="true" />
 
@@ -77,63 +76,75 @@
         android:id="@+id/description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="2dp"
         android:padding="10dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/postImage"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/postImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tittle" />
 
     <TextView
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="16dp"
         android:drawableLeft="@drawable/comment"
         android:drawablePadding="8dp"
         android:paddingLeft="5dp"
         android:text="Comment"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="@+id/postImage"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.923" />
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.466" />
 
     <TextView
         android:id="@+id/like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="15dp"
         android:drawableLeft="@drawable/like"
         android:drawablePadding="8dp"
         android:paddingLeft="10dp"
         android:text="Like"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/postImage"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.533" />
 
     <TextView
         android:id="@+id/tittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="25dp"
         android:padding="10dp"
         android:text="TextView"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/postImage"
-        app:layout_constraintTop_toBottomOf="@+id/postImage" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postImage" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="357dp" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="391dp" />
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="50dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

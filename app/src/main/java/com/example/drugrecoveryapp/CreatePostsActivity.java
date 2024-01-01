@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.drugrecoveryapp.MainActivity;
 import com.example.drugrecoveryapp.entity.Post;
 import com.example.drugrecoveryapp.entity.User;
 import com.google.android.gms.tasks.OnFailureListener;

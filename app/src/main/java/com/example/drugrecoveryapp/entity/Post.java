@@ -12,7 +12,7 @@ public class Post {
     private String postId;
     private int postLike;
     private int commentCount;
-
+    private boolean hasImage;
 
     public Post(String postID, String postImage, String postCategory, String postBy, String postUserName, String postTitle, String postDescription, long postedAt) {
         this.postId = postID;
@@ -107,5 +107,11 @@ public class Post {
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
     }
+    public boolean hasImage() {
+        return hasImage;
+    }
 
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
+    }
 }

@@ -58,19 +58,28 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Post post = list.get(position);
-        Picasso.get()
-                .load(post.getPostImage())
-                .placeholder(R.drawable.placeholder)
-                .into(holder.binding.postImage);
-        holder.binding.like.setText(post.getPostLike() + "");
-        holder.binding.comment.setText(post.getCommentCount() + "");
+
+        if (post.getPostImage() == null) {
+            holder.binding.postImage.setVisibility(View.GONE);
+
+        } else {
+            holder.binding.postImage.setVisibility(View.VISIBLE);
+            Picasso.get()
+                    .load(post.getPostImage())
+                    .placeholder(R.drawable.placeholder)
+                    .into(holder.binding.postImage);
+        }
+
+        holder.binding.like.setText(String.valueOf(post.getPostLike()));
+        holder.binding.comment.setText(String.valueOf(post.getCommentCount()));
         holder.binding.tittle.setText(post.getPostTitle());
 
         String description = post.getPostDescription();
-        if (description.equals("")) {
+        if (description == null || description.equals("")) {
             holder.binding.description.setVisibility(View.GONE);
         } else {
-            holder.binding.description.setText(post.getPostDescription());
+            holder.binding.description.setVisibility(View.VISIBLE);
+            holder.binding.description.setText(description);
         }
         String time = TimeAgo.using(post.getPostedAt());
         holder.binding.dateTime.setText(time);
