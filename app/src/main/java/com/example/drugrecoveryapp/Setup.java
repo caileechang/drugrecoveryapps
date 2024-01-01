@@ -185,7 +185,7 @@ public class Setup extends AppCompatActivity {
 
     //after setting up the account, users will be sent to main activity
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(Setup.this, MainActivity.class);
+        Intent mainIntent = new Intent(Setup.this, Login.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();
