@@ -38,9 +38,7 @@ public class MotivationFragment extends Fragment {
     private Object MediaStore;
 
 
-    public MotivationFragment(int layoutId) {
-        this.currentPageLayoutId = R.id.motivationFragment;
-    }
+
     public MotivationFragment() {
         // Required empty public constructor
     }
@@ -86,59 +84,31 @@ public class MotivationFragment extends Fragment {
             page4 = view.findViewById(R.id.affirmation);
 
             // Initially, show the first page and hide the others
-            showPage(1);
+            showPage(currentPage);
 
-            // Find the button to switch between pages
             Button switchPageButton = view.findViewById(R.id.switchPageButton);
-            switchPageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Toggle between pages on button click
-                    currentPage = (currentPage % 4) + 1; // Cycle between 1 to 4
-                    showPage(currentPage);
-                }
+            switchPageButton.setOnClickListener(v -> {
+                currentPage = (currentPage % 4) + 1;
+                showPage(currentPage);
             });
 
-            // Find and set onClickListener for the saveButton
             Button saveButton = view.findViewById(R.id.saveButton);
-            saveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Convert the drawable resource to a Bitmap (change this according to your image source)
-                    BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation1);
-                    Bitmap imageBitmap = drawable.getBitmap();
-
-                    // Call saveImageToGallery with the obtained Bitmap
-                    saveImageToGallery(imageBitmap);
-                }
+            saveButton.setOnClickListener(v -> {
+                BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation1);
+                Bitmap imageBitmap = drawable.getBitmap();
+                saveImageToGallery(imageBitmap);
             });
 
             return view;
         }
 
-        private void showPage(int pageNumber) {
-            // Hide all pages
-            page1.setVisibility(View.GONE);
-            page2.setVisibility(View.GONE);
-            page3.setVisibility(View.GONE);
-            page4.setVisibility(View.GONE);
+    private void showPage(int pageNumber) {
+        page1.setVisibility(pageNumber == 1 ? View.VISIBLE : View.GONE);
+        page2.setVisibility(pageNumber == 2 ? View.VISIBLE : View.GONE);
+        page3.setVisibility(pageNumber == 3 ? View.VISIBLE : View.GONE);
+        page4.setVisibility(pageNumber == 4 ? View.VISIBLE : View.GONE);
+    }
 
-            // Show the desired page based on the page number
-            switch (pageNumber) {
-                case 1:
-                    page1.setVisibility(View.VISIBLE);
-                    break;
-                case 2:
-                    page2.setVisibility(View.VISIBLE);
-                    break;
-                case 3:
-                    page3.setVisibility(View.VISIBLE);
-                    break;
-                case 4:
-                    page4.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
 
     private void saveImageToGallery(Bitmap imageBitmap) {
         if (getContext() == null) {
