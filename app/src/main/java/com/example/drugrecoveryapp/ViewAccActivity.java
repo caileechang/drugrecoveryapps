@@ -245,6 +245,8 @@ private Button btnStartAChatButton;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ViewAccActivity.this, ConversationActivity.class);
+                intent.putExtra("id", selectedUserId);
+                intent.putExtra("name", username.getText().toString());
                 startActivity(intent);
             }
         });

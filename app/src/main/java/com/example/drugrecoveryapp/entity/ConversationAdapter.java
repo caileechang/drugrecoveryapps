@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,7 +63,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         fetchUsername(messageModel.getSenderId(), holder.senderUsername);
 
         holder.msg.setText(messageModel.getMessage());
-
+        loadProfilePicture(messageModel.getSenderId(), holder.userProfileImageView);
         // Display date and time
         Date date = new Date(messageModel.getTimestamp());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -76,6 +78,24 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             holder.main.setBackgroundColor(context.getResources().getColor(R.color.light_grey_1));
             holder.msg.setTextColor(context.getResources().getColor(R.color.black));
         }
+    }
+    // New method to load the user's profile picture using Picasso
+    private void loadProfilePicture(String userId, ImageView imageView) {
+        // Retrieve the user's profile picture URL from your database or storage
+        String profilePictureUrl = getProfilePictureUrl(userId);
+
+        // Use Picasso to load the image into the ImageView
+        Picasso.get().load(profilePictureUrl)
+                .placeholder(R.drawable.placeholder) // Placeholder image while loading
+                .into(imageView);
+    }
+
+    // Method to get the user's profile picture URL from your database or storage
+    private String getProfilePictureUrl(String userId) {
+        // Implement the logic to get the profile picture URL for the user with userId
+        // For example, retrieve it from Firebase database
+        // Return the URL string
+        return "https://example.com/profile_picture.jpg"; // Replace this with your actual logic
     }
 
     @Override
@@ -105,13 +125,15 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         private LinearLayout main;
         private TextView timestamp;
         private TextView senderUsername;
-
+private ImageView userProfileImageView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             msg = itemView.findViewById(R.id.message);
             main = itemView.findViewById(R.id.mainMessageLayout);
             timestamp = itemView.findViewById(R.id.timestamp);
             senderUsername = itemView.findViewById(R.id.senderUsername);
+            userProfileImageView = itemView.findViewById(R.id.IVUserProfilePicture);
+
         }
     }
 }
