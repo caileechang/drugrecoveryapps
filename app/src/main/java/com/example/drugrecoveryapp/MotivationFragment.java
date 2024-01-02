@@ -36,7 +36,7 @@ public class MotivationFragment extends Fragment {
     private Object MediaStore;
 
     public MotivationFragment(int layoutId) {
-        this.currentPageLayoutId = layoutId;
+        this.currentPageLayoutId = R.id.motivationFragment;
     }
     public MotivationFragment() {
         // Required empty public constructor
