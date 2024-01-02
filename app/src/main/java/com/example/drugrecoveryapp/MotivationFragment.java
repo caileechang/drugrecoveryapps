@@ -21,6 +21,7 @@ import android.provider.MediaStore.Images;
  * create an instance of this fragment.
  */
 public class MotivationFragment extends Fragment {
+    private int currentPageLayoutId;
     private View page1, page2, page3, page4; // Reference to different "pages"
     private int currentPage = 1; // Track the current page number
 
@@ -34,6 +35,9 @@ public class MotivationFragment extends Fragment {
     private String mParam2;
     private Object MediaStore;
 
+    public MotivationFragment(int layoutId) {
+        this.currentPageLayoutId = layoutId;
+    }
     public MotivationFragment() {
         // Required empty public constructor
     }
@@ -53,15 +57,17 @@ public class MotivationFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
 
-        @SuppressLint("MissingInflatedId")
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_motivation, container, false);
 
+
+        @Override
+
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(currentPageLayoutId, container, false);
             // Find the views representing different "pages"
             page1 = view.findViewById(R.id.motivationMenu);
             page2 = view.findViewById(R.id.motivation_2);
