@@ -64,10 +64,11 @@ public class MotivationFragment extends Fragment {
 
 
 
+        @SuppressLint("MissingInflatedId")
         @Override
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(currentPageLayoutId, container, false);
+            View view = inflater.inflate(R.layout.fragment_motivation, container, false);
             // Find the views representing different "pages"
             page1 = view.findViewById(R.id.motivationMenu);
             page2 = view.findViewById(R.id.motivation_2);
