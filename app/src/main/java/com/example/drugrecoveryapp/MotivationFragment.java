@@ -36,7 +36,7 @@ public class MotivationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Object MediaStore;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     public MotivationFragment(int layoutId) {
         this.currentPageLayoutId = R.id.motivationFragment;
