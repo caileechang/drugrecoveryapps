@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import android.provider.MediaStore.Images;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MotivationFragment#newInstance} factory method to
@@ -34,6 +36,7 @@ public class MotivationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Object MediaStore;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public MotivationFragment(int layoutId) {
         this.currentPageLayoutId = R.id.motivationFragment;
@@ -62,6 +65,13 @@ public class MotivationFragment extends Fragment {
         return fragment;
     }
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
 
         @SuppressLint("MissingInflatedId")
