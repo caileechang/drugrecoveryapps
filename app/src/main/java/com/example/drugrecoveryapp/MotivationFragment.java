@@ -1,5 +1,6 @@
 package com.example.drugrecoveryapp;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import android.provider.MediaStore.Images;
  * create an instance of this fragment.
  */
 public class MotivationFragment extends Fragment {
+    private View page1, page2, page3, page4; // Reference to different "pages"
+    private int currentPage = 1; // Track the current page number
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,6 +47,7 @@ public class MotivationFragment extends Fragment {
      * @return A new instance of fragment MotivationFragment.
      */
     // TODO: Rename and change types and number of parameters
+    // newInstance method if needed
     public static MotivationFragment newInstance(String param1, String param2) {
         MotivationFragment fragment = new MotivationFragment();
         Bundle args = new Bundle();
@@ -53,27 +57,71 @@ public class MotivationFragment extends Fragment {
         return fragment;
     }
 
+        @SuppressLint("MissingInflatedId")
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_motivation, container, false);
 
+            // Find the views representing different "pages"
+            page1 = view.findViewById(R.id.motivationMenu);
+            page2 = view.findViewById(R.id.motivation_2);
+            page3 = view.findViewById(R.id.motivation_3);
+            page4 = view.findViewById(R.id.affirmation);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_motivation_3, container, false);
+            // Initially, show the first page and hide the others
+            showPage(1);
 
-        Button saveButton = view.findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Convert the drawable resource to a Bitmap
-                BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation1);
-                Bitmap imageBitmap = drawable.getBitmap();
+            // Find the button to switch between pages
+            Button switchPageButton = view.findViewById(R.id.switchPageButton);
+            switchPageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Toggle between pages on button click
+                    currentPage = (currentPage % 4) + 1; // Cycle between 1 to 4
+                    showPage(currentPage);
+                }
+            });
 
-                // Call saveImageToGallery with the obtained Bitmap
-                saveImageToGallery(imageBitmap);
+            // Find and set onClickListener for the saveButton
+            Button saveButton = view.findViewById(R.id.saveButton);
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Convert the drawable resource to a Bitmap (change this according to your image source)
+                    BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation1);
+                    Bitmap imageBitmap = drawable.getBitmap();
+
+                    // Call saveImageToGallery with the obtained Bitmap
+                    saveImageToGallery(imageBitmap);
+                }
+            });
+
+            return view;
+        }
+
+        private void showPage(int pageNumber) {
+            // Hide all pages
+            page1.setVisibility(View.GONE);
+            page2.setVisibility(View.GONE);
+            page3.setVisibility(View.GONE);
+            page4.setVisibility(View.GONE);
+
+            // Show the desired page based on the page number
+            switch (pageNumber) {
+                case 1:
+                    page1.setVisibility(View.VISIBLE);
+                    break;
+                case 2:
+                    page2.setVisibility(View.VISIBLE);
+                    break;
+                case 3:
+                    page3.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                    page4.setVisibility(View.VISIBLE);
+                    break;
             }
-        });
-
-        return view;
-    }
+        }
 
     private void saveImageToGallery(Bitmap imageBitmap) {
         if (getContext() == null) {

@@ -26,12 +26,22 @@
 
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="428dp"
+        android:layout_height="662dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-12dp"
+        android:src="@drawable/image__7_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/saveButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="680dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="592dp"
+        android:layout_marginEnd="-10dp"
         android:backgroundTint="@color/teal_700"
         android:insetRight="10dp"
         android:insetBottom="10dp"
@@ -41,12 +51,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="428dp"
-        android:layout_height="662dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/image__7_"
+    <Button
+        android:id="@+id/switchPageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:text="Switch Page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
