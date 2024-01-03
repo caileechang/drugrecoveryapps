@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -59,6 +61,8 @@ public class ReccoveryTrackFragment extends Fragment {
         currentUserId = mAuth.getCurrentUser().getUid();
         currentUserRef = userRef.child(currentUserId);
         CURRENT_STATE = "not_started";
+
+        buttonMaintenance();
         startButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -67,6 +71,7 @@ public class ReccoveryTrackFragment extends Fragment {
                     StartRecovery();
                 }
                 if(CURRENT_STATE.equals("started")){
+                    startButton.setText("Restart");
                     RestartRecovery();
                 }
             }
@@ -92,8 +97,78 @@ public class ReccoveryTrackFragment extends Fragment {
 
 
 
+
+
         return view;
     }
+
+//    private void buttonMaintenance() {
+//        userRef.child(currentUserId)
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if (snapshot.hasChild(currentUserId)) {
+//                            DataSnapshot userSnapshot = snapshot.child(currentUserId);
+//
+//                            if (userSnapshot.hasChild("recovery_status")) {
+//                                String status_type = userSnapshot.child("recovery_status").getValue(String.class);
+//
+//                                if ("started".equals(status_type)) {
+//                                    CURRENT_STATE = "started";
+//                                    startButton.setText("Restart");
+//                                } else if ("not_started".equals(status_type)) {
+//                                    CURRENT_STATE = "not_started";
+//                                    startButton.setText("Start");
+//                                } else {
+//                                    // Handle unexpected status types
+//                                }
+//                            } else {
+//                                CURRENT_STATE = "not_started";
+//                                startButton.setText("Start");
+//                            }
+//                        } else {
+//                            CURRENT_STATE = "not_started";
+//                            startButton.setText("Start");
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//                        // Handle error
+//                    }
+//                });
+//    }
+
+    private void buttonMaintenance() {
+        userRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("recovery_status")) {
+                    String status_type = snapshot.child("recovery_status").getValue(String.class);
+
+                    if ("started".equals(status_type)) {
+                        CURRENT_STATE = "started";
+                        startButton.setText("Restart");
+                    } else if ("not_started".equals(status_type)) {
+                        CURRENT_STATE = "not_started";
+                        startButton.setText("Start");
+                    } else {
+                        // Handle unexpected status types
+                    }
+                } else {
+                    CURRENT_STATE = "not_started";
+                    startButton.setText("Start");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
+
+
 
     private void calculateTotalTime() {
         Calendar calForDate = Calendar.getInstance();
@@ -147,28 +222,41 @@ public class ReccoveryTrackFragment extends Fragment {
     private void RestartRecovery() {
 
         showStartOverConfirmationDialog();
+        buttonMaintenance();
 
 
     }
 
     private void showStartOverConfirmationDialog() {
+        WeakReference<FragmentActivity> activityRef = new WeakReference<>(getActivity());
+
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Start Over Confirmation");
         builder.setMessage("Are you sure you want to start over?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // User clicked Yes, stop the old timer and start over
-                userRef.child(currentUserId).child("date")
-                        .removeValue()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                CURRENT_STATE = "not_started";
-                                startButton.setText("Start");
-                            }
-            });
-        }
+                FragmentActivity activity = activityRef.get();
+                if (activity != null && !activity.isFinishing()) {
+                    // User clicked Yes, stop the old timer and start over
+                    userRef.child(currentUserId).child("date")
+                            .removeValue()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    userRef.child(currentUserId).child("recovery_status").setValue("not_started").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            CURRENT_STATE = "not_started";
+                                            startButton.setText("Start");
+                                            buttonMaintenance();
+                                        }
+                                    });
+
+                                }
+                            });
+                }
+            }
                 });
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -192,9 +280,16 @@ public class ReccoveryTrackFragment extends Fragment {
 
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                startButton.setEnabled(true);
-                CURRENT_STATE = "started";
-                startButton.setText("Restart");
+                userRef.child(currentUserId)
+                        .child("recovery_status").setValue("started")
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                startButton.setEnabled(true);
+                                CURRENT_STATE = "started";
+                                startButton.setText("Restart");
+                            }
+                        });
             }
         });
 
