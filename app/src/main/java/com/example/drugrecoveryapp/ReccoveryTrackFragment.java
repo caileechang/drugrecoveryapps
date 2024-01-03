@@ -1,48 +1,43 @@
 package com.example.drugrecoveryapp;
 
 import android.app.AlertDialog;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ReccoveryTrackFragment extends Fragment {
 
-    private TextView timerTextView;
-    private ProgressBar progressBar;
     private Button startButton;
-    private Button startOverButton;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+    private DatabaseReference currentUserRef;
+    private String currentUserId, saveCurrentDateTime, CURRENT_STATE;
 
-    // used for service connection and binding
-    // timerService is an instance of the backgroundTimerService that will be used to interact with the service
-    private BackgroundTimerService timerService;
+    private Button rewardButton;
 
-    // a flag to track whether the fragment is currently bound to the service
-    private boolean isServiceBound = false;
-
-    private CountDownTimer countDownTimer;
-    private boolean isTimerRunning = false;
-    private long totalTimeInMillis; // Total time in milliseconds
-    private long elapsedTimeInMillis; // Elapsed time since starting the recovery journey
-    private long totalRecoveryTime; // Total recovery time stored for the user
 
     private static final long MILESTONE_ONE_DAY = 24 * 60 * 60 * 1000; // One day milestone
     private static final long MILESTONE_TWO_DAYS = 2 * MILESTONE_ONE_DAY; // Two days milestone
@@ -55,116 +50,97 @@ public class ReccoveryTrackFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reccovery_track, container, false);
 
-        timerTextView = view.findViewById(R.id.timerTextView);
-        progressBar = view.findViewById(R.id.progressBar);
         startButton = view.findViewById(R.id.startButton);
-        startOverButton = view.findViewById(R.id.startOverButton);
+        rewardButton = view.findViewById(R.id.rewardButton);
 
-        startButton.setOnClickListener(new View.OnClickListener() {
+        // Retrieve current user's ID using method in Firebase library
+        currentUserId = mAuth.getCurrentUser().getUid();
+        currentUserRef = userRef.child(currentUserId);
+        CURRENT_STATE = "not_started";
+        startButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                startRecovery();
+            public void onClick(View view) {
+                startButton.setEnabled(false);
+                if(CURRENT_STATE.equals("not_started")){
+                    StartRecovery();
+                }
+                if(CURRENT_STATE.equals("started")){
+                    RestartRecovery();
+                }
             }
         });
 
-        startOverButton.setOnClickListener(new View.OnClickListener() {
+        rewardButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startOver();
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Reward.class);
+                startActivity(intent);
             }
         });
 
-        // Retrieve total recovery time for the user
-        totalRecoveryTime = loadTotalRecoveryTime();
+        calculateTotalTime();
 
-        // Update UI with the stored total recovery time
-        updateProgressBars();
+
 
         return view;
     }
 
-    // initiates the process of binding to the background service
-    private void bindTimerService() {
-        Intent intent = new Intent(requireContext(), BackgroundTimerService.class);
-        // initiate the binding process and automatically creates the service as part of the binding
-        requireContext().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    private void calculateTotalTime() {
+        Calendar calForDate = Calendar.getInstance();
+        SimpleDateFormat currentDateTime = new SimpleDateFormat("dd-MMMM-yyyy HH:mm:ss");
+        saveCurrentDateTime = currentDateTime.format(calForDate.getTime());
 
-        isServiceBound = true;
-    }
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long hoursDifference;
+                if (snapshot.child(currentUserId).hasChild("date")) {
+                    String recoveryDateString = snapshot.child(currentUserId).child("date").getValue().toString();
+                    Date currentDateObject = null;
+                    try {
+                        currentDateObject = currentDateTime.parse(saveCurrentDateTime);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Date recoveryDateObject = null;
+                    try {
+                        recoveryDateObject = currentDateTime.parse(recoveryDateString);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
 
-    private void unbindTimerService() {
-        if (isServiceBound) {
-            requireContext().unbindService(serviceConnection);
-            isServiceBound = false;
+                    long timeDifference = currentDateObject.getTime() - recoveryDateObject.getTime();
+
+                    long secondsDifference = timeDifference / 1000;
+                    long minutesDifference = secondsDifference / 60;
+                    hoursDifference = minutesDifference / 60;
+                } else {
+                    hoursDifference = 0;
+                }
+
+                userRef.child(currentUserId).child("totalTime").setValue(hoursDifference).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getContext(), "Your total time is updated", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+                @Override
+                public void onCancelled (@NonNull DatabaseError error){
+
+                }
+            });
         }
-    }
 
-    private void startRecovery() {
-        stopRecoveryTimer();
-        // Calculate total time (you may customize this logic based on your requirements)
-        totalTimeInMillis = calculateTotalTime();
+    private void RestartRecovery() {
 
-        // Initialize CountDownTimer
-        countDownTimer = new CountDownTimer(totalTimeInMillis - totalRecoveryTime, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                elapsedTimeInMillis = totalTimeInMillis - millisUntilFinished;
-                updateTimerUI();
-                updateProgressBars();
-                checkMilestones();
-            }
-
-            @Override
-            public void onFinish() {
-                // Handle timer finish (optional)
-            }
-        };
-
-        // Start the timer
-        countDownTimer.start();
-
-        // Update UI as needed (e.g., hide start button)
-        startButton.setVisibility(View.GONE);
-    }
-
-    private void startOver() {
-        // Reset total recovery time and restart the timer
-        totalRecoveryTime = 0;
-        saveTotalRecoveryTime(totalRecoveryTime);
-        startRecovery();
         showStartOverConfirmationDialog();
+
+
     }
 
-    private void updateTimerUI() {
-        // Update timer TextView with the formatted time
-        String formattedTime = formatTime(elapsedTimeInMillis);
-        timerTextView.setText(formattedTime);
-    }
-
-    private void updateProgressBars() {
-        // Update progress bars based on elapsed time
-        int progress = (int) ((float) (elapsedTimeInMillis + totalRecoveryTime) / totalTimeInMillis * 100);
-        progressBar.setProgress(progress);
-    }
-
-    private void startNewRecovery() {
-        // Stop the existing timer if running
-        stopRecoveryTimer();
-
-        // Reset timer values
-        // You might need to reset other variables related to your timer, such as progress bar, etc.
-        // ...
-
-        // Start a new recovery timer
-        startRecovery();
-    }
-
-    private void stopRecoveryTimer() {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-            isTimerRunning = false;
-        }
-    }
     private void showStartOverConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Start Over Confirmation");
@@ -173,12 +149,18 @@ public class ReccoveryTrackFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // User clicked Yes, stop the old timer and start over
-                stopRecoveryTimer();
-                totalRecoveryTime = 0;
-                saveTotalRecoveryTime(totalRecoveryTime);
-                startRecovery();
-            }
-        });
+                userRef.child(currentUserId).child("date")
+                        .removeValue()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                CURRENT_STATE = "not_started";
+                                startButton.setText("Start");
+                            }
+            });
+        }
+                });
+
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -189,82 +171,23 @@ public class ReccoveryTrackFragment extends Fragment {
         builder.create().show();
     }
 
-    //a connection that handles the binding and unbinding of the service
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            // localBinder is the inner class within backgroundTimerService that provides the service instance
-            BackgroundTimerService.LocalBinder binder = (BackgroundTimerService.LocalBinder) service;
-            //retrieve the service instance
-            timerService = binder.getService();
-            // Perform operations related to the service, if needed
-        }
 
-        // called if the connection to the service is unexpectedly disconnected
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            timerService = null;
-        }
-    };
+    private void StartRecovery() {
+        Calendar calForDate = Calendar.getInstance();
+        SimpleDateFormat currentDateTime = new SimpleDateFormat("dd-MMMM-yyyy HH:mm:ss");
+        saveCurrentDateTime = currentDateTime.format(calForDate.getTime());
 
-    // called when the fragment becomes visible
-    @Override
-    public void onStart() {
-        super.onStart();
-        bindTimerService();
-    }
-
-    // Called when the fragment is no longer visible
-    @Override
-    public void onStop() {
-        super.onStop();
-//        unbindTimerService();
-    }
+        userRef.child(currentUserId).child("date").setValue(saveCurrentDateTime).addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                startButton.setEnabled(true);
+                CURRENT_STATE = "started";
+                startButton.setText("Restart");
+            }
+        });
 
-    private void checkMilestones() {
-        // Check if milestones are reached and unlock awards
-        if ((elapsedTimeInMillis + totalRecoveryTime) >= MILESTONE_ONE_DAY) {
-            unlockAward("One Day Sober");
-        }
-        if ((elapsedTimeInMillis + totalRecoveryTime) >= MILESTONE_TWO_DAYS) {
-            unlockAward("Two Days Sober");
-        }
-        // Add more milestones and awards as needed
-    }
 
-    private void unlockAward(String award) {
-        // Implement logic to unlock the award (e.g., show a message, update UI)
-    }
-
-    // Add other utility methods as needed
-
-    private String formatTime(long millis) {
-        // Format time in hours, minutes, seconds (you can customize this)
-        long seconds = millis / 1000;
-        long minutes = seconds / 60;
-        long hours = minutes / 60;
-        return String.format("%02d:%02d:%02d", hours % 24, minutes % 60, seconds % 60);
-    }
-
-    private long calculateTotalTime() {
-        // Implement logic to calculate the total time based on user preferences
-        // For example, you might want to load the total time from SharedPreferences
-        return 7 * 24 * 60 * 60 * 1000; // 7 days as an example
-    }
-
-    private void saveTotalRecoveryTime(long time) {
-        // Save the total recovery time for the user
-        SharedPreferences preferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putLong(KEY_TOTAL_RECOVERY_TIME, time);
-        editor.apply();
-    }
-
-    private long loadTotalRecoveryTime() {
-        // Load the total recovery time for the user
-        SharedPreferences preferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getLong(KEY_TOTAL_RECOVERY_TIME, 0);
-    }
+}
 }

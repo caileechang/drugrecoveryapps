@@ -53,6 +53,7 @@ private Button btnStartAChatButton;
         currentUserId = mAuth.getCurrentUser().getUid();
 
         // Retrieve selected user's ID passed from the previous activity
+        // used to retrieve a string extra from the intent that started the ViewAccActivity
         selectedUserId = getIntent().getStringExtra("uid");
 
 
@@ -106,6 +107,8 @@ private Button btnStartAChatButton;
 
                 // retrieve the selected user's profile data from database
                 selectedUserRef.addValueEventListener(new ValueEventListener() {
+                    // addValueEventListener: This listener is triggered whenever the data at that location changes. It provides real-time updates,
+                    // making it suitable for scenarios where you want to keep your app synchronized with the changes in the database
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
@@ -179,6 +182,7 @@ private Button btnStartAChatButton;
 
         if(!currentUserId.equals(selectedUserId)){
             FriendRequestRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+                // addListenerForSingleValueEvent: allows you to read data from a Firebase Database location only once
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -260,6 +264,8 @@ private Button btnStartAChatButton;
         FriendsRef.child(currentUserId).child(selectedUserId)
                 .removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    //attach a listener to a Task, allowing you to perform actions once the task is complete,
+                    //regardless of whether it was successful or not.
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
