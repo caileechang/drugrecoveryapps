@@ -1,10 +1,13 @@
 package com.example.drugrecoveryapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,12 +17,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.drugrecoveryapp.educationResources.BookmarkActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     // private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
     //private Toolbar mToolbar;
     //ActivityMainBinding binding;
+    private boolean showBookmarkCollectionMenuItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
                 ActionBar actionBar = getSupportActionBar();
                 if (actionBar != null) {
                     actionBar.setTitle(destination.getLabel());
+                    if (destination.getId() == R.id.educationalContentFragment) {
+                        showBookmarkCollectionMenuItem = true;
+                    } else {
+                        showBookmarkCollectionMenuItem = false;
+                    }
+                    // Trigger a call to onCreateOptionsMenu
+                    invalidateOptionsMenu();
                 }
             }
         });
@@ -52,6 +64,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_view_acc, menu);
+
+        // Show/hide the Bookmark Collection menu item based on the flag
+        if(showBookmarkCollectionMenuItem) {
+            getMenuInflater().inflate(R.menu.menu_bookmark, menu);
+            MenuItem bookmarkCollection = menu.findItem(R.id.menu_item_bookmark_collection);
+            bookmarkCollection.setVisible(true);
+            bookmarkCollection.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                    startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
+                    return false;
+                }
+            });
+
+        }
+
         return true;
     }
 

@@ -38,9 +38,9 @@
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDrug"
-        android:layout_width="357dp"
-        android:layout_height="610dp"
+        android:id="@+id/rvCollection"
+        android:layout_width="363dp"
+        android:layout_height="499dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp" />
 

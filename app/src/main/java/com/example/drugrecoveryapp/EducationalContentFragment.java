@@ -2,8 +2,9 @@ package com.example.drugrecoveryapp;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +18,13 @@ import android.widget.EditText;
 
 import com.example.drugrecoveryapp.educationResources.Drug;
 import com.example.drugrecoveryapp.educationResources.DrugsAdapter;
-import com.example.drugrecoveryapp.educationResources.ReadMoreActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -38,8 +45,11 @@ public class EducationalContentFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<Drug> drugArrayList = new ArrayList<Drug>();
+    private RecyclerView rvDrug;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public EducationalContentFragment() {
         // Required empty public constructor
     }
@@ -70,31 +80,52 @@ public class EducationalContentFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_educational_content, container, false);
-        RecyclerView rvDrug = rootView.findViewById(R.id.rvDrug);
-        ArrayList<Drug> drugArrayList = new ArrayList<Drug>();
-        db.collection("Resources").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Log.d(TAG, document.getId() + "=>" + document.getData());
-                    Drug drug = new Drug(document.getId().toString(), document.getString("Short Description"), true);
-                    drugArrayList.add(drug);
+        rvDrug = rootView.findViewById(R.id.rvCollection);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://recoveryhope-default-rtdb.firebaseio.com/");
+
+        if (currentUser != null) {
+            DatabaseReference userIdRef = databaseReference.child("Users").child(currentUser.getUid()).child("collection");
+
+            db.collection("Resources").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String documentID = document.getId();
+
+                        userIdRef.child(documentID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Log.d(TAG, documentID + " => " + document.getData());
+                                Drug drug = new Drug(documentID, document.getString("Short Description"), true);
+                                drug.setDocumentID(document.getId());
+                                if (dataSnapshot.exists()) {
+                                    drug.setBookmark(true);
+                                }
+
+                                drugArrayList.add(drug);
+
+                                DrugsAdapter adapter = new DrugsAdapter(drugArrayList);
+                                rvDrug.setAdapter(adapter);
+                                rvDrug.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.e(TAG, "Error reading data from Firebase: " + databaseError.getMessage());
+                            }
+                        });
+                    }
+                } else {
+                    Log.e(TAG, "Error getting documents from Firestore: " + task.getException());
                 }
-
-                // Create the adapter and set it to the recyclerview
-                DrugsAdapter adapter = new DrugsAdapter(drugArrayList);
-                rvDrug.setAdapter(adapter);
-
-                // Set layout manager to position the items
-                rvDrug.setLayoutManager(new LinearLayoutManager(getActivity()));
-            } else {
-                Log.d(TAG, "Error getting documents:", task.getException());
-            }
-        });
+            });
+        }
 
         //Search Engine Feature
         EditText searchKeyword = rootView.findViewById(R.id.search_keyword);
@@ -130,11 +161,7 @@ public class EducationalContentFragment extends Fragment {
             }
         });
 
-
-
         return rootView;
     }
-
-
 
 }
