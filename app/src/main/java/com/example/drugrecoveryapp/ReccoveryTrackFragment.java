@@ -37,6 +37,7 @@ public class ReccoveryTrackFragment extends Fragment {
     private String currentUserId, saveCurrentDateTime, CURRENT_STATE;
 
     private Button rewardButton;
+    private Button reportButton;
 
 
     private static final long MILESTONE_ONE_DAY = 24 * 60 * 60 * 1000; // One day milestone
@@ -52,6 +53,7 @@ public class ReccoveryTrackFragment extends Fragment {
 
         startButton = view.findViewById(R.id.startButton);
         rewardButton = view.findViewById(R.id.rewardButton);
+        reportButton = view.findViewById(R.id.ReportButton);
 
         // Retrieve current user's ID using method in Firebase library
         currentUserId = mAuth.getCurrentUser().getUid();
@@ -74,6 +76,14 @@ public class ReccoveryTrackFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Reward.class);
+                startActivity(intent);
+            }
+        });
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Report.class);
                 startActivity(intent);
             }
         });

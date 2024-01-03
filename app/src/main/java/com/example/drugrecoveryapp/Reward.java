@@ -1,9 +1,13 @@
 package com.example.drugrecoveryapp;
 
+import static java.security.AccessController.getContext;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,11 +47,11 @@ public class Reward extends AppCompatActivity {
                     String totalRecoveryTime = snapshot.child(currentUserId).child("totalTime").getValue().toString();
                     Long totalTime = Long.parseLong(totalRecoveryTime);
 
-                    if(totalTime > 4){
+                    if(totalTime > 2){
                         btn1.setText("Tap to view");
                         btn1.setEnabled(true);
                     }
-                    if(totalTime > 48){
+                    if(totalTime > 4){
                         btn2.setText("Tap to view");
                         btn2.setEnabled(true);
                     }
@@ -64,6 +68,24 @@ public class Reward extends AppCompatActivity {
 
             }
         });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Reward.this, RewardDetails.class);
+                startActivity(intent);
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Reward.this, RewardDetails.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 

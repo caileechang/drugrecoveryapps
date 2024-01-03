@@ -15,6 +15,9 @@
         android:theme="@style/Theme.DrugRecoveryApp"
         tools:targetApi="31">
         <activity
+            android:name=".Report"
+            android:exported="false" />
+        <activity
             android:name=".RewardDetails"
             android:exported="false" />
         <activity
