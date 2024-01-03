@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,23 +66,25 @@ public class MotivationFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
         }
     }
 
-
-        @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId")
         @Override
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_motivation, container, false);
             // Find the views representing different "pages"
-            page1 = view.findViewById(R.id.motivationMenu);
-            page2 = view.findViewById(R.id.motivation_2);
-            page3 = view.findViewById(R.id.motivation_3);
-            page4 = view.findViewById(R.id.affirmation);
+            page1 = view.findViewById(R.id.motivation_layout1);
+            page2 = view.findViewById(R.id.motivation_layout2);
+            page3 = view.findViewById(R.id.motivation_layout3);
+            page4 = view.findViewById(R.id.affirmation_layout);
 
             // Initially, show the first page and hide the others
             showPage(currentPage);
@@ -101,6 +104,7 @@ public class MotivationFragment extends Fragment {
 
             return view;
         }
+
 
     private void showPage(int pageNumber) {
         page1.setVisibility(pageNumber == 1 ? View.VISIBLE : View.GONE);

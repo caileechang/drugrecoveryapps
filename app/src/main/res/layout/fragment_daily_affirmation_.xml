@@ -10,7 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <FrameLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/affirmation_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
