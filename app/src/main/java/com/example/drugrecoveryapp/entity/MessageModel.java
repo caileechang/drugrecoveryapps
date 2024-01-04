@@ -5,7 +5,7 @@ public class MessageModel {
     private String senderId;
     private String message;
     private long timestamp; // New field for timestamp
-
+    private String sender;
     // Constructor without timestamp (for sending messages)
     public MessageModel(String messageId, String senderId, String message) {
         this.messageId = messageId;
@@ -15,6 +15,11 @@ public class MessageModel {
     }
 
     public MessageModel() {
+    }
+
+    public MessageModel(String messageId, String senderId) {
+        this.messageId = messageId;
+        this.senderId = senderId;
     }
 
     // Constructor with timestamp (for receiving messages)
@@ -40,5 +45,9 @@ public class MessageModel {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public String getSender() {
+        return sender;
     }
 }

@@ -48,7 +48,8 @@ private Button btnStartAChatButton;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_acc);
 
-
+        Button btnBackChatRoom = findViewById(R.id.btnBackChatRoom);
+        btnBackChatRoom.setOnClickListener(v -> finish());
         // Retrieve current user's ID using method in Firebase library
         currentUserId = mAuth.getCurrentUser().getUid();
 

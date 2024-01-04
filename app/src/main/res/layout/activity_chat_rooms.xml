@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/find_friends_appbar_layout"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/simpleTextID"
@@ -91,6 +91,10 @@
 
 
     </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchFriendRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecycleView"

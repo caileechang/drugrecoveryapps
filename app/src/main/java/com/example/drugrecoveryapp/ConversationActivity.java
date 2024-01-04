@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +38,8 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityConversationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Button btnBackChatRoom = findViewById(R.id.btnBackChatRoom);
+        btnBackChatRoom.setOnClickListener(v -> finish());
         receiverId = getIntent().getStringExtra("id");
         receiverName = getIntent().getStringExtra("name");
         senderRoom = FirebaseAuth.getInstance().getUid() + receiverId;

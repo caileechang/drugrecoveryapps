@@ -1,7 +1,10 @@
 package com.example.drugrecoveryapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,13 +42,15 @@ public class ChatRoomsActivity extends AppCompatActivity {
 
     private DatabaseReference usersRef;
     String currentUserUid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_rooms);
         Button btnBackChatRoom = findViewById(R.id.btnBackChatRoom);
         chatRoomsRecyclerView = findViewById(R.id.messageRecycleView);
-        chatRoomsAdapter = new ChatRoomsAdapter(this); // Create your adapter
+        RecyclerView searchFriendRecycleView = findViewById(R.id.searchFriendRecycleView);
+        chatRoomsAdapter = new ChatRoomsAdapter(this);
         btnBackChatRoom.setOnClickListener(v -> finish());
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
         currentUserUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
@@ -53,64 +58,106 @@ public class ChatRoomsActivity extends AppCompatActivity {
         userList = new ArrayList<>();
         searchFriendAdapter = new SearchFriendAdapter(userList);
 
-        ImageButton searchButton = (ImageButton) findViewById(R.id.search_people_friends_button);
-        SearchInputText = (EditText) findViewById(R.id.search_box_input);
+        ImageButton searchButton = findViewById(R.id.search_people_friends_button);
+        SearchInputText = findViewById(R.id.search_box_input);
 
         searchButton.setOnClickListener(v -> {
             String searchInputText = SearchInputText.getText().toString();
             SearchPeopleAndFriends(searchInputText);
         });
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         chatRoomsRecyclerView.setHasFixedSize(true);
-
         chatRoomsRecyclerView.setLayoutManager(layoutManager);
-        chatRoomsRecyclerView.setAdapter(searchFriendAdapter);
+        chatRoomsRecyclerView.setAdapter(chatRoomsAdapter);
 
+
+        LinearLayoutManager searchLayoutManager = new LinearLayoutManager(this);
+        searchFriendRecycleView.setHasFixedSize(true);
+        searchFriendRecycleView.setLayoutManager(searchLayoutManager);
+        searchFriendRecycleView.setAdapter(searchFriendAdapter);
 
         loadChatMessages();
     }
+
     private void SearchPeopleAndFriends(String searchInputText) {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //Retrieves data from the snapshot and creates a User object by converting the retrieved data into an instance of the User class.
                     User user = snapshot.getValue(User.class);
 
-                    //Exclude current user in the search result
                     if (!currentUserUid.equals(user.getUid())) {
-
-                        //Search using username,email,id,full name or phone number (not case-sensitive)
-                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase())||user.getUid().toLowerCase().contains(searchInputText.toLowerCase())) {
+                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase()) || user.getUid().toLowerCase().contains(searchInputText.toLowerCase())) {
                             userList.add(user);
                         }
                     }
                 }
-                // Sort userList based on username
-                Collections.sort(userList, new Comparator<User>() {
-                    @Override
-                    public int compare(User user1, User user2) {
-                        return user1.getUsername().compareToIgnoreCase(user2.getUsername());
-                    }
-                });
+                Collections.sort(userList, (user1, user2) -> user1.getUsername().compareToIgnoreCase(user2.getUsername()));
                 searchFriendAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                // Handle onCancelled
+            }
+        });
+    }
 
+    private void loadChatMessages() {
+        DatabaseReference messagesRef = FirebaseDatabase.getInstance().getReference("Messages").child(currentUserUid);
+
+        messagesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<User> chatUsers = new ArrayList<>();
+
+                for (DataSnapshot chatSnapshot : dataSnapshot.getChildren()) {
+                    // Adjust the path based on your actual structure
+                    String chatUserId = chatSnapshot.getKey();
+                    String lastMessage = "";
+                    long lastMessageTimestamp = 0;
+
+                    for (DataSnapshot messageSnapshot : chatSnapshot.getChildren()) {
+                        // Assuming "timeStamp" is the correct field name in your database
+                        Long timestamp = messageSnapshot.child("timeStamp").getValue(Long.class);
+                        String message = messageSnapshot.child("message").getValue(String.class);
+
+                        if (timestamp != null && message != null) {
+                            // Check if the current message is the latest one
+                            if (timestamp > lastMessageTimestamp) {
+                                lastMessage = message;
+                                lastMessageTimestamp = timestamp;
+                            }
+                        }
+                    }
+
+                    // Create a User object with the chatUserId and the latest message
+                    User chatUser = new User();
+                    chatUser.setUserid(chatUserId);
+                    chatUser.setLastMessage(lastMessage);
+                    chatUser.setLastMessageTimestamp(lastMessageTimestamp);
+
+                    // Add the chatUser to the list
+                    chatUsers.add(chatUser);
+                    Log.d("ChatRoomsActivity", "Number of chatUsers: " + chatUsers.size());
+                }
+
+                // Set up the chatRoomsAdapter with the updated chatUsers list
+                chatRoomsAdapter.setUserList(chatUsers);
+                chatRoomsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle onCancelled
             }
         });
 
     }
-    private void loadChatMessages() {
-        List<MessageModel> chatMessages = new ArrayList<>();
-        chatMessages.add(new MessageModel("1","Sender 1", "Hello"));
-        chatMessages.add(new MessageModel("2","Receiver", "Hi there!"));
-        chatMessages.add(new MessageModel("3","Sender 1", "How are you?"));
-        chatMessages.add(new MessageModel("4","Receiver", "I'm good, thanks!"));
 
-        chatRoomsAdapter.setChatMessages(chatMessages);
-    }
+
+
+
 }

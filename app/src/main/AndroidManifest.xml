@@ -23,9 +23,11 @@
         <activity
             android:name=".Reward"
             android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
+
         <activity
             android:name=".EditProfile"
             android:exported="false" />
@@ -66,10 +68,16 @@
             android:name=".CommentActivity"
             android:exported="false" />
         <activity
+            android:name=".DiscussionGroupActiivty"
+            android:exported="false" />
+        <activity
             android:name=".FindFriendsActivity"
             android:exported="false" />
         <activity
             android:name=".ViewAccActivity"
+            android:exported="false" />
+        <activity
+            android:name=".entity.GroupChatActivity"
             android:exported="false" />
         <activity
             android:name=".educationResources.ReadMoreActivity"

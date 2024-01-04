@@ -14,13 +14,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.DateUtils;
 
 import com.example.drugrecoveryapp.entity.MessageModel;
 import com.example.drugrecoveryapp.entity.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -33,27 +30,32 @@ import java.util.List;
 public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.MyViewHolder> {
 
     private Context context;
-    private List<User>userList;
-    private List<String>userID;
+    private List<User> userList;
+    private List<String> userID;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
     private List<MessageModel> chatMessages;
 
-    public ChatRoomsAdapter(Context context){
-        this.context=context;
-        userList=new ArrayList<>();
+    public ChatRoomsAdapter(Context context) {
+        this.context = context;
+        userList = new ArrayList<>();
     }
 
-    public void add(User user){
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+        notifyDataSetChanged();
+    }
+
+    public void add(User user) {
         userList.add(user);
         notifyDataSetChanged();
     }
 
-    public void clear(){
+    public void clear() {
         userList.clear();
         notifyDataSetChanged();
     }
 
-    public void addID(String id){
+    public void addID(String id) {
         userID.add(id);
     }
 
@@ -61,10 +63,11 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.MyVi
         this.chatMessages = chatMessages;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_chat_adapter,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_chat_adapter, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -72,37 +75,30 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         User user = userList.get(position);
         holder.name.setText(user.getUsername());
+        holder.lastMessage.setText(user.getLastMessage());
+        holder.timestamp.setText(DateUtils.getRelativeTimeSpanString(user.getLastMessageTimestamp(),
+                System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("ProfilePicture/" + user.getProfilePicture());
         try {
             File localfile = File.createTempFile("Temp File", ".jpg");
             storageReference.getFile(localfile)
-                    .addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
-
-                            Bitmap bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                            //holder.profile_pic.setImageBitmap(bitmap);
-                            Picasso.get().load(user.getProfilePicture()).into(holder.profile_pic);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
+                    .addOnCompleteListener(task -> {
+                        Bitmap bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+                        Picasso.get().load(user.getProfilePicture()).into(holder.profile_pic);
+                    }).addOnFailureListener(e -> {
+                        // Handle failure
                     });
         } catch (IOException exception) {
             exception.printStackTrace();
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(buttonClick);
-                Intent intent=new Intent(context, ConversationActivity.class);
-                intent.putExtra("id", user.getUid());
-                intent.putExtra("name",user.getUsername());
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
+            Intent intent = new Intent(context, ConversationActivity.class);
+            intent.putExtra("id", user.getUid());
+            intent.putExtra("name", user.getUsername());
+            context.startActivity(intent);
         });
     }
 
@@ -111,14 +107,16 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.MyVi
         return userList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView name,email;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        private TextView name, lastMessage, timestamp;
         private ImageView profile_pic;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name=itemView.findViewById(R.id.chat_name);
-            email=itemView.findViewById(R.id.email);
-            profile_pic=itemView.findViewById(R.id.chat_profile);
+            name = itemView.findViewById(R.id.chat_name);
+            lastMessage = itemView.findViewById(R.id.last_message);
+            timestamp = itemView.findViewById(R.id.timestamp);
+            profile_pic = itemView.findViewById(R.id.chat_profile);
         }
     }
 }

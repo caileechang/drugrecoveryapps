@@ -6,6 +6,8 @@ import java.util.Locale;
 public class User {
     public String userid,username,email,fullName,countryName,stateName,birthday,age,occupation,gender,relationship;
     private String profilePicture;
+    private String lastMessage;
+    private long lastMessageTimestamp;
     public User(){
     }
 
@@ -13,7 +15,6 @@ public class User {
         this.userid = userid;
         this.username = username;
         this.email = email;
-//        this.phone_number = phone_number;
         this.countryName = countryName;
         this.gender = gender;
 
@@ -62,10 +63,6 @@ public class User {
         this.email = email;
     }
 
-//    public void setPhone_number(String phone_number) {
-//        this.phone_number = phone_number;
-//    }
-
     public void setCountryName(String countryName) {
         this.countryName = countryName;
     }
@@ -77,6 +74,21 @@ public class User {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    public long getLastMessageTimestamp() {
+        return lastMessageTimestamp;
+    }
+
+    public void setLastMessageTimestamp(long lastMessageTimestamp) {
+        this.lastMessageTimestamp = lastMessageTimestamp;
     }
 }
 
