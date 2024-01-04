@@ -4,38 +4,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="30dp">
 
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="#009688"
-        android:text="Start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/rewardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="52dp"
-        android:text="View reward"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/TVYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Years" />
 
-    <Button
-        android:id="@+id/ReportButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="39dp"
-        android:text="generate report"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rewardButton" />
+        <ProgressBar
+            android:id="@+id/PBYear"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progress_bar" />
+
+        <TextView
+            android:id="@+id/TVMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Months" />
+
+        <ProgressBar
+            android:id="@+id/PBMonth"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:indeterminate="false"
+            android:max="12"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progress_bar" />
+
+        <TextView
+            android:id="@+id/TVDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Days" />
+
+        <ProgressBar
+            android:id="@+id/PBDay"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:indeterminate="false"
+            android:max="30"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progress_bar" />
+
+        <TextView
+            android:id="@+id/TVHour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hours" />
+
+        <ProgressBar
+            android:id="@+id/PBHour"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:indeterminate="false"
+            android:max="24"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progress_bar" />
+
+        <TextView
+            android:id="@+id/TVMinute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minutes" />
+
+        <ProgressBar
+            android:id="@+id/PBMinute"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:indeterminate="false"
+            android:max="60"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progress_bar" />
+
+        <TextView
+            android:id="@+id/TVSecond"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seconds" />
+
+        <ProgressBar
+            android:id="@+id/PBSecond"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:indeterminate="false"
+            android:max="60"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progress_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/startButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#009688"
+                android:text="Start" />
+
+            <Button
+                android:id="@+id/ReportButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:text="generate report" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/rewardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="52dp"
+            android:text="View reward" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

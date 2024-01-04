@@ -1,13 +1,18 @@
 package com.example.drugrecoveryapp;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +46,20 @@ public class ReccoveryTrackFragment extends Fragment {
     private Button rewardButton;
     private Button reportButton;
 
+    private ProgressBar PBSecond;
+    private ProgressBar PBMinute;
+    private ProgressBar PBHour;
+    private ProgressBar PBDay;
+    private ProgressBar PBMonth;
+    private ProgressBar PBYear;
+    private Handler handler = new Handler();
+
+    private long secondsDifference;
+    private long minutesDifference;
+    private long hoursDifference;
+    private long daysDifference;
+    private long monthsDifference;
+    private long yearsDifference;
 
     private static final long MILESTONE_ONE_DAY = 24 * 60 * 60 * 1000; // One day milestone
     private static final long MILESTONE_TWO_DAYS = 2 * MILESTONE_ONE_DAY; // Two days milestone
@@ -57,20 +76,27 @@ public class ReccoveryTrackFragment extends Fragment {
         rewardButton = view.findViewById(R.id.rewardButton);
         reportButton = view.findViewById(R.id.ReportButton);
 
+        PBSecond = view.findViewById(R.id.PBSecond);
+        PBMinute = view.findViewById(R.id.PBMinute);
+        PBHour = view.findViewById(R.id.PBHour);
+        PBDay = view.findViewById(R.id.PBDay);
+        PBMonth = view.findViewById(R.id.PBMonth);
+        PBYear = view.findViewById(R.id.PBYear);
+
         // Retrieve current user's ID using method in Firebase library
         currentUserId = mAuth.getCurrentUser().getUid();
         currentUserRef = userRef.child(currentUserId);
         CURRENT_STATE = "not_started";
 
         buttonMaintenance();
-        startButton.setOnClickListener(new View.OnClickListener(){
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startButton.setEnabled(false);
-                if(CURRENT_STATE.equals("not_started")){
+                if (CURRENT_STATE.equals("not_started")) {
                     StartRecovery();
                 }
-                if(CURRENT_STATE.equals("started")){
+                if (CURRENT_STATE.equals("started")) {
                     startButton.setText("Restart");
                     RestartRecovery();
                 }
@@ -93,10 +119,31 @@ public class ReccoveryTrackFragment extends Fragment {
             }
         });
 
-        calculateTotalTime();
 
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    calculateTotalTime();
+                    handler.post(new Runnable() {
+                        public void run() {
+                            PBSecond.setProgress((int) secondsDifference%60);
+                            PBMinute.setProgress((int) minutesDifference%60);
+                            PBHour.setProgress((int) hoursDifference%24);
+                            PBDay.setProgress((int) daysDifference%30);
+                            PBMonth.setProgress((int) monthsDifference%12);
+                            PBYear.setProgress((int) yearsDifference);
 
-
+                        }
+                    });
+                    try {
+                        // Sleep for 50 ms to show progress you can change it as well.
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
 
 
         return view;
@@ -149,9 +196,11 @@ public class ReccoveryTrackFragment extends Fragment {
                     if ("started".equals(status_type)) {
                         CURRENT_STATE = "started";
                         startButton.setText("Restart");
+                        startButton.setEnabled(true);
                     } else if ("not_started".equals(status_type)) {
                         CURRENT_STATE = "not_started";
                         startButton.setText("Start");
+                        startButton.setEnabled(true);
                     } else {
                         // Handle unexpected status types
                     }
@@ -159,7 +208,10 @@ public class ReccoveryTrackFragment extends Fragment {
                     CURRENT_STATE = "not_started";
                     startButton.setText("Start");
                 }
+
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -167,8 +219,6 @@ public class ReccoveryTrackFragment extends Fragment {
             }
         });
     }
-
-
 
     private void calculateTotalTime() {
         Calendar calForDate = Calendar.getInstance();
@@ -178,7 +228,7 @@ public class ReccoveryTrackFragment extends Fragment {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                long hoursDifference;
+
                 if (snapshot.child(currentUserId).hasChild("date")) {
                     String recoveryDateString = snapshot.child(currentUserId).child("date").getValue().toString();
                     Date currentDateObject = null;
@@ -196,9 +246,14 @@ public class ReccoveryTrackFragment extends Fragment {
 
                     long timeDifference = currentDateObject.getTime() - recoveryDateObject.getTime();
 
-                    long secondsDifference = timeDifference / 1000;
-                    long minutesDifference = secondsDifference / 60;
+                    secondsDifference = timeDifference / 1000;
+                    minutesDifference = secondsDifference / 60;
                     hoursDifference = minutesDifference / 60;
+                    daysDifference = hoursDifference / 24;
+                    monthsDifference = daysDifference / 30;
+                    yearsDifference = minutesDifference / 12;
+
+
                 } else {
                     hoursDifference = 0;
                 }
@@ -212,19 +267,16 @@ public class ReccoveryTrackFragment extends Fragment {
                 });
             }
 
-                @Override
-                public void onCancelled (@NonNull DatabaseError error){
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }
+            }
+        });
+    }
 
     private void RestartRecovery() {
-
         showStartOverConfirmationDialog();
         buttonMaintenance();
-
-
     }
 
     private void showStartOverConfirmationDialog() {
@@ -257,7 +309,7 @@ public class ReccoveryTrackFragment extends Fragment {
                             });
                 }
             }
-                });
+        });
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -294,5 +346,5 @@ public class ReccoveryTrackFragment extends Fragment {
         });
 
 
-}
+    }
 }
