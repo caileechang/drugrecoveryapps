@@ -251,7 +251,7 @@ public class ReccoveryTrackFragment extends Fragment {
                     hoursDifference = minutesDifference / 60;
                     daysDifference = hoursDifference / 24;
                     monthsDifference = daysDifference / 30;
-                    yearsDifference = minutesDifference / 12;
+                    yearsDifference = monthsDifference / 12;
 
 
                 } else {
