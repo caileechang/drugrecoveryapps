@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     //private Toolbar mToolbar;
     //ActivityMainBinding binding;
     private boolean showBookmarkCollectionMenuItem;
+    private boolean showRewardSystem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +50,14 @@ public class MainActivity extends AppCompatActivity {
                 ActionBar actionBar = getSupportActionBar();
                 if (actionBar != null) {
                     actionBar.setTitle(destination.getLabel());
-                    if (destination.getId() == R.id.educationalContentFragment) {
+                    if(destination.getId()==R.id.reccoveryTrackFragment){
+                        showRewardSystem = true;
+                    }
+                    else if (destination.getId() == R.id.educationalContentFragment) {
                         showBookmarkCollectionMenuItem = true;
                     } else {
                         showBookmarkCollectionMenuItem = false;
+                        showRewardSystem = false;
                     }
                     // Trigger a call to onCreateOptionsMenu
                     invalidateOptionsMenu();
@@ -64,6 +69,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_view_acc, menu);
+        if(showRewardSystem){
+            getMenuInflater().inflate(R.menu.menu_reward_system, menu);
+            MenuItem rewardSystem = menu.findItem(R.id.menu_item_reward_system);
+            rewardSystem.setVisible(true);
+            rewardSystem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                    startActivity(new Intent(MainActivity.this, Reward.class));
+                    return false;
+                }
+            });
+        }
 
         // Show/hide the Bookmark Collection menu item based on the flag
         if(showBookmarkCollectionMenuItem) {

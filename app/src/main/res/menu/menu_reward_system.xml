@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_item_bookmark_collection"
-        android:title="Bookmark Collection"
-        android:icon="@drawable/baseline_collections_bookmark_24"
+        android:id="@+id/menu_item_reward_system"
+        android:title="Reward System"
+        android:icon="@drawable/baseline_military_tech_24"
         app:showAsAction="ifRoom" />
 
 </menu>
