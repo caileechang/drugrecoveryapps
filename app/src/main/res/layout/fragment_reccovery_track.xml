@@ -137,14 +137,6 @@
                 android:text="generate report" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/rewardButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="52dp"
-            android:text="View reward" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
