@@ -52,12 +52,13 @@ public class MainActivity extends AppCompatActivity {
                     actionBar.setTitle(destination.getLabel());
                     if(destination.getId()==R.id.reccoveryTrackFragment){
                         showRewardSystem = true;
+                    }else{
+                        showRewardSystem = false;
                     }
-                    else if (destination.getId() == R.id.educationalContentFragment) {
+                    if (destination.getId() == R.id.educationalContentFragment) {
                         showBookmarkCollectionMenuItem = true;
                     } else {
                         showBookmarkCollectionMenuItem = false;
-                        showRewardSystem = false;
                     }
                     // Trigger a call to onCreateOptionsMenu
                     invalidateOptionsMenu();
