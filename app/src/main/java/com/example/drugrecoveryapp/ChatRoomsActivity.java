@@ -117,22 +117,25 @@ private RecyclerView searchFriendRecyclerView;
                 List<User> chatUsers = new ArrayList<>();
 
                 for (DataSnapshot chatSnapshot : dataSnapshot.getChildren()) {
-                    // Adjust the path based on your actual structure
                     String chatUserId = chatSnapshot.getKey();
                     String lastMessage = "";
                     long lastMessageTimestamp = 0;
 
                     for (DataSnapshot messageSnapshot : chatSnapshot.getChildren()) {
-                        // Assuming "timeStamp" is the correct field name in your database
-                        Long timestamp = messageSnapshot.child("timeStamp").getValue(Long.class);
-                        String message = messageSnapshot.child("message").getValue(String.class);
+                        String messageId = messageSnapshot.getKey();
+                        String messageContent = messageSnapshot.child("message").getValue(String.class);
+                        String senderId = messageSnapshot.child("senderId").getValue(String.class);
+                        long timestamp = messageSnapshot.child("timestamp").getValue(Long.class);
 
-                        if (timestamp != null && message != null) {
-                            // Check if the current message is the latest one
-                            if (timestamp > lastMessageTimestamp) {
-                                lastMessage = message;
-                                lastMessageTimestamp = timestamp;
-                            }
+                        Log.d("LoadChatMessages", "ChatUserId: " + chatUserId);
+                        Log.d("LoadChatMessages", "MessageId: " + messageId);
+                        Log.d("LoadChatMessages", "MessageContent: " + messageContent);
+                        Log.d("LoadChatMessages", "SenderId: " + senderId);
+                        Log.d("LoadChatMessages", "Timestamp: " + timestamp);
+
+                        if (timestamp > lastMessageTimestamp) {
+                            lastMessage = messageContent;
+                            lastMessageTimestamp = timestamp;
                         }
                     }
 
@@ -144,11 +147,7 @@ private RecyclerView searchFriendRecyclerView;
 
                     // Add the chatUser to the list
                     chatUsers.add(chatUser);
-                    Log.d("ChatRoomsActivity", "Number of chatUsers: " + chatUsers.size());
                 }
-
-                // Log the chatUsers to ensure it contains data
-                Log.d("ChatRoomsActivity", "ChatUsers: " + chatUsers);
 
                 // Set up the chatRoomsAdapter with the updated chatUsers list
                 chatRoomsAdapter.setUserList(chatUsers);
@@ -161,6 +160,9 @@ private RecyclerView searchFriendRecyclerView;
             }
         });
     }
+
+
+
 
 
 }
