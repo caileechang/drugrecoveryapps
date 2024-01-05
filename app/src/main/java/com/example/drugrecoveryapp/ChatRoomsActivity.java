@@ -109,7 +109,7 @@ private RecyclerView searchFriendRecyclerView;
     }
 
     private void loadChatMessages() {
-        DatabaseReference messagesRef = FirebaseDatabase.getInstance().getReference("Messages").child(currentUserUid);
+        DatabaseReference messagesRef = FirebaseDatabase.getInstance().getReference("chats").child(currentUserUid);
 
         messagesRef.addValueEventListener(new ValueEventListener() {
             @Override
