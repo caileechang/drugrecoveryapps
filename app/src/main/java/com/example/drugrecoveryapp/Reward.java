@@ -3,13 +3,22 @@ package com.example.drugrecoveryapp;
 import static java.security.AccessController.getContext;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 
+
+import androidx.appcompat.widget.Toolbar;
+
+import com.example.drugrecoveryapp.adapter.RewardAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,17 +33,21 @@ public class Reward extends AppCompatActivity {
     private DatabaseReference currentUserRef;
     private String currentUserId;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reward);
 
-        btn1 = findViewById(R.id.button1);
-        btn1.setEnabled(false);
-        btn2 = findViewById(R.id.button2);
-        btn2.setEnabled(false);
-        btn3 = findViewById(R.id.button3);
-        btn3.setEnabled(false);
+        Toolbar TBReward = findViewById(R.id.TBReward);
+        setSupportActionBar(TBReward);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        actionBar.setTitle("Your Rewards");
 
         currentUserId = mAuth.getCurrentUser().getUid();
 
@@ -46,20 +59,9 @@ public class Reward extends AppCompatActivity {
                 if (snapshot.child(currentUserId).hasChild("totalTime")) {
                     String totalRecoveryTime = snapshot.child(currentUserId).child("totalTime").getValue().toString();
                     Long totalTime = Long.parseLong(totalRecoveryTime);
-
-                    if(totalTime > 2){
-                        btn1.setText("Tap to view");
-                        btn1.setEnabled(true);
-                    }
-                    if(totalTime > 4){
-                        btn2.setText("Tap to view");
-                        btn2.setEnabled(true);
-                    }
-                    if(totalTime > 72){
-                        btn3.setText("Tap to view");
-                        btn3.setEnabled(true);
-                    }
-
+                    GridView gridViewReward = findViewById(R.id.GVReward);
+                    RewardAdapter adapter = new RewardAdapter(Reward.this, 12, totalTime);
+                    gridViewReward.setAdapter(adapter);
                 }
             }
 
@@ -69,26 +71,17 @@ public class Reward extends AppCompatActivity {
             }
         });
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Reward.this, RewardDetails.class);
-                startActivity(intent);
-            }
-        });
+    }
 
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Reward.this, RewardDetails.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
