@@ -49,25 +49,25 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.MyVi
         userList.add(user);
         notifyDataSetChanged();
     }
-
+    public void setChatMessages(List<MessageModel> chatMessages) {
+        this.chatMessages = chatMessages;
+        notifyDataSetChanged();
+    }
     public void clear() {
         userList.clear();
         notifyDataSetChanged();
     }
 
+
     public void addID(String id) {
         userID.add(id);
     }
 
-    public void setChatMessages(List<MessageModel> chatMessages) {
-        this.chatMessages = chatMessages;
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_chat_adapter, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_room, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -113,10 +113,10 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.MyVi
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.chat_name);
-            lastMessage = itemView.findViewById(R.id.last_message);
-            timestamp = itemView.findViewById(R.id.timestamp);
-            profile_pic = itemView.findViewById(R.id.chat_profile);
+            name = itemView.findViewById(R.id.chatRoomUserName);
+            lastMessage = itemView.findViewById(R.id.chatRoomLastMessage);
+            timestamp = itemView.findViewById(R.id.chatRoomTimestamp);
+            profile_pic = itemView.findViewById(R.id.IVUserProfilePicture);
         }
     }
 }

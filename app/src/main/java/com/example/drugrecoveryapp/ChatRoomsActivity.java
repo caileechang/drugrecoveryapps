@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +36,7 @@ public class ChatRoomsActivity extends AppCompatActivity {
     private RecyclerView chatRoomsRecyclerView;
     private ChatRoomsAdapter chatRoomsAdapter;
     private EditText SearchInputText;
-
+private RecyclerView searchFriendRecyclerView;
     private SearchFriendAdapter searchFriendAdapter;
     private List<User> userList;
 
@@ -47,11 +47,14 @@ public class ChatRoomsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_rooms);
+
         Button btnBackChatRoom = findViewById(R.id.btnBackChatRoom);
         btnBackChatRoom.setOnClickListener(v -> finish());
-        chatRoomsRecyclerView = findViewById(R.id.messageRecycleView);
-        RecyclerView searchFriendRecycleView = findViewById(R.id.searchFriendRecycleView);
+
+        chatRoomsRecyclerView = findViewById(R.id.chatRoomsRecyclerView);
         chatRoomsAdapter = new ChatRoomsAdapter(this);
+        searchFriendRecyclerView = findViewById(R.id.searchFriendRecycleView);
+
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
         currentUserUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
@@ -70,15 +73,13 @@ public class ChatRoomsActivity extends AppCompatActivity {
         chatRoomsRecyclerView.setHasFixedSize(true);
         chatRoomsRecyclerView.setLayoutManager(layoutManager);
         chatRoomsRecyclerView.setAdapter(chatRoomsAdapter);
-
-
-        LinearLayoutManager searchLayoutManager = new LinearLayoutManager(this);
-        searchFriendRecycleView.setHasFixedSize(true);
-        searchFriendRecycleView.setLayoutManager(searchLayoutManager);
-        searchFriendRecycleView.setAdapter(searchFriendAdapter);
-
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
+        searchFriendRecyclerView.setHasFixedSize(true);
+        searchFriendRecyclerView.setLayoutManager(layoutManager2);
+        searchFriendRecyclerView.setAdapter(searchFriendAdapter);
         loadChatMessages();
     }
+
 
     private void SearchPeopleAndFriends(String searchInputText) {
         usersRef.addValueEventListener(new ValueEventListener() {
@@ -89,7 +90,9 @@ public class ChatRoomsActivity extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
 
                     if (!currentUserUid.equals(user.getUid())) {
-                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase()) || user.getUid().toLowerCase().contains(searchInputText.toLowerCase())) {
+                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) ||
+                                user.getEmail().toLowerCase().contains(searchInputText.toLowerCase()) ||
+                                user.getUid().toLowerCase().contains(searchInputText.toLowerCase())) {
                             userList.add(user);
                         }
                     }
@@ -144,6 +147,9 @@ public class ChatRoomsActivity extends AppCompatActivity {
                     Log.d("ChatRoomsActivity", "Number of chatUsers: " + chatUsers.size());
                 }
 
+                // Log the chatUsers to ensure it contains data
+                Log.d("ChatRoomsActivity", "ChatUsers: " + chatUsers);
+
                 // Set up the chatRoomsAdapter with the updated chatUsers list
                 chatRoomsAdapter.setUserList(chatUsers);
                 chatRoomsAdapter.notifyDataSetChanged();
@@ -154,10 +160,7 @@ public class ChatRoomsActivity extends AppCompatActivity {
                 // Handle onCancelled
             }
         });
-
     }
-
-
 
 
 }
