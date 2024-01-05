@@ -98,6 +98,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecycleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="363dp"
+        android:layout_height="499dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp" />
 </LinearLayout>

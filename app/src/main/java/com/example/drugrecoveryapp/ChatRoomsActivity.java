@@ -48,10 +48,10 @@ public class ChatRoomsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_rooms);
         Button btnBackChatRoom = findViewById(R.id.btnBackChatRoom);
+        btnBackChatRoom.setOnClickListener(v -> finish());
         chatRoomsRecyclerView = findViewById(R.id.messageRecycleView);
         RecyclerView searchFriendRecycleView = findViewById(R.id.searchFriendRecycleView);
         chatRoomsAdapter = new ChatRoomsAdapter(this);
-        btnBackChatRoom.setOnClickListener(v -> finish());
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
         currentUserUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 

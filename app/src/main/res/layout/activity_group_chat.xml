@@ -4,13 +4,23 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <Button
+        android:id="@+id/btnBackChatRoom2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="16dp"
+        android:drawableLeft="@mipmap/ic_launcher_back_arrow" />
+
     <TextView
         android:id="@+id/groupNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/btnBackChatRoom2"
+        android:layout_marginTop="20dp"
         android:text="Group Chat"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/messagesListView"

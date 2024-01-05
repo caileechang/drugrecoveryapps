@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp.entity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,6 +34,13 @@ public class GroupChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
+        Button backButtonGroupChat=findViewById(R.id.btnBackChatRoom2);
+        backButtonGroupChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         String groupId = getIntent().getStringExtra("groupId");
         currentUserUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         groupChatRef = FirebaseDatabase.getInstance().getReference("GroupChat").child(groupId);

@@ -80,7 +80,7 @@ public class ForumFragment extends Fragment {
         });
 
         discussion_groups_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), DiscussionGroupActiivty.class);
+            Intent intent = new Intent(getContext(), DiscussionGroupActivity.class);
             startActivity(intent);
         });
 

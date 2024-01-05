@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/IVUserProfilePicture"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/human_avatar_create_posts" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:id="@+id/chatRoomUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/chatRoomLastMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Message"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/chatRoomTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timestamp"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

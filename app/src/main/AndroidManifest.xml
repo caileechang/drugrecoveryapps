@@ -71,7 +71,7 @@
             android:name=".CounsellorContactsActivity"
             android:exported="false" />
         <activity
-            android:name=".DiscussionGroupActiivty"
+            android:name=".DiscussionGroupActivity"
             android:exported="false" />
         <activity
             android:name=".FindFriendsActivity"
