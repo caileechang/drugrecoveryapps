@@ -73,7 +73,6 @@ public class ReccoveryTrackFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reccovery_track, container, false);
 
         startButton = view.findViewById(R.id.startButton);
-//        rewardButton = view.findViewById(R.id.rewardButton);
         reportButton = view.findViewById(R.id.ReportButton);
 
         PBSecond = view.findViewById(R.id.PBSecond);
@@ -102,14 +101,6 @@ public class ReccoveryTrackFragment extends Fragment {
                 }
             }
         });
-
-//        rewardButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), Reward.class);
-//                startActivity(intent);
-//            }
-//        });
 
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override

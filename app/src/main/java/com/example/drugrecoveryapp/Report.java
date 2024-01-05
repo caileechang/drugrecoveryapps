@@ -1,9 +1,12 @@
 package com.example.drugrecoveryapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +23,16 @@ public class Report extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        Toolbar TBReward = findViewById(R.id.TBReport);
+        setSupportActionBar(TBReward);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        actionBar.setTitle("My Report");
 
         username = findViewById(R.id.R_usernameDisplay);
         email = findViewById(R.id.R_emailDisplay);
@@ -48,7 +61,7 @@ public class Report extends AppCompatActivity {
                     totalTime.setText(String.valueOf(totalRecoveryTime) + " hours");
                 } else {
                     // Handle the case where "totalTime" is not available
-                    totalTime.setText("N/A");
+                    totalTime.setText("no");
                 }
 
             }
@@ -59,4 +72,15 @@ public class Report extends AppCompatActivity {
             }
         });
         }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
