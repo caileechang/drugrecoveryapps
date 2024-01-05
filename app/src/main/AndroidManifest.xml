@@ -68,6 +68,9 @@
             android:name=".CommentActivity"
             android:exported="false" />
         <activity
+            android:name=".CounsellorContactsActivity"
+            android:exported="false" />
+        <activity
             android:name=".DiscussionGroupActiivty"
             android:exported="false" />
         <activity
