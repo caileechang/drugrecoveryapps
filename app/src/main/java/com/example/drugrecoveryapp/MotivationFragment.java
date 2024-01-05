@@ -3,6 +3,7 @@ package com.example.drugrecoveryapp;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import android.provider.MediaStore.Images;
@@ -37,7 +39,6 @@ public class MotivationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Object MediaStore;
-
 
 
     public MotivationFragment() {
@@ -76,43 +77,56 @@ public class MotivationFragment extends Fragment {
     }
 
     @SuppressLint("MissingInflatedId")
-        @Override
+    @Override
 
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_motivation, container, false);
-            // Find the views representing different "pages"
-            page1 = view.findViewById(R.id.motivation_layout1);
-            page2 = view.findViewById(R.id.motivation_layout2);
-            page3 = view.findViewById(R.id.motivation_layout3);
-            page4 = view.findViewById(R.id.affirmation_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_motivation, container, false);
+        ImageView motivationImage = view.findViewById(R.id.motivationImage);
+        Button switchPageButton = view.findViewById(R.id.switchPageButton);
+        Button saveButton = view.findViewById(R.id.BtnSave);
 
-            // Initially, show the first page and hide the others
-            showPage(currentPage);
+        switchPageButton.setOnClickListener(v -> {
+            currentPage = (currentPage % 4) + 1;
+            switch (currentPage) {
+                case 1:
+                    motivationImage.setImageResource(R.drawable.motivation1);
+                    saveButton.setOnClickListener(y -> {
+                        BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation1);
+                        Bitmap imageBitmap = drawable.getBitmap();
+                        saveImageToGallery(imageBitmap);
+                    });
+                    break;
+                case 2:
+                    motivationImage.setImageResource(R.drawable.motivation2);
+                    saveButton.setOnClickListener(y -> {
+                        BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation2);
+                        Bitmap imageBitmap = drawable.getBitmap();
+                        saveImageToGallery(imageBitmap);
+                    });
+                    break;
+                case 3:
+                    motivationImage.setImageResource(R.drawable.motivation_3);
+                    saveButton.setOnClickListener(y -> {
+                        BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation_3);
+                        Bitmap imageBitmap = drawable.getBitmap();
+                        saveImageToGallery(imageBitmap);
+                    });
+                    break;
+                case 4:
+                    motivationImage.setImageResource(R.drawable.affirmation1);
+                    saveButton.setOnClickListener(y -> {
+                        BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.affirmation1);
+                        Bitmap imageBitmap = drawable.getBitmap();
+                        saveImageToGallery(imageBitmap);
+                    });
+                    break;
+                default:
+                    break;
+            }
+        });
 
-            Button switchPageButton = view.findViewById(R.id.switchPageButton);
-            switchPageButton.setOnClickListener(v -> {
-                currentPage = (currentPage % 4) + 1;
-                showPage(currentPage);
-            });
-
-            Button saveButton = view.findViewById(R.id.saveButton);
-            saveButton.setOnClickListener(v -> {
-                BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.motivation1);
-                Bitmap imageBitmap = drawable.getBitmap();
-                saveImageToGallery(imageBitmap);
-            });
-
-            return view;
-        }
-
-
-    private void showPage(int pageNumber) {
-        page1.setVisibility(pageNumber == 1 ? View.VISIBLE : View.GONE);
-        page2.setVisibility(pageNumber == 2 ? View.VISIBLE : View.GONE);
-        page3.setVisibility(pageNumber == 3 ? View.VISIBLE : View.GONE);
-        page4.setVisibility(pageNumber == 4 ? View.VISIBLE : View.GONE);
+        return view;
     }
-
 
     private void saveImageToGallery(Bitmap imageBitmap) {
         if (getContext() == null) {
