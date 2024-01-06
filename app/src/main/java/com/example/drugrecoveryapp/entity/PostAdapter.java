@@ -1,6 +1,9 @@
 package com.example.drugrecoveryapp.entity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,15 +96,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
 
-                        Picasso.get()
-                                .load(user.getProfilePicture())
-                                .placeholder(R.drawable.placeholder)
-                                .into(holder.binding.profileImage);
+                        if (user != null) {
+                            String profilePicture = user.getProfilePicture();
 
+                            if (isBase64(profilePicture)) {
+                                // Convert Base64 string to Bitmap
+                                Bitmap bitmap = base64ToBitmap(profilePicture);
+                                // Set the user DP (Profile Picture)
+                                holder.binding.profileImage.setImageBitmap(bitmap);
+                            } else {
+                                // Load the image directly with Picasso
+                                Picasso.get()
+                                        .load(profilePicture)
+                                        .placeholder(R.drawable.placeholder)
+                                        .into(holder.binding.profileImage);
+                            }
 
-                        holder.binding.name.setText(user.getUsername());
-
+                            holder.binding.name.setText(user.getUsername());
+                        }
                     }
+
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -187,6 +201,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
 
 
     }
+
+    private boolean isBase64(String str) {
+        try {
+            Base64.decode(str, Base64.DEFAULT);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    private Bitmap base64ToBitmap(String base64Image) {
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
 
     @Override
     public int getItemCount() {

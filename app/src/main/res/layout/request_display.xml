@@ -29,7 +29,7 @@
                     android:id="@+id/profile"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/ic_launcher_background"
+                    android:background="@drawable/profile"
                     android:paddingRight="20dp" />
 
                 <LinearLayout

@@ -42,11 +42,11 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="108dp"
+                android:layout_height="109dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/profile" />
 
             <TextView
                 android:id="@+id/UsernameDisplay"
