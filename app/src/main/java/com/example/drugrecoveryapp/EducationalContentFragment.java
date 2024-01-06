@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,6 +81,7 @@ public class EducationalContentFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -135,29 +137,65 @@ public class EducationalContentFragment extends Fragment {
             public void onClick(View view) {
                 String keyword = searchKeyword.getText().toString();
                 drugArrayList.clear();
-                db.collection("Resources").get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String drugName = document.getId().toString();
-                            String shortDescription = document.getString("Short Description");
-                            if (shortDescription != null && shortDescription.toLowerCase().contains(keyword) || drugName.toLowerCase().contains(keyword)) {
-                                Log.d(TAG, document.getId() + "=>" + document.getData());
-                                Drug drug = new Drug(document.getId().toString(), shortDescription, true);
-                                drugArrayList.add(drug);
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                // Assuming you have a reference to your Realtime Database (replace "databaseReference" with your actual database reference)
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://recoveryhope-default-rtdb.firebaseio.com/");
+                if (currentUser != null) {
+                    DatabaseReference userIdRef = databaseReference.child("Users").child(currentUser.getUid()).child("collection");
+
+                    db.collection("Resources").get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String drugName = document.getId().toString();
+                                String shortDescription = document.getString("Short Description");
+                                if (shortDescription != null && shortDescription.toLowerCase().contains(keyword) || drugName.toLowerCase().contains(keyword)) {
+
+                                    Log.d(TAG, document.getId() + "=>" + document.getData());
+                                    Drug drug = new Drug(document.getId(), shortDescription, true);
+                                    // Assuming you have a user ID (replace "userId" with the actual user ID)
+
+                                    String documentID = document.getId();
+                                    userIdRef.child(documentID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                // The document ID exists under the current user's collection
+                                                drug.setBookmark(true);
+                                                drug.setDocumentID(document.getId());
+                                                drugArrayList.add(drug);
+                                            } else {
+                                                // The document ID does not exist under the current user's collection
+                                                drug.setBookmark(false);
+                                                drug.setDocumentID(document.getId());
+                                                drugArrayList.add(drug);
+                                            }
+
+                                            // Create the adapter and set it to the recyclerview
+                                            DrugsAdapter adapter = new DrugsAdapter(drugArrayList);
+                                            rvDrug.setAdapter(adapter);
+
+                                            // Set layout manager to position the items
+                                            rvDrug.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            // Handle error
+                                        }
+                                    });
+                                } else {
+                                    Log.d(MotionEffect.TAG, "Error getting documents:", task.getException());
+                                }
+
                             }
                         }
 
-                        // Create the adapter and set it to the recyclerview
-                        DrugsAdapter adapter = new DrugsAdapter(drugArrayList);
-                        rvDrug.setAdapter(adapter);
 
-                        // Set layout manager to position the items
-                        rvDrug.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    } else {
-                        Log.d(TAG, "Error getting documents:", task.getException());
-                    }
-                });
 
+                    });
+                }
             }
         });
 

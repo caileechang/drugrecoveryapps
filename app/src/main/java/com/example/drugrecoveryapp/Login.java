@@ -148,7 +148,13 @@ public class Login extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (loadingBar != null && loadingBar.isShowing()) {
+            loadingBar.dismiss();
+        }
+    }
 
 }
 

@@ -64,7 +64,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Post post = list.get(position);
 
-        if (post.getPostImage() == null) {
+        if (post.getPostImage() == null|| post.getPostImage().isEmpty()) {
             holder.binding.postImage.setVisibility(View.GONE);
 
         } else {
@@ -203,6 +203,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
     }
 
     private boolean isBase64(String str) {
+        if (str == null) {
+            return false;  // Handle null strings according to your use case
+        }
         try {
             Base64.decode(str, Base64.DEFAULT);
             return true;
