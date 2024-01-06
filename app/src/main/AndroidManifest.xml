@@ -17,6 +17,8 @@
         <activity
             android:name=".Report"
             android:exported="false" />
+        <activity android:name=".ConversationCounsellorActivity"
+            android:exported="false"/>
         <activity
             android:name=".RewardDetails"
             android:exported="false" />
