@@ -75,8 +75,13 @@ public class FindFriendsActivity extends AppCompatActivity {
                     //Exclude current user in the search result
                     if (!currentUserUid.equals(user.getUid())) {
 
-                        //Search using username,email,id,full name or phone number (not case-sensitive)
-                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase())||user.getUid().toLowerCase().contains(searchInputText.toLowerCase())) {
+//                        //Search using username,email,id(not case-sensitive)
+//                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase())||user.getUid().toLowerCase().contains(searchInputText.toLowerCase())) {
+//                            userList.add(user);
+//                        }
+
+                        //Search using username,email,(not case-sensitive)
+                        if (user.getUsername().toLowerCase().contains(searchInputText.toLowerCase()) || user.getEmail().toLowerCase().contains(searchInputText.toLowerCase())) {
                             userList.add(user);
                         }
                     }
