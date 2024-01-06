@@ -15,7 +15,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:padding="4dp"
-        android:src="@drawable/human_avatar_create_posts"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,7 +1,10 @@
 package com.example.drugrecoveryapp.entity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,10 +53,31 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.viewHold
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
-                        Picasso.get()
-                                .load(user.getProfilePicture())
-                                .placeholder(R.drawable.placeholder)
-                                .into(holder.binding.profileImage);
+
+                        String profilePicture = user.getProfilePicture();
+                        if (profilePicture != null) {
+                            if (isBase64(profilePicture)) {
+                                // Convert Base64 string to Bitmap
+                                Bitmap bitmap = base64ToBitmap(profilePicture);
+                                // Set the user DP (Profile Picture) directly to IVUserProfilePicture
+                                holder.binding.profileImage.setImageBitmap(bitmap);
+                            } else {
+                                Picasso.get().setIndicatorsEnabled(true);  // Enables debug indicators
+                                Picasso.get().setLoggingEnabled(true);      // Enables debug logging
+
+                                // Load the image directly with Picasso
+                                Picasso.get()
+                                        .load(user.getProfilePicture())
+                                        .placeholder(R.drawable.placeholder)
+                                        .error(R.drawable.human_avatar_create_posts) // Provide an error image placeholder
+                                        .into(holder.binding.profileImage);
+
+                            }
+                        } else {
+                            // Handle the case where profilePicture is null
+                            Log.e("ProfilePicture", "Profile picture URL is null");
+                        }
+
                         holder.binding.comment.setText(Html.fromHtml("<b>" + user.getUsername() + "</b>" + "  " + comment.getCommentBody()));
                         Log.d("Debug", "Error");
                     }
@@ -65,7 +89,25 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.viewHold
                 });
 
     }
+    private boolean isBase64(String str) {
+        if (str == null) {
+            return false;  // Handle null strings according to your use case
+        }
+        try {
+            Base64.decode(str, Base64.DEFAULT);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 
+    private Bitmap base64ToBitmap(String base64Image) {
+        if (base64Image == null) {
+            return null;  // Handle null strings according to your use case
+        }
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
     @Override
     public int getItemCount() {
         return list.size();

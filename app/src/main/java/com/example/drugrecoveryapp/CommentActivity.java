@@ -2,7 +2,11 @@ package com.example.drugrecoveryapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -56,8 +61,9 @@ public class CommentActivity extends AppCompatActivity {
 //        postLike = intent.getStringExtra("postLike");
 //        System.out.println("showbug" + postLike);
 //        Log.d("show postlike", postLike);
-//        Toast.makeText(this,"Post ID:" + postId, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,"Post ID:" + postId, Toast.LENGTH_SHORTofile).show();
 //        Toast.makeText(this,"User ID:" + postedBy, Toast.LENGTH_SHORT).show();
+
 
 
         database.getReference()
@@ -67,21 +73,37 @@ public class CommentActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Post post = snapshot.getValue(Post.class);
-                        if (post != null && post.getPostImage() != null) {
-                            Log.d("DEBUG", post.getPostImage());
-                            Picasso.get()
-                                    .load(post.getPostImage())
-                                    .placeholder(R.drawable.placeholder)
-                                    .into(binding.postImage);
+                        if (post != null) {
+                            // Log the post image URL for debugging
+                            Log.d("DEBUG", "Post image URL: " + post.getPostImage());
+
+                            if (post.getPostImage() != null) {
+                                if (Picasso.get() == null) {
+                                    Picasso.Builder builder = new Picasso.Builder(CommentActivity.this);
+                                    builder.downloader(new OkHttp3Downloader(CommentActivity.this, Integer.MAX_VALUE));
+                                    Picasso picasso = builder.build();
+                                    Picasso.setSingletonInstance(picasso);
+                                }
+                                // Load the post image using Picasso
+                                Picasso.get()
+                                        .load(post.getPostImage())
+                                        .placeholder(R.drawable.placeholder)
+                                        .error(R.drawable.human_avatar_create_posts)
+                                        .into(binding.postImage);
+                            } else {
+                                // Handle the case where post.getPostImage() is null
+                                Log.e("DEBUG", "Post image URL is null");
+                            }
+
+                            // Set other values (description, like count, comment count, title, etc.)
                             binding.description.setText(post.getPostDescription());
                             binding.like.setText(post.getPostLike() + "");
                             binding.comment.setText(post.getCommentCount() + "");
                             binding.title.setText(post.getPostTitle());
                         } else {
-                            Log.e("DEBUG", "post or post.getPostImage() is null");
-                            // Handle the situation where post or post.getPostImage() is null
+                            Log.e("DEBUG", "Post object is null");
+                            // Handle the situation where the post object is null
                         }
-
                     }
 
                     @Override
@@ -160,10 +182,31 @@ public class CommentActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
-                        Picasso.get()
-                                .load(user.getProfilePicture())
-                                .placeholder(R.drawable.placeholder)
-                                .into(binding.profileImage);
+                        String profilePicture = user.getProfilePicture();
+                        if (profilePicture != null) {
+                            if (isBase64(profilePicture)) {
+                                // Convert Base64 string to Bitmap
+                                Bitmap bitmap = base64ToBitmap(profilePicture);
+                                // Set the user DP (Profile Picture) directly to IVUserProfilePicture
+                                binding.profileImage.setImageBitmap(bitmap);
+                            } else {
+                                Picasso.get().setIndicatorsEnabled(true);  // Enables debug indicators
+                                Picasso.get().setLoggingEnabled(true);      // Enables debug logging
+
+                                // Load the image directly with Picasso
+                                Picasso.get()
+                                        .load(user.getProfilePicture())
+                                        .placeholder(R.drawable.placeholder)
+                                        .error(R.drawable.human_avatar_create_posts) // Provide an error image placeholder
+                                        .into(binding.profileImage);
+
+                            }
+                        } else {
+                            // Handle the case where profilePicture is null
+                            Log.e("ProfilePicture", "Profile picture URL is null");
+                        }
+
+
                         binding.name.setText(user.getUsername());
                     }
 
@@ -264,5 +307,24 @@ public class CommentActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    private boolean isBase64(String str) {
+        if (str == null) {
+            return false;  // Handle null strings according to your use case
+        }
+        try {
+            Base64.decode(str, Base64.DEFAULT);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    private Bitmap base64ToBitmap(String base64Image) {
+        if (base64Image == null) {
+            return null;  // Handle null strings according to your use case
+        }
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }

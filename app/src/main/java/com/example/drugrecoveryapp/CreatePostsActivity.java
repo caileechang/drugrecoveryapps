@@ -1,11 +1,15 @@
 package com.example.drugrecoveryapp;
 
+
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -123,11 +127,39 @@ public class CreatePostsActivity extends AppCompatActivity {
                                 ,dataSnapshot.child("countryName").getValue().toString()
                                 ,dataSnapshot.child("gender").getValue().toString());
                         TVUserID.setText(user.getUsername());
+                        // Inside the ValueEventListener where profile picture is loaded
+                        String profilePicture = user.getProfilePicture();
+                        if (profilePicture != null) {
+                            if (isBase64(profilePicture)) {
+                                // Convert Base64 string to Bitmap
+                                Bitmap bitmap = base64ToBitmap(profilePicture);
+                                // Set the user DP (Profile Picture) directly to IVUserProfilePicture
+                                IVUserProfilePicture.setImageBitmap(bitmap);
+                            } else {
+                                // Load the image directly with Picasso
+                                Picasso.get()
+                                        .load(profilePicture)
+                                        .placeholder(R.drawable.placeholder)
+                                        .error(R.drawable.human_avatar_create_posts) // Provide an error image placeholder
+                                        .into(IVUserProfilePicture, new com.squareup.picasso.Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                Log.d("Picasso", "Image loaded successfully");
+                                            }
 
-                        Picasso.get()
-                                .load(user.getProfilePicture())
-                                .placeholder(R.drawable.placeholder)
-                                .into(IVUserProfilePicture);
+                                            @Override
+                                            public void onError(Exception e) {
+                                                Log.e("Picasso", "Error loading image: " + e.getMessage());
+                                            }
+                                        });
+                            }
+                        } else {
+                            // Handle the case where profilePicture is null
+                            Log.e("ProfilePicture", "Profile picture URL is null");
+                        }
+
+
+
 
                     }
                 }
@@ -189,6 +221,19 @@ public class CreatePostsActivity extends AppCompatActivity {
         SpinnerCategory.setAdapter(arrayAdapter);
     }
 
+    private boolean isBase64(String str) {
+        try {
+            Base64.decode(str, Base64.DEFAULT);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    private Bitmap base64ToBitmap(String base64Image) {
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
 
 
     @Override
