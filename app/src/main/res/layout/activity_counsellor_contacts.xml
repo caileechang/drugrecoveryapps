@@ -8,6 +8,8 @@
     tools:context=".CounsellorContactsActivity">
 
     <!-- Header -->
+
+    <!-- Counsellor 1 Section -->
     <LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
@@ -32,7 +34,6 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <!-- Counsellor 1 Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
+            android:paddingBottom="10dp"
             android:text="@string/i_am_a_psychotherapist_and_counsellor_offering_a_warm_supportive_confidential_service_for_individuals_each_person_responds_to_the_events_that_happen_in_their_lives_differently_your_issue_what_you_would_like_to_bring_to_therapy_is_the_starting_point_for_our_work_together" />
 
 
@@ -79,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/chat_with_me1"
             android:textAlignment="center" />
     </LinearLayout>
@@ -93,6 +96,7 @@
             android:id="@+id/counsellor2"
             android:layout_width="match_parent"
             android:layout_height="117dp"
+            android:paddingTop="10dp"
             app:srcCompat="@drawable/profile_5f6caf0618aa0" />
 
         <TextView
@@ -121,6 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
+            android:paddingBottom="7dp"
             android:text="@string/i_am_fully_qualified_integrative_therapist_working_with_children_adolescents_and_adults_exploring_emotional_histories_life_experiences_gaining_better_awareness_of_self_navigating_testing_times_are_some_of_the_reasons_why_people_seek_therapy" />
 
 
@@ -129,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/chat_with_me"
             android:textAlignment="center" />
     </LinearLayout>

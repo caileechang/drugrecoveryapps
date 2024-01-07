@@ -108,7 +108,7 @@
         android:background="#68B8B8"
         android:backgroundTint="#68B8B8"
         android:fontFamily="sans-serif"
-        android:text="Next >"
+        android:text="Log in >"
         android:textColor="#FFFFFF"
         android:textColorLink="#68B8B8"
         android:textSize="18dp"
