@@ -76,6 +76,9 @@
             android:name=".DiscussionGroupActivity"
             android:exported="false" />
         <activity
+            android:name=".SuccessStoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".FindFriendsActivity"
             android:exported="false" />
         <activity

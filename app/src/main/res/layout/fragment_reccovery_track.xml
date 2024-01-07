@@ -167,6 +167,7 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/CVStory1"
                     android:layout_width="310dp"
                     android:layout_height="match_parent"
                     app:cardBackgroundColor="#CCCCCC"
@@ -225,6 +226,7 @@
                     app:srcCompat="@drawable/baseline_chevron_right_24"/>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/CVStory2"
                     android:layout_width="310dp"
                     android:layout_height="match_parent"
                     app:cardBackgroundColor="#CCCCCC"
@@ -285,6 +287,7 @@
                     app:srcCompat="@drawable/baseline_chevron_right_24"/>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/CVStory3"
                     android:layout_width="310dp"
                     android:layout_height="match_parent"
                     app:cardBackgroundColor="#CCCCCC"

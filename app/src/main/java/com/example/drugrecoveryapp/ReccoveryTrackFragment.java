@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -84,11 +85,11 @@ public class ReccoveryTrackFragment extends Fragment {
         PBYear = view.findViewById(R.id.PBYear);
 
         TextView tvSecond = view.findViewById(R.id.TVSecond);
-        TextView tvMinute= view.findViewById(R.id.TVMinute);
-        TextView tvHour= view.findViewById(R.id.TVHour);
-        TextView tvDay= view.findViewById(R.id.TVDay);
-        TextView tvMonth= view.findViewById(R.id.TVMonth);
-        TextView tvYear= view.findViewById(R.id.TVYear);
+        TextView tvMinute = view.findViewById(R.id.TVMinute);
+        TextView tvHour = view.findViewById(R.id.TVHour);
+        TextView tvDay = view.findViewById(R.id.TVDay);
+        TextView tvMonth = view.findViewById(R.id.TVMonth);
+        TextView tvYear = view.findViewById(R.id.TVYear);
 
 
         // Retrieve current user's ID using method in Firebase library
@@ -126,18 +127,18 @@ public class ReccoveryTrackFragment extends Fragment {
                     calculateTotalTime();
                     handler.post(new Runnable() {
                         public void run() {
-                            PBSecond.setProgress((int) secondsDifference%60);
-                            tvSecond.setText((int) secondsDifference%60+" Seconds");
-                            PBMinute.setProgress((int) minutesDifference%60);
-                            tvMinute.setText((int) minutesDifference%60+" Minutes");
-                            PBHour.setProgress((int) hoursDifference%24);
-                            tvHour.setText((int) hoursDifference%24+" Hours");
-                            PBDay.setProgress((int) daysDifference%30);
-                            tvDay.setText((int) daysDifference%30+" Days");
-                            PBMonth.setProgress((int) monthsDifference%12);
-                            tvMonth.setText((int) monthsDifference%12+" Months");
+                            PBSecond.setProgress((int) secondsDifference % 60);
+                            tvSecond.setText((int) secondsDifference % 60 + " Seconds");
+                            PBMinute.setProgress((int) minutesDifference % 60);
+                            tvMinute.setText((int) minutesDifference % 60 + " Minutes");
+                            PBHour.setProgress((int) hoursDifference % 24);
+                            tvHour.setText((int) hoursDifference % 24 + " Hours");
+                            PBDay.setProgress((int) daysDifference % 30);
+                            tvDay.setText((int) daysDifference % 30 + " Days");
+                            PBMonth.setProgress((int) monthsDifference % 12);
+                            tvMonth.setText((int) monthsDifference % 12 + " Months");
                             PBYear.setProgress((int) yearsDifference);
-                            tvYear.setText((int) yearsDifference+" Years");
+                            tvYear.setText((int) yearsDifference + " Years");
 
                         }
                     });
@@ -151,6 +152,89 @@ public class ReccoveryTrackFragment extends Fragment {
             }
         }).start();
 
+        CardView successStory1 = view.findViewById(R.id.CVStory1);
+        successStory1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Define your intent to start the SuccessStoryActivity
+                Intent intent = new Intent(getActivity(), SuccessStoryActivity.class);
+                // Replace R.string.tittle_SuccessStory1 and R.string.description_SuccessStory1
+                // with the actual string resource IDs
+                int titleResourceId = R.string.tittle_SuccessStory1;
+                int descriptionResourceId = R.string.description_SuccessStory1;
+                int storyResourceId = R.string.story1;
+                // Get the string values from the resource IDs
+                String title = getResources().getString(titleResourceId);
+                String description = getResources().getString(descriptionResourceId);
+                String story = getResources().getString(storyResourceId);
+
+                // Concatenate the strings
+                String combinedString = title + " " + description;
+
+                // Create the intent and add the combined string as an extra
+                intent.putExtra("title", combinedString);
+                intent.putExtra("story", story);
+
+                // Start the SuccessStoryActivity
+                startActivity(intent);
+            }
+        });
+
+        CardView successStory2 = view.findViewById(R.id.CVStory2);
+        successStory2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Define your intent to start the SuccessStoryActivity
+                Intent intent = new Intent(getActivity(), SuccessStoryActivity.class);
+                // Replace R.string.tittle_SuccessStory1 and R.string.description_SuccessStory1
+                // with the actual string resource IDs
+                int titleResourceId = R.string.title_SuccessStory2;
+                int descriptionResourceId = R.string.description_SuccessStory2;
+                int storyResourceId = R.string.story2;
+                // Get the string values from the resource IDs
+                String title = getResources().getString(titleResourceId);
+                String description = getResources().getString(descriptionResourceId);
+                String story = getResources().getString(storyResourceId);
+
+                // Concatenate the strings
+                String combinedString = title + " " + description;
+
+                // Create the intent and add the combined string as an extra
+                intent.putExtra("title", combinedString);
+                intent.putExtra("story", story);
+
+                // Start the SuccessStoryActivity
+                startActivity(intent);
+            }
+        });
+
+        CardView successStory3 = view.findViewById(R.id.CVStory3);
+        successStory3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Define your intent to start the SuccessStoryActivity
+                Intent intent = new Intent(getActivity(), SuccessStoryActivity.class);
+                // Replace R.string.tittle_SuccessStory1 and R.string.description_SuccessStory1
+                // with the actual string resource IDs
+                int titleResourceId = R.string.title_SuccessStory3;
+                int descriptionResourceId = R.string.description_SuccessStory3;
+                int storyResourceId = R.string.story3;
+                // Get the string values from the resource IDs
+                String title = getResources().getString(titleResourceId);
+                String description = getResources().getString(descriptionResourceId);
+                String story = getResources().getString(storyResourceId);
+
+                // Concatenate the strings
+                String combinedString = title + " " + description;
+
+                // Create the intent and add the combined string as an extra
+                intent.putExtra("title", combinedString);
+                intent.putExtra("story", story);
+
+                // Start the SuccessStoryActivity
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -216,7 +300,6 @@ public class ReccoveryTrackFragment extends Fragment {
                 }
 
             }
-
 
 
             @Override
