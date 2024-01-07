@@ -10,34 +10,24 @@
     <!-- Header -->
 
     <!-- Counsellor 1 Section -->
-    <LinearLayout
-        android:id="@+id/top"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/TBCounsellor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#048888"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Counsellor Contacts"
 
-        <Button
-            android:id="@+id/btnBackCounsellorContacts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_launcher_back_arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:text="@string/counsellor_contacts"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-    </LinearLayout>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <ImageView
             android:id="@+id/counsellor1"
@@ -80,17 +70,19 @@
             android:id="@+id/btnChat1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="220dp"
             android:text="@string/chat_with_me1"
             android:textAlignment="center" />
+
     </LinearLayout>
 
     <!-- Counsellor 2 Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <ImageView
             android:id="@+id/counsellor2"
@@ -133,8 +125,7 @@
             android:id="@+id/btnChat2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="220dp"
             android:text="@string/chat_with_me"
             android:textAlignment="center" />
     </LinearLayout>

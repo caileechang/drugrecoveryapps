@@ -1,6 +1,8 @@
 package com.example.drugrecoveryapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,24 +44,27 @@ public class ConversationCounsellorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_counsellor);
-        Button btnBackChatRoom=findViewById(R.id.btnBackChatRoom);
-        btnBackChatRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBCounsellorChat);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
         // Get counselor details from intent
         counselorUid = getIntent().getStringExtra("counselorUid");
         counselorName = getIntent().getStringExtra("counselorName");
+
+        // Retrieve data from the intent
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(counselorName);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Initialize UI elements
         recyclerView = findViewById(R.id.conversation_recycler);
         messageEditText = findViewById(R.id.message_edit);
         sendButton = findViewById(R.id.sendBtn);
-        // Set counselor's name in the TextView
-        TextView nameChatTextView = findViewById(R.id.name_chat);
-        nameChatTextView.setText(counselorName);
 
         // Initialize Firebase
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -117,6 +124,17 @@ public class ConversationCounsellorActivity extends AppCompatActivity {
             databaseReference.child(currentUserUid).child(counselorUid).push().setValue(chatMessage);
             databaseReference.child(counselorUid).child(currentUserUid).push().setValue(chatMessage);
             messageEditText.setText("");
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -17,6 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:text="@string/community_forum"
+        android:backgroundTint="#ff004d40"
         android:onClick="btnCommunityForumOnClick"
         />
 
@@ -24,21 +25,11 @@
         android:id="@+id/discussion_groups_btn"
         android:layout_width="200dp"
         android:layout_height="62dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/discussion_group"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#FF26A69A"
         android:onClick="btnDiscussionGroupsOnClick"
-        />
-
-    <Button
-        android:id="@+id/chat_room_btn"
-        android:layout_width="200dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/chat_room"
-        android:layout_gravity="center"
-        android:onClick="btnChatRoomOnClick"
-         />
+        android:text="@string/discussion_group" />
 
     <Button
         android:id="@+id/counsellor_contact_btn"
@@ -47,6 +38,7 @@
         android:layout_marginTop="30dp"
         android:text="@string/counsellor_contact"
         android:layout_gravity="center"
+        android:backgroundTint="#ff004d40"
         android:onClick="btnCounsellorContacts"
          />
 
@@ -57,6 +49,9 @@
         android:layout_marginTop="30dp"
         android:text="@string/search_for_friends"
         android:layout_gravity="center"
+        android:backgroundTint="#FF26A69A"
+
+
 
         />
 

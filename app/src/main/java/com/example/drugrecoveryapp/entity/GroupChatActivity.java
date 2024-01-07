@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp.entity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,7 +9,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.drugrecoveryapp.GroupChatAdapter;
 import com.example.drugrecoveryapp.R;
@@ -34,13 +37,19 @@ public class GroupChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
-        Button backButtonGroupChat=findViewById(R.id.btnBackChatRoom2);
-        backButtonGroupChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBGroupChat);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         String groupId = getIntent().getStringExtra("groupId");
         currentUserUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         groupChatRef = FirebaseDatabase.getInstance().getReference("GroupChat").child(groupId);
@@ -101,5 +110,17 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void scrollChatListViewToBottom() {
         chatListView.post(() -> chatListView.setSelection(groupChatAdapter.getCount() - 1));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

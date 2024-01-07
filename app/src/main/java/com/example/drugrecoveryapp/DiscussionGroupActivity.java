@@ -1,9 +1,12 @@
 package com.example.drugrecoveryapp;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
@@ -16,8 +19,18 @@ public class DiscussionGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_group_actiivty);
-        Button btnBackDiscussionGroup = findViewById(R.id.btnBackDiscussionGroups);
-        btnBackDiscussionGroup.setOnClickListener(v -> finish());
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBDiscussionGroup);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
 
         setupGroupRecyclerView();
     }
@@ -35,5 +48,16 @@ public class DiscussionGroupActivity extends AppCompatActivity {
         DiscussionGroupAdapter adapter = new DiscussionGroupAdapter(this, discussionGroups);
         recyclerViewGroups.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewGroups.setAdapter(adapter);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

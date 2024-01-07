@@ -3,35 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".CreatePostsActivity">
 
-    <LinearLayout
-        android:id="@+id/top"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/TBCreatePost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#048888"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        tools:ignore="UselessParent">
-
-        <Button
-            android:id="@+id/btnBackCreatePosts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_launcher_back_arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:text="@string/create_posts"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Create Post"/>
 
     <LinearLayout
         android:id="@+id/LLUserTitle"
@@ -137,21 +120,21 @@
 
         <Button
             android:id="@+id/BtnPost"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="4"
+            android:layout_marginLeft="150dp"
             android:text="POST"
+            android:backgroundTint="@color/blueGreen_700"
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/BtnUploadImage"
-            android:layout_width="0dp"
+            android:layout_width="80dp"
             android:layout_height="60dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="10dp"
+
             android:drawableTop="@drawable/addimagebutton" />
 
     </LinearLayout>

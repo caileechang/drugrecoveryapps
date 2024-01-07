@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:backgroundTint="#009688"
+                android:backgroundTint="#FF6583"
                 android:text="Start" />
 
             <Button
@@ -143,7 +143,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:text="Generate Report" />
+                android:text="Generate Report"
+                android:backgroundTint="#048888"/>
+
         </LinearLayout>
 
         <TextView

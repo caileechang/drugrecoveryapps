@@ -1,11 +1,15 @@
 package com.example.drugrecoveryapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.drugrecoveryapp.adapter.FriendsAdapter;
@@ -39,6 +43,14 @@ public class FriendListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBFriendList);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+
+
 
         // Initialize Firebase references
         friendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
@@ -54,7 +66,7 @@ public class FriendListActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
 
-        numberOfFriends = findViewById(R.id.numberOfFriends);
+
 
         // Retrieve the friend list of the current user from the database
         retrieveFriendList();
@@ -62,12 +74,18 @@ public class FriendListActivity extends AppCompatActivity {
         friendsRef.child(currentUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ActionBar actionBar = getSupportActionBar();
                 if (snapshot.exists()) {
                     friendCount = (int) snapshot.getChildrenCount();
-                    numberOfFriends.setText("(" + Integer.toString(friendCount) + ")");
-
+                    if (actionBar != null) {
+                        actionBar.setDisplayHomeAsUpEnabled(true);
+                        actionBar.setTitle("Friends ("+friendCount+")");
+                    }
                 } else
-                    numberOfFriends.setText("(0)");
+                if (actionBar != null) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                    actionBar.setTitle("Frinds (0)");
+                }
             }
 
             @Override
@@ -113,5 +131,16 @@ public class FriendListActivity extends AppCompatActivity {
                 // Handle the error
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

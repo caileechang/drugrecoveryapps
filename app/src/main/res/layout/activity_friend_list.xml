@@ -11,36 +11,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/top"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/TBFriendList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#048888"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="Friends"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/numberOfFriends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:text="(5)"
-                android:textSize="20dp"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_friend_list"

@@ -111,22 +111,26 @@ public class PersonProfileFragment extends Fragment {
         postAdapter = new PostAdapter(new ArrayList<>());
         recyclerView.setAdapter(postAdapter);
 
-        Button btnBig = root.findViewById(R.id.btnBig);
-        Button btnSmall = root.findViewById(R.id.btnSmall);
 
-        btnBig.setOnClickListener(new View.OnClickListener() {
+
+        ImageView font_increase = root.findViewById(R.id.font_increase);
+        font_increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 increaseTextSize(v);
             }
         });
-
-        btnSmall.setOnClickListener(new View.OnClickListener() {
+        ImageView font_decrease = root.findViewById(R.id.font_decrease);
+        font_decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 decreaseTextSize(v);
             }
         });
+
+
+
+
 
         // Get Firebase instance and reference
         FirebaseAuth auth = FirebaseAuth.getInstance();

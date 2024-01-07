@@ -1,13 +1,17 @@
 package com.example.drugrecoveryapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.drugrecoveryapp.databinding.ActivityConversationBinding;
@@ -38,8 +42,7 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityConversationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Button btnBackChatRoom = findViewById(R.id.btnBackChatRoom);
-        btnBackChatRoom.setOnClickListener(v -> finish());
+
         receiverId = getIntent().getStringExtra("id");
         receiverName = getIntent().getStringExtra("name");
         senderRoom = FirebaseAuth.getInstance().getUid() + receiverId;
@@ -51,12 +54,31 @@ public class ConversationActivity extends AppCompatActivity {
         conversationAdapter = new ConversationAdapter(this);
         binding.conversationRecycler.setLayoutManager(new LinearLayoutManager(this));
 
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBChat);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+
+
+
         // Set the text in the TextView to the receiver's name or ID
         if (receiverName != null && !receiverName.isEmpty()) {
-            binding.nameChat.setText(receiverName);
+            // Enable the back button
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setTitle(receiverName);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+
         } else {
             // If receiverName is not available, display receiverId
-            binding.nameChat.setText(receiverId);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setTitle(receiverId);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
 
         // Listen for new messages in real-time
@@ -108,5 +130,16 @@ public class ConversationActivity extends AppCompatActivity {
             receiverReference.child(key).setValue(messageModel);
         }
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

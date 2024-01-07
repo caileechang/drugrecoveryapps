@@ -1,11 +1,14 @@
 package com.example.drugrecoveryapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.drugrecoveryapp.adapter.RequestAdapter;
 import com.example.drugrecoveryapp.entity.User;
@@ -32,6 +35,19 @@ public class Request_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
+
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBRequest);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
 
         // Initialize RecyclerView
         requestRecyclerView = findViewById(R.id.rv_request_list);
@@ -87,6 +103,17 @@ public class Request_Activity extends AppCompatActivity {
                 // Handle the error
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

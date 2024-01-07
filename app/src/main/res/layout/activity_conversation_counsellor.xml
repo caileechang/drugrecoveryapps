@@ -6,39 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ConversationCounsellorActivity">
 
-    <LinearLayout
-        android:id="@+id/conversation_bar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/TBCounsellorChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#31a466"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-
-        <Button
-            android:id="@+id/btnBackChatRoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_launcher_back_arrow"
-            />
-
-        <TextView
-            android:id="@+id/name_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Username"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/conversation_recycler"
-        android:layout_below="@+id/conversation_bar"
+        android:layout_below="@+id/TBCounsellorChat"
         android:layout_above="@+id/message_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

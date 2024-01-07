@@ -3,6 +3,7 @@ package com.example.drugrecoveryapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,9 +51,13 @@ public class ViewAccActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_acc);
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBViewACC);
 
-        Button btnBackChatRoom = findViewById(R.id.btnBackChatRoom);
-        btnBackChatRoom.setOnClickListener(v -> finish());
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+
         // Retrieve current user's ID using method in Firebase library
         currentUserId = mAuth.getCurrentUser().getUid();
 
@@ -63,7 +71,6 @@ public class ViewAccActivity extends AppCompatActivity {
         currentUserRef = userRef.child(currentUserId);
 
         // Initialization of TextView object
-        topUsername=findViewById(R.id.top_username);
         username = findViewById(R.id.UsernameDisplay);
 
         email = findViewById(R.id.emailDisplay);
@@ -124,8 +131,16 @@ public class ViewAccActivity extends AppCompatActivity {
 
 
 
-                            // Display the user's profile data in the UI
-                            topUsername.setText("@"+selectedUsername);
+
+                            // Enable the back button
+                            ActionBar actionBar = getSupportActionBar();
+                            if (actionBar != null) {
+                                actionBar.setTitle(selectedUsername);
+                                actionBar.setDisplayHomeAsUpEnabled(true);
+                            }
+
+                            // Retrieve data from the intent
+
                             username.setText(selectedUsername);
 
                             email.setText(selectedUserEmail);
@@ -471,7 +486,17 @@ public class ViewAccActivity extends AppCompatActivity {
                 });
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 

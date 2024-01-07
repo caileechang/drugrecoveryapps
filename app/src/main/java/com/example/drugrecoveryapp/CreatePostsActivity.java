@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -25,7 +26,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.drugrecoveryapp.MainActivity;
 import com.example.drugrecoveryapp.entity.Post;
@@ -89,8 +92,18 @@ public class CreatePostsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_posts);
-        Button btnBackCreatePosts = findViewById(R.id.btnBackCreatePosts);
-        btnBackCreatePosts.setOnClickListener(v -> finish());
+
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBCreatePost);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         TVUserID = findViewById(R.id.TVUserID);
         SpinnerCategory = findViewById(R.id.SpinnerCategory);
@@ -283,7 +296,7 @@ public class CreatePostsActivity extends AppCompatActivity {
                                             ,new Date().getTime());
                                     databaseReference.child(postId).setValue(post);
                                     //After upload successfully, back to home page
-                                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                    startActivity(new Intent(getApplicationContext(),CommunityForumActivity.class));
                                 }
                             });
                         }
@@ -337,7 +350,19 @@ public class CreatePostsActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Post uploaded successfully", Toast.LENGTH_SHORT).show();
 
         // After upload successfully, back to home page
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(getApplicationContext(), CommunityForumActivity.class));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

@@ -1,11 +1,14 @@
 package com.example.drugrecoveryapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,8 +56,17 @@ public class FindFriendsActivity extends AppCompatActivity {
 
         ImageButton searchButton = (ImageButton) findViewById(R.id.search_people_friends_button);
         SearchInputText = (EditText) findViewById(R.id.search_box_input);
-        Button btnBackSearchFriends=findViewById(R.id.btnBackSearchFriends);
-        btnBackSearchFriends.setOnClickListener(v -> finish());
+        // Find the Toolbar
+        Toolbar toolbar = findViewById(R.id.TBSearchFriend);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         searchButton.setOnClickListener(v -> {
             // retrieve text from searchinputtext
@@ -102,5 +114,17 @@ public class FindFriendsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

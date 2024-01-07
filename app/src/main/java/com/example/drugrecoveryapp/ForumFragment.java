@@ -68,16 +68,12 @@ public class ForumFragment extends Fragment {
                 container, false);
         Button community_forum_btn = (Button) view.findViewById(R.id.community_forum_btn);
         Button discussion_groups_btn = (Button) view.findViewById(R.id.discussion_groups_btn);
-        Button chat_room_btn = (Button) view.findViewById(R.id.chat_room_btn);
         Button counsellor_contact_btn = (Button) view.findViewById(R.id.counsellor_contact_btn);
         community_forum_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), CommunityForumActivity.class);
             startActivity(intent);
         });
-        chat_room_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), ChatRoomsActivity.class);
-            startActivity(intent);
-        });
+
 
         discussion_groups_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), DiscussionGroupActivity.class);

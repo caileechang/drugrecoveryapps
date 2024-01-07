@@ -1,11 +1,14 @@
 package com.example.drugrecoveryapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,8 +33,17 @@ public class CommunityForumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_forum);
 
-        Button btnBackCommunityForum = findViewById(R.id.btnBackCommunityForum);
-        btnBackCommunityForum.setOnClickListener(v -> finish());
+
+        Toolbar toolbar = findViewById(R.id.TBCommunityForum);
+
+        // Set the Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
+
+        // Enable the back button
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
 
@@ -62,5 +74,17 @@ public class CommunityForumActivity extends AppCompatActivity {
     public void btnCreatePostsOnClick(View view) {
         Intent intent = new Intent(getApplicationContext(), CreatePostsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button click
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
