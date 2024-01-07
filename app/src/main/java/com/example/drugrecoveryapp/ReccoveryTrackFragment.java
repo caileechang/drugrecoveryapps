@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -82,6 +83,14 @@ public class ReccoveryTrackFragment extends Fragment {
         PBMonth = view.findViewById(R.id.PBMonth);
         PBYear = view.findViewById(R.id.PBYear);
 
+        TextView tvSecond = view.findViewById(R.id.TVSecond);
+        TextView tvMinute= view.findViewById(R.id.TVMinute);
+        TextView tvHour= view.findViewById(R.id.TVHour);
+        TextView tvDay= view.findViewById(R.id.TVDay);
+        TextView tvMonth= view.findViewById(R.id.TVMonth);
+        TextView tvYear= view.findViewById(R.id.TVYear);
+
+
         // Retrieve current user's ID using method in Firebase library
         currentUserId = mAuth.getCurrentUser().getUid();
         currentUserRef = userRef.child(currentUserId);
@@ -118,11 +127,17 @@ public class ReccoveryTrackFragment extends Fragment {
                     handler.post(new Runnable() {
                         public void run() {
                             PBSecond.setProgress((int) secondsDifference%60);
+                            tvSecond.setText((int) secondsDifference%60+" Seconds");
                             PBMinute.setProgress((int) minutesDifference%60);
+                            tvMinute.setText((int) minutesDifference%60+" Minutes");
                             PBHour.setProgress((int) hoursDifference%24);
+                            tvHour.setText((int) hoursDifference%24+" Hours");
                             PBDay.setProgress((int) daysDifference%30);
+                            tvDay.setText((int) daysDifference%30+" Days");
                             PBMonth.setProgress((int) monthsDifference%12);
+                            tvMonth.setText((int) monthsDifference%12+" Months");
                             PBYear.setProgress((int) yearsDifference);
+                            tvYear.setText((int) yearsDifference+" Years");
 
                         }
                     });

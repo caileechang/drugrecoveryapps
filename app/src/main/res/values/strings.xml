@@ -120,4 +120,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_practical10">Practical10</string>
+    <string name="tittle_SuccessStory1">From Darkness to Light:</string>
+    <string name="description_SuccessStory1">My Personal Journey of Drug Abuse Recovery</string>
+    <string name="title_SuccessStory2">Breaking the Chains:</string>
+    <string name="description_SuccessStory2"> A Personal Odyssey of Redemption
+</string>
+    <string name="title_SuccessStory3">From Desolation to Liberation:</string>
+    <string name="description_SuccessStory3">My Triumph Over Addiction
+</string>
 </resources>

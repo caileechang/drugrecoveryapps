@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp">
+    android:paddingLeft="30dp"
+    android:paddingTop="30dp"
+    android:paddingRight="30dp">
 
 
     <LinearLayout
@@ -33,6 +35,7 @@
             android:id="@+id/TVMonth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Months" />
 
         <ProgressBar
@@ -50,6 +53,7 @@
             android:id="@+id/TVDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Days" />
 
         <ProgressBar
@@ -67,6 +71,7 @@
             android:id="@+id/TVHour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Hours" />
 
         <ProgressBar
@@ -84,6 +89,8 @@
             android:id="@+id/TVMinute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+
             android:text="Minutes" />
 
         <ProgressBar
@@ -101,6 +108,8 @@
             android:id="@+id/TVSecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+
             android:text="Seconds" />
 
         <ProgressBar
@@ -136,6 +145,205 @@
                 android:layout_marginTop="32dp"
                 android:text="Generate Report" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Success Story"
+            android:textColor="@color/blueGreen_500"
+            android:textSize="20dp" />
+
+        <HorizontalScrollView
+            android:layout_width="380dp"
+            android:layout_height="120dp"
+            android:paddingRight="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+
+                >
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="310dp"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#CCCCCC"
+                    app:cardCornerRadius="20dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/story_image1"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/success_story1" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="3dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/story_title1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/tittle_SuccessStory1"
+                                android:textColor="#009688"
+                                android:textSize="20sp" />
+
+
+                            <TextView
+                                android:id="@+id/story_description1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/description_SuccessStory1"
+                                android:textSize="15sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/baseline_chevron_right_24"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="310dp"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#CCCCCC"
+                    app:cardCornerRadius="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/story_image2"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/success_story2" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="3dp"
+                            android:paddingBottom="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="189dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/story_title2"
+                                    android:layout_width="154dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/title_SuccessStory2"
+                                    android:textColor="#009688"
+                                    android:textSize="20sp" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/story_description2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/description_SuccessStory2"
+                                android:textSize="15sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/baseline_chevron_right_24"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="310dp"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#CCCCCC"
+                    app:cardCornerRadius="20dp"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/story_image3"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/success_story3" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="3dp"
+                            android:paddingBottom="10dp">
+
+
+                            <TextView
+                                android:id="@+id/story_title3"
+                                android:layout_width="154dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/title_SuccessStory3"
+                                android:textColor="#009688"
+                                android:textSize="20sp" />
+
+
+                            <TextView
+                                android:id="@+id/story_description3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/description_SuccessStory3"
+                                android:textSize="15sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/baseline_chevron_right_24"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
 
     </LinearLayout>
 
