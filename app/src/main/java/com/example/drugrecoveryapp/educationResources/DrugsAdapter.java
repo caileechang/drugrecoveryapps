@@ -27,6 +27,7 @@ public class DrugsAdapter extends
         RecyclerView.Adapter<DrugsAdapter.ViewHolder> {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public ImageView imageView;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
@@ -37,6 +38,7 @@ public class DrugsAdapter extends
 
         public ImageView drugImage;
         public ImageView bookmarkInactive;
+
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -86,8 +88,9 @@ public class DrugsAdapter extends
         drugNameTV.setText(drug.getName());
         TextView drugDescriptionTV = holder.drugDescriptionTV;
         drugDescriptionTV.setText(drug.getDrugDescription());
-        ImageView imageView = holder.drugImage;
-        imageView.setImageResource(R.drawable.drug);
+        imageView = holder.drugImage;
+        //imageView.setImageResource(R.drawable.drug);
+        setDrugImage(drug.getName());
         ImageView bookmarkInactive = holder.bookmarkInactive;
 
 
@@ -211,5 +214,53 @@ public class DrugsAdapter extends
     @Override
     public int getItemCount() {
         return drugList.size();
+    }
+
+    public void setDrugImage(String drugname){
+        switch(drugname){
+            case "Alcohol":
+                imageView.setImageResource(R.drawable.drug_alcohol);
+                break;
+            case "Benzodiazepines":
+                imageView.setImageResource(R.drawable.drug_benzodiazepines);
+                break;
+            case"Caffeine & Energy Drinks":
+                imageView.setImageResource(R.drawable.drug_caffeineenergydrinks);
+                break;
+            case"Cannabis":
+                imageView.setImageResource(R.drawable.drug_cannabis);
+                break;
+            case"Cocaine":
+                imageView.setImageResource(R.drawable.drug_cocaine);
+                break;
+            case "Electronic Cigarettes and Vaping":
+                imageView.setImageResource(R.drawable.drug_electroniccigarettesandvaping);
+                break;
+            case "Emerging Drugs":
+                imageView.setImageResource(R.drawable.drug_emergingdrugs);
+                break;
+            case"GHB":
+                imageView.setImageResource(R.drawable.drug_ghb);
+                break;
+            case "Hallucinogens":
+                imageView.setImageResource(R.drawable.drug_hallucinogens);
+                break;
+            case"Heroin":
+                imageView.setImageResource(R.drawable.drug_heroin);
+                break;
+            case"Kava":
+                imageView.setImageResource(R.drawable.drug_kava);
+                break;
+            case "Ketamine":
+                imageView.setImageResource(R.drawable.drug_ketamine);
+                break;
+            case "Synthetic Cannabinoids":
+                imageView.setImageResource(R.drawable.drug_synthetic_cannabinoids);
+                break;
+            default:
+                imageView.setImageResource(R.drawable.drug);
+                break;
+
+        }
     }
 }
