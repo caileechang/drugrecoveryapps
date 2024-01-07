@@ -1,5 +1,9 @@
 package com.example.drugrecoveryapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.drugrecoveryapp.entity.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -65,6 +71,43 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         }
     }
 
+    private void loadProfilePicture(String userId, ImageView userProfileImageView) {
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
+        userReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        // Assuming you have a method to get the profile picture URL from the User object
+                        String profilePictureUrl = user.getProfilePicture();
+
+                        if (profilePictureUrl != null) {
+                            if (isBase64(profilePictureUrl)) {
+                                Bitmap bitmap = base64ToBitmap(profilePictureUrl);
+                                userProfileImageView.setImageBitmap(bitmap);
+                            } else {
+                                Picasso.get().load(profilePictureUrl)
+                                        .placeholder(R.drawable.placeholder)
+                                        .error(R.drawable.human_avatar_create_posts)
+                                        .into(userProfileImageView);
+                            }
+                        } else {
+                            // Handle the case where profilePictureUrl is null
+                            Log.e("ProfilePicture", "Profile picture URL is null");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle errors
+            }
+        });
+    }
+
+
     @Override
     public int getItemCount() {
         return chatMessages.size();
@@ -105,19 +148,40 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         });
     }
 
-    private void loadProfilePicture(String userId, ImageView imageView) {
-        // Retrieve the user's profile picture URL from your database or storage
-        String profilePictureUrl = getProfilePictureUrl(userId);
+    private void loadProfilePicture(User user, ImageView imageView) {
+        String profilePicture = user.getProfilePicture();
 
-        // Use Picasso to load the image into the ImageView
-        Picasso.get().load(profilePictureUrl)
-                .placeholder(R.drawable.placeholder) // Placeholder image while loading
-                .into(imageView);
+
+        if (profilePicture != null) {
+            if (isBase64(profilePicture)) {
+                Bitmap bitmap = base64ToBitmap(profilePicture);
+                imageView.setImageBitmap(bitmap);
+            } else {
+                Picasso.get().load(profilePicture)
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.human_avatar_create_posts)
+                        .into(imageView);
+            }
+        } else {
+            // Handle the case where profilePicture is null
+            Log.e("ProfilePicture", "Profile picture URL is null");
+        }
     }
-    private String getProfilePictureUrl(String userId) {
-        // Implement the logic to get the profile picture URL for the user with userId
-        // For example, retrieve it from Firebase database
-        // Return the URL string
-        return "https://example.com/profile_picture.jpg"; // Replace this with your actual logic
+
+    private boolean isBase64(String str) {
+        if (str == null) {
+            return false;  // Handle null strings according to your use case
+        }
+        try {
+            Base64.decode(str, Base64.DEFAULT);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    private Bitmap base64ToBitmap(String base64Image) {
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }

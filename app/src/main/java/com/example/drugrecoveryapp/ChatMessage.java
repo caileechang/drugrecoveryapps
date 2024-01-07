@@ -1,6 +1,13 @@
 package com.example.drugrecoveryapp;
 
+import android.widget.ImageView;
+
 public class ChatMessage {
+private ImageView profilepicture;
+
+    public ImageView getProfilepicture() {
+        return profilepicture;
+    }
 
     private String senderUid;
     private String message;
