@@ -15,7 +15,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="180dp">
+                <Button
+                    android:id="@+id/btnBig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_text_increase"
+                    android:layout_weight="1"
+                    android:onClick="increaseTextSize"
+                    android:layout_marginRight="5dp"/>
 
+                <Button
+                    android:id="@+id/btnSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:drawableLeft="@drawable/ic_text_decrease"
+                    android:layout_weight="1"
+                    android:onClick="decreaseTextSize" />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/profilePhotoPerson"

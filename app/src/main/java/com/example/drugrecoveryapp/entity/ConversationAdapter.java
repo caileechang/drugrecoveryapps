@@ -1,6 +1,10 @@
 package com.example.drugrecoveryapp.entity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,24 +83,61 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             holder.msg.setTextColor(context.getResources().getColor(R.color.black));
         }
     }
-    // New method to load the user's profile picture using Picasso
-    private void loadProfilePicture(String userId, ImageView imageView) {
-        // Retrieve the user's profile picture URL from your database or storage
-        String profilePictureUrl = getProfilePictureUrl(userId);
+    private void loadProfilePicture(String userId, ImageView userProfileImageView) {
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
+        userReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        // Assuming you have a method to get the profile picture URL from the User object
+                        String profilePictureUrl = user.getProfilePicture();
 
-        // Use Picasso to load the image into the ImageView
-        Picasso.get().load(profilePictureUrl)
-                .placeholder(R.drawable.placeholder) // Placeholder image while loading
-                .into(imageView);
+                        if (profilePictureUrl != null) {
+                            if (isBase64(profilePictureUrl)) {
+                                Bitmap bitmap = base64ToBitmap(profilePictureUrl);
+                                userProfileImageView.setImageBitmap(bitmap);
+                            } else {
+                                Picasso.get().load(profilePictureUrl)
+                                        .placeholder(R.drawable.placeholder)
+                                        .into(userProfileImageView);
+                                Picasso.get().load(profilePictureUrl)
+                                        .placeholder(R.drawable.placeholder) // Placeholder image while loading
+                                        .error(R.drawable.human_avatar_create_posts)
+                                        .into(userProfileImageView);
+                            }
+                        } else {
+                            // Handle the case where profilePictureUrl is null
+                            Log.e("ProfilePicture", "Profile picture URL is null");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle errors
+            }
+        });
+    }
+    private boolean isBase64(String str) {
+        if (str == null) {
+            return false;  // Handle null strings according to your use case
+        }
+        try {
+            Base64.decode(str, Base64.DEFAULT);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
-    // Method to get the user's profile picture URL from your database or storage
-    private String getProfilePictureUrl(String userId) {
-        // Implement the logic to get the profile picture URL for the user with userId
-        // For example, retrieve it from Firebase database
-        // Return the URL string
-        return "https://example.com/profile_picture.jpg"; // Replace this with your actual logic
+    private Bitmap base64ToBitmap(String base64Image) {
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
+
 
     @Override
     public int getItemCount() {

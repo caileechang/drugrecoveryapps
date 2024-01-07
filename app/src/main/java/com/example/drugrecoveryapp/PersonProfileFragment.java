@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Base64;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -60,7 +62,11 @@ public class PersonProfileFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-
+    private TextView username;
+    private TextView email;
+    private TextView country;
+    private TextView gender;
+    private TextView topUsername;
     public PersonProfileFragment() {
 
         super(R.layout.fragment_person_profile);
@@ -96,15 +102,31 @@ public class PersonProfileFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_person_profile, container, false);
 
         // Get reference to UI elements
-        TextView username = root.findViewById(R.id.P_UsernameDisplay);
-        TextView email = root.findViewById(R.id.P_emailDisplay);
-        TextView country = root.findViewById(R.id.P_countryDisplay);
-        TextView gender = root.findViewById(R.id.P_genderDisplay);
+       username = root.findViewById(R.id.P_UsernameDisplay);
+        email = root.findViewById(R.id.P_emailDisplay);
+       country = root.findViewById(R.id.P_countryDisplay);
+        gender = root.findViewById(R.id.P_genderDisplay);
         recyclerView = root.findViewById(R.id.P_posts_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         postAdapter = new PostAdapter(new ArrayList<>());
         recyclerView.setAdapter(postAdapter);
 
+        Button btnBig = root.findViewById(R.id.btnBig);
+        Button btnSmall = root.findViewById(R.id.btnSmall);
+
+        btnBig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                increaseTextSize(v);
+            }
+        });
+
+        btnSmall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                decreaseTextSize(v);
+            }
+        });
 
         // Get Firebase instance and reference
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -245,6 +267,27 @@ public class PersonProfileFragment extends Fragment {
         });
     }
 
+    public void increaseTextSize(View view) {
+        changeTextSize(1.1f);  // Increase text size by 10%
+    }
+
+    public void decreaseTextSize(View view) {
+        changeTextSize(0.9f);  // Decrease text size by 10%
+    }
+
+    private void changeTextSize(float scaleFactor) {
+        // List of text views to change text size
+        List<TextView> textViews = Arrays.asList(
+                username, email, gender, country
+
+        );
+
+        for (TextView textView : textViews) {
+            float currentSize = textView.getTextSize();
+            float newSize = currentSize * scaleFactor;
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, newSize);
+        }
+    }
 }
 
 

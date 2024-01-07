@@ -139,19 +139,20 @@ public class ChatRoomsActivity extends AppCompatActivity {
                         String messageId = messageSnapshot.getKey();
                         String messageContent = messageSnapshot.child("message").getValue(String.class);
                         String senderId = messageSnapshot.child("senderId").getValue(String.class);
-                        long timestamp = messageSnapshot.child("timestamp").getValue(Long.class);
+                        Long timestamp = messageSnapshot.child("timestamp").getValue(Long.class);
 
-                        Log.d("LoadChatMessages", "ChatUserId: " + chatUserId);
-                        Log.d("LoadChatMessages", "MessageId: " + messageId);
-                        Log.d("LoadChatMessages", "MessageContent: " + messageContent);
-                        Log.d("LoadChatMessages", "SenderId: " + senderId);
-                        Log.d("LoadChatMessages", "Timestamp: " + timestamp);
+                        if (timestamp != null) {
 
-                        if (timestamp > lastMessageTimestamp) {
-                            lastMessage = messageContent;
-                            lastMessageTimestamp = timestamp;
+                            if (timestamp > lastMessageTimestamp) {
+                                lastMessage = messageContent;
+                                lastMessageTimestamp = timestamp;
+                            }
+                        } else {
+                            Log.e("LoadChatMessages", "Timestamp is null for messageId: " + messageId);
                         }
                     }
+
+
 
                     // Create a User object with the chatUserId and the latest message
                     User chatUser = new User();
@@ -174,9 +175,6 @@ public class ChatRoomsActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 
 }

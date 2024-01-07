@@ -41,7 +41,7 @@ public class ViewAccActivity extends AppCompatActivity {
     private DatabaseReference FriendRequestRef = FirebaseDatabase.getInstance().getReference().child("FriendRequests");
     private DatabaseReference FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");;
 
-private Button btnStartAChatButton;
+    private Button btnStartAChatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

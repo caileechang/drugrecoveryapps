@@ -40,7 +40,6 @@
                     android:textSize="20dp" />
 
             </LinearLayout>
-
             <ImageView
                 android:layout_width="108dp"
                 android:layout_height="109dp"
