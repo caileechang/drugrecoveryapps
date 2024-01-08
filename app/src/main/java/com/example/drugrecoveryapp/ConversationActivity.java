@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -70,6 +71,8 @@ public class ConversationActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.setTitle(receiverName);
                 actionBar.setDisplayHomeAsUpEnabled(true);
+                toolbar.setTitleTextColor(Color.WHITE);
+                getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_keyboard_backspace_24); // Set your white back arrow icon here
             }
 
         } else {
@@ -78,6 +81,9 @@ public class ConversationActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.setTitle(receiverId);
                 actionBar.setDisplayHomeAsUpEnabled(true);
+                toolbar.setTitleTextColor(Color.WHITE);
+                getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_keyboard_backspace_24); // Set your white back arrow icon here
+
             }
         }
 

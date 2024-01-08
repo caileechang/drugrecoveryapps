@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.view.MenuItem;
@@ -56,6 +57,8 @@ public class ViewAccActivity extends AppCompatActivity {
 
         // Set the Toolbar as the ActionBar
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_keyboard_backspace_24); // Set your white back arrow icon here
+
 
 
         // Retrieve current user's ID using method in Firebase library
@@ -137,6 +140,7 @@ public class ViewAccActivity extends AppCompatActivity {
                             if (actionBar != null) {
                                 actionBar.setTitle(selectedUsername);
                                 actionBar.setDisplayHomeAsUpEnabled(true);
+                                toolbar.setTitleTextColor(Color.WHITE);
                             }
 
                             // Retrieve data from the intent

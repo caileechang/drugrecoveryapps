@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp.educationResources;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -28,6 +29,9 @@ public class ReadMoreActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            toolbar.setTitleTextColor(Color.WHITE);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_keyboard_backspace_24); // Set your white back arrow icon here
+
         }
 
         // Retrieve data from the intent

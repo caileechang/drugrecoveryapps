@@ -1,5 +1,6 @@
 package com.example.drugrecoveryapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -29,6 +30,9 @@ public class DiscussionGroupActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            toolbar.setTitleTextColor(Color.WHITE);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_keyboard_backspace_24); // Set your white back arrow icon here
+
         }
 
 

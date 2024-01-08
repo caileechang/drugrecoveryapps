@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -34,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         //Set up App Bar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Get the icon from the Toolbar's overflow menu
+        Drawable overflowIcon = toolbar.getOverflowIcon();
+        if (overflowIcon != null) {
+            overflowIcon.setTint(Color.WHITE); // Change to your desired icon color
+        }
+        toolbar.setTitleTextColor(Color.WHITE);
 
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         NavController navController = host.getNavController();

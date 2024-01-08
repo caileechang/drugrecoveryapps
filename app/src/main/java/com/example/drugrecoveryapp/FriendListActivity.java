@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -48,6 +49,8 @@ public class FriendListActivity extends AppCompatActivity {
 
         // Set the Toolbar as the ActionBar
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_keyboard_backspace_24); // Set your white back arrow icon here
+
 
 
 
@@ -80,11 +83,13 @@ public class FriendListActivity extends AppCompatActivity {
                     if (actionBar != null) {
                         actionBar.setDisplayHomeAsUpEnabled(true);
                         actionBar.setTitle("Friends ("+friendCount+")");
+                        toolbar.setTitleTextColor(Color.WHITE);
                     }
                 } else
                 if (actionBar != null) {
                     actionBar.setDisplayHomeAsUpEnabled(true);
                     actionBar.setTitle("Frinds (0)");
+                    toolbar.setTitleTextColor(Color.WHITE);
                 }
             }
 

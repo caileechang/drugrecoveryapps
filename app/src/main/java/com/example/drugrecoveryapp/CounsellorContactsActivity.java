@@ -1,6 +1,7 @@
 package com.example.drugrecoveryapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,9 @@ public class CounsellorContactsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            toolbar.setTitleTextColor(Color.WHITE);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_keyboard_backspace_24); // Set your white back arrow icon here
+
         }
         Button btnChat1 = findViewById(R.id.btnChat1);
         btnChat1.setOnClickListener(v -> openChatRoom("Counselor1UID", "Counsellor Judith"));
